@@ -18,19 +18,19 @@ public class CameraController : MonoBehaviour
 
         if (Input.mousePosition.y >= Screen.height - panBorderThickness)
         {
-            pos.z += panSpeed * Time.deltaTime;
+            pos.x -= panSpeed * Time.deltaTime;
         }
         if (Input.mousePosition.y <= panBorderThickness)
         {
-            pos.z -= panSpeed * Time.deltaTime;
+            pos.x += panSpeed * Time.deltaTime;
         }
         if (Input.mousePosition.x >= Screen.width - panBorderThickness)
         {
-            pos.x += panSpeed * Time.deltaTime;
+            pos.z += panSpeed * Time.deltaTime;
         }
         if (Input.mousePosition.x <= panBorderThickness)
         {
-            pos.x -= panSpeed * Time.deltaTime;
+            pos.z -= panSpeed * Time.deltaTime;
         }
 
         transform.position = pos;

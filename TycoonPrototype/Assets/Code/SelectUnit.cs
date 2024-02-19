@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectUnit : MonoBehaviour, ISelectable
 {
-    public GameManager manager;
+    private GameManager manager;
 
     private void Start()
     {
@@ -31,12 +31,15 @@ public class SelectUnit : MonoBehaviour, ISelectable
 
     public void Select()
     {
-        if(!Input.GetKey(KeyCode.LeftControl))
+        if(Input.GetKey(KeyCode.LeftControl))
         {
             manager.currentSelection.Clear();
 
+        } else
+        {
+            manager.currentSelection.Add(gameObject);
+
         }
-        manager.currentSelection.Add(gameObject);
 
     }
 }
