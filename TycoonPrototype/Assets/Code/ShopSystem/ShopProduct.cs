@@ -18,6 +18,18 @@ public class ShopProduct : MonoBehaviour
     public float Price => price;
     public int Stock => stock;
 
+    public enum ProductCategory
+    {
+        Default,
+        Stage,
+        Facilities,
+        Constructions,
+        Lineups,
+        PlayerImports,
+    }
+    [SerializeField] private ProductCategory category = ProductCategory.Default;
+    public ProductCategory Category => category;
+
     private void Awake()
     {
         shopSystem = transform.GetComponentInParent<ShopSystem>();

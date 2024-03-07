@@ -15,15 +15,17 @@ public class ShopSystem : MonoBehaviour
         {   
             ShopProduct product = productDict[productName];
             //if(Money - product.Price>=0) //if I can directly access the money from other script
+            //if (product.Category != ShopProduct.ProductCategory.Default)
+
             if (product.Stock > 0)
             {
                 if(MoneyCheck!=null&&MoneyCheck(product))
                 {
                     product.ChangeStock(-1);
                     SuccessfulPurchase(-(int)product.Price);
-                    Debug.Log("Purchase product£º" + productName);
+                    Debug.Log("Purchase productï¿½ï¿½" + productName);
                     Debug.Log("Product stock: " + product.Stock);
-                    // ÕâÀï¿ÉÒÔ´¥·¢ÊÂ¼þ£¬Í¨ÖªÆäËûÏµÍ³½øÐÐ½ðÇ®½»Ò×µÈ²Ù×÷
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Ð½ï¿½Ç®ï¿½ï¿½ï¿½×µÈ²ï¿½ï¿½ï¿½
                 }
                 else
                 {
@@ -35,10 +37,12 @@ public class ShopSystem : MonoBehaviour
             {
                 Debug.Log("Insufficient stock" + productName);
             }
+
+
         }
         else
         {
-            Debug.Log("Product not exist£º" + productName);
+            Debug.Log("Product not existï¿½ï¿½" + productName);
         }
     }
 
