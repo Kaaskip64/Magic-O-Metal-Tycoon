@@ -25,7 +25,6 @@ public class ShopSystem : MonoBehaviour
                     SuccessfulPurchase(-(int)product.Price);
                     Debug.Log("Purchase product��" + productName);
                     Debug.Log("Product stock: " + product.Stock);
-                    // ������Դ����¼���֪ͨ����ϵͳ���н�Ǯ���׵Ȳ���
                 }
                 else
                 {
