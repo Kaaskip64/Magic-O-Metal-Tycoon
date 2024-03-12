@@ -2,85 +2,136 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
 
 public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem current;
 
     public GridLayout gridLayout;
-    private Grid grid;
-    [SerializeField] private Tilemap MainTileMap;
-    [SerializeField] private TileBase whiteTile;
+    public Tilemap MainTileMap;
+    public Tilemap TempTileMap;
 
-    public GameObject prefab1;
-    public GameObject prefab2;
+    private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
-    private PlacableObject objectToPlace;
+    private Building temp;
+    private Vector3 prevPos;
+    private BoundsInt prevArea;
+
 
     private void Awake()
     {
         current = this;
-        grid = gridLayout.gameObject.GetComponent<Grid>();
+    }
+
+    private void Start()
+    {
+        string tilePath = @"Tiles\";
+        tileBases.Add(TileType.Empty, null);
+        tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
+        tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
+        tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            InitializeWithObject(prefab1);
-
-        } 
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            InitializeWithObject(prefab2);
-
-        }
-
-        if (!objectToPlace)
+        if (!temp)
         {
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetMouseButtonDown(0))
         {
-            objectToPlace.Rotate();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (CanBePlaced(objectToPlace))
+            if (EventSystem.current.IsPointerOverGameObject(0))
             {
-                objectToPlace.Place();
-                Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
-                TakeArea(start, objectToPlace.Size);
+                return;
+            }
 
+            if (!temp.Placed)
+            {
+                Vector3 touchPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
+                Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+
+                if (prevPos != cellPos)
+                {
+                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos) + new Vector3(0f, 0f, 2.5f);
+                    prevPos = cellPos;
+                    FollowBuilding();
+                }
+            }
+        } else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (temp.CanBePlaced())
+            {
+                temp.Place();
+            }
+        } else if (Input.GetKeyDown(KeyCode.D))
+        {
+            ClearArea();
+            Destroy(temp.gameObject);
+        }
+    }
+
+    public void InitializeWithBuilding(GameObject building)
+    {
+        temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>();
+        FollowBuilding();
+    }
+
+    private void ClearArea()
+    {
+        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];
+        FillTiles(toClear, TileType.Empty);
+        TempTileMap.SetTilesBlock(prevArea, toClear);
+    }
+
+    private void FollowBuilding()
+    {
+        ClearArea();
+
+        temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
+        BoundsInt buildingArea = temp.area;
+
+        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTileMap);
+
+        int size = baseArray.Length;
+        TileBase[] tileArray = new TileBase[size];
+
+        for (int i = 0; i < baseArray.Length; i++)
+        {
+            if (baseArray[i] == tileBases[TileType.White])
+            {
+                tileArray[i] = tileBases[TileType.Green];
             } else
             {
-                Destroy(objectToPlace.gameObject);
+                FillTiles(tileArray, TileType.Red);
+                break;
             }
-        } else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Destroy(objectToPlace.gameObject);
         }
+
+        TempTileMap.SetTilesBlock(buildingArea, tileArray);
+        prevArea = buildingArea;
     }
 
-    public static Vector3 GetMouseWorldPosition()
+    public bool CanTakeArea(BoundsInt area)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit))
+        TileBase[] baseArray = GetTilesBlock(area, MainTileMap);
+        foreach (var b in baseArray)
         {
-            return raycastHit.point;
-        } else
-        {
-            return Vector3.zero;
+            if (b != tileBases[TileType.White])
+            {
+                Debug.Log("Cannot be placed!");
+                return false;
+
+            }
         }
+        return true;
     }
 
-    public Vector3 SnapCoordinateToGrid(Vector3 position)
+    public void TakeArea(BoundsInt area)
     {
-        Vector3Int cellPos = gridLayout.WorldToCell(position);
-        position = grid.GetCellCenterWorld(cellPos);
-        return position;
+        SetTilesBlock(area, TileType.Empty, TempTileMap);
+        SetTilesBlock(area, TileType.Green, MainTileMap);
     }
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
@@ -94,38 +145,35 @@ public class BuildingSystem : MonoBehaviour
             array[counter] = tilemap.GetTile(pos);
             counter++;
         }
+
         return array;
     }
 
-    public void InitializeWithObject(GameObject prefab)
+    private static void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
-        Vector3 position = SnapCoordinateToGrid(Vector3.zero);
+        int size = area.size.x * area.size.y * area.size.z;
+        TileBase[] tileArray = new TileBase[size];
+        FillTiles(tileArray, type);
+        tilemap.SetTilesBlock(area, tileArray);
 
-        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-        objectToPlace = obj.GetComponent<PlacableObject>();
-        obj.AddComponent<ObjectDrag>();
     }
 
-    private bool CanBePlaced(PlacableObject placableObject)
+    private static void FillTiles(TileBase[] arr, TileType type)
     {
-        BoundsInt area = new BoundsInt();
-        area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
-        area.size = placableObject.Size;
-
-        TileBase[] baseArray = GetTilesBlock(area, MainTileMap);
-
-        foreach (var b in baseArray)
+        for (int i = 0; i < arr.Length; i++)
         {
-            if (b == whiteTile)
-            {
-                return false;
-            }
+            arr[i] = tileBases[type];
         }
-        return true;
     }
 
-    public void TakeArea(Vector3Int start, Vector3Int size)
-    {
-        MainTileMap.BoxFill(start, whiteTile, start.x, start.y, start.x + size.x, start.y + size.y);
-    }
+
+
+}
+
+public enum TileType
+{
+    Empty,
+    White,
+    Green,
+    Red
 }

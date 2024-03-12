@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public List<GameObject> currentSelection;
+    public GameObject currentSelection;
 
     private void Update()
     {
