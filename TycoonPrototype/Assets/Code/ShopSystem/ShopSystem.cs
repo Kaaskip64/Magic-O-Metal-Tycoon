@@ -22,6 +22,7 @@ public class ShopSystem : MonoBehaviour
                 if(MoneyCheck!=null&&MoneyCheck(product))
                 {
                     product.ChangeStock(-1);
+                    BuildingSystem.current.InitializeWithBuilding(product.itemPrefab);
                     SuccessfulPurchase(-(int)product.Price);
                     Debug.Log("Purchase product��" + productName);
                     Debug.Log("Product stock: " + product.Stock);

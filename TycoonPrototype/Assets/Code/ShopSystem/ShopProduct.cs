@@ -19,6 +19,8 @@ public class ShopProduct : MonoBehaviour
     public float Price => price;
     public int Stock => stock;
 
+    public GameObject itemPrefab;
+
     public enum ProductCategory
     {
         Default,
