@@ -15,7 +15,7 @@ public class ShopProduct : MonoBehaviour
     [SerializeField]
     private int stock;
     [SerializeField]
-    public string Name => productName;
+    public string ProductName => productName;
     public float Price => price;
     public int Stock => stock;
 
@@ -43,11 +43,21 @@ public class ShopProduct : MonoBehaviour
         shopSystem.AddProduct(this);
         GetComponent<Button>().onClick.AddListener(Purchase);
     }
-    public void Purchase()
+
+    private void Purchase()
     {
         if (shopSystem != null)
         {
-            shopSystem.PurchaseProduct(Name);
+            //shopSystem.PurchaseProduct(ProductName);
+            shopSystem.StartPurchase(ProductName);
+        }
+    }
+
+    public void PurchaseConfirm()
+    {
+        if (shopSystem != null)
+        {
+            shopSystem.PurchaseProduct(ProductName);
         }
     }
 

@@ -9,6 +9,12 @@ public class ShopSystem : MonoBehaviour
     public static Func<ShopProduct,bool> MoneyCheck;
     private Dictionary<string, ShopProduct> productDict = new Dictionary<string, ShopProduct>();
 
+    private ShopUI shopUI;
+
+    private void Start()
+    {
+        shopUI = GetComponent<ShopUI>();
+    }
     public void PurchaseProduct(string productName)
     {
         if (productDict.ContainsKey(productName))
@@ -42,12 +48,27 @@ public class ShopSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("Product not exist��" + productName);
+            Debug.Log("Product not exist: " + productName);
         }
     }
 
     public void AddProduct(ShopProduct product)
     {
-        productDict.Add(product.Name, product);
+        productDict.Add(product.ProductName, product);
+    }
+
+    public void StartPurchase(string currentProductName)
+    {
+        shopUI.ShowPurchaseConfirmPanel(productDict[currentProductName]);
+    }
+
+    public void ConfirmPurchase()
+    {
+
+    }
+
+    public void AdjustProductAmount()
+    {
+
     }
 }

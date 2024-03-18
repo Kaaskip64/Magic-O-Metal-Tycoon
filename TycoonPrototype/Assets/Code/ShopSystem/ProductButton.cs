@@ -13,9 +13,9 @@ public class ProductButton : MonoBehaviour
 
     public void Initialize(ShopProduct product)
     {
-        this.product = product;
-        ProductNameText.text = product.Name;
-        PriceText.text = "Price: " + product.Price;
-        BuyButton.onClick.AddListener(product.Purchase);
+        //this.product = product;
+        //ProductNameText.text = product.ProductName;
+        //PriceText.text = "Price: " + product.Price;
+        //BuyButton.onClick.AddListener(product.Purchase);
     }
 }
