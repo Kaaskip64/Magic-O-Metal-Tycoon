@@ -21,7 +21,7 @@ public class ShopProduct : MonoBehaviour
 
     public GameObject itemPrefab;
 
-    public enum ProductCategory
+    public enum ProductSubCategory
     {
         Default,
         Stage,
@@ -30,8 +30,8 @@ public class ShopProduct : MonoBehaviour
         Lineups,
         PlayerImports,
     }
-    [SerializeField] private ProductCategory category = ProductCategory.Default;
-    public ProductCategory Category => category;
+    [SerializeField] private ProductSubCategory category = ProductSubCategory.Default;
+    public ProductSubCategory Category => category;
 
     private void Awake()
     {
