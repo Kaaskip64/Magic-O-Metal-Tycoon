@@ -18,6 +18,8 @@ public class BuildingSystem : MonoBehaviour
     private Vector3 prevPos;
     private BoundsInt prevArea;
 
+    private Vector3 mousePosOnGrid;
+
 
     private void Awake()
     {
@@ -35,11 +37,13 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update()
     {
+
         if (!temp)
         {
             return;
         }
-
+        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             if (EventSystem.current.IsPointerOverGameObject(0))
@@ -49,12 +53,12 @@ public class BuildingSystem : MonoBehaviour
 
             if (!temp.Placed)
             {
-                Vector3 touchPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
+                Vector3 touchPos = mousePosOnGrid;
                 Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
 
                 if (prevPos != cellPos)
                 {
-                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos) + new Vector3(0f, 0f, 2.5f);
+                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);// + new Vector3(-5f, 0f, 0f);
                     prevPos = cellPos;
                     FollowBuilding();
                 }
@@ -70,11 +74,43 @@ public class BuildingSystem : MonoBehaviour
             ClearArea();
             Destroy(temp.gameObject);
         }
+        */
+
+        if (EventSystem.current.IsPointerOverGameObject(0))
+        {
+            return;
+        }
+
+        if (!temp.Placed)
+        {
+            Vector3 touchPos = mousePosOnGrid;
+            Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+
+            if (prevPos != cellPos)
+            {
+                temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);// + new Vector3(-5f, 0f, 0f);
+                prevPos = cellPos;
+                FollowBuilding();
+            }
+
+        }
+        if (Input.GetMouseButtonDown(0) && temp.CanBePlaced())
+        {
+            temp.Place();
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ClearArea();
+            Destroy(temp.gameObject);
+        }
+
+
     }
 
     public void InitializeWithBuilding(GameObject building)
     {
-        temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>();
+        temp = Instantiate(building, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
         FollowBuilding();
     }
 
@@ -89,7 +125,7 @@ public class BuildingSystem : MonoBehaviour
     {
         ClearArea();
 
-        temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
+        temp.area.position = gridLayout.WorldToCell(new Vector3(temp.gameObject.transform.position.x, 1, temp.gameObject.transform.position.z + 5));
         BoundsInt buildingArea = temp.area;
 
         TileBase[] baseArray = GetTilesBlock(buildingArea, MainTileMap);

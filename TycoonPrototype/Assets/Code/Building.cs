@@ -7,11 +7,6 @@ public class Building : MonoBehaviour
     public bool Placed { get; private set; }
     public BoundsInt area;
 
-    private void Start()
-    {
-        
-    }
-
     public bool CanBePlaced()
     {
         Vector3Int positionInt = BuildingSystem.current.gridLayout.LocalToCell(transform.position);
