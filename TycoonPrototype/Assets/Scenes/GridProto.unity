@@ -722,6 +722,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCamera1
       objectReference: {fileID: 0}
+    - target: {fileID: 1571728505273514748, guid: 01111b8c8ead39248949fc270e393875, type: 3}
+      propertyPath: maxZoom
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571728505273514748, guid: 01111b8c8ead39248949fc270e393875, type: 3}
+      propertyPath: panSpeed
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571728505273514748, guid: 01111b8c8ead39248949fc270e393875, type: 3}
+      propertyPath: zoomSpeed
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571728505273514748, guid: 01111b8c8ead39248949fc270e393875, type: 3}
+      propertyPath: zoomSensitivity
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1571728505273514749, guid: 01111b8c8ead39248949fc270e393875, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -822,6 +838,10 @@ PrefabInstance:
     - target: {fileID: 3493714671555357651, guid: d63644a5618197c4c81062051abf62cb, type: 3}
       propertyPath: m_Name
       value: GridProto1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493714672450634391, guid: d63644a5618197c4c81062051abf62cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d63644a5618197c4c81062051abf62cb, type: 3}
