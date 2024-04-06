@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4449580377138000981}
   - component: {fileID: -6761781353485362778}
-  - component: {fileID: 8128235952520407159}
   m_Layer: 0
   m_Name: BeerStand
   m_TagString: Untagged
@@ -133,19 +132,4 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 2, y: 2, z: 1}
---- !u!114 &8128235952520407159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6636955633473660502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc3c075b0029756408d776775ffbc5b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  queue: 0
-  stock: 0
-  condition: 0
+  properties: {fileID: 11400000, guid: 046099105e07af3489a4b0babced4719, type: 2}

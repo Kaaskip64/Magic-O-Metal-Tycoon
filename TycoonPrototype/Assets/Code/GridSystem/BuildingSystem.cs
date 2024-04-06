@@ -11,6 +11,7 @@ public class BuildingSystem : MonoBehaviour
     public GridLayout gridLayout;
     public Tilemap MainTileMap;
     public Tilemap TempTileMap;
+    public PlacedBuildings placedBuildings;
 
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
@@ -97,6 +98,15 @@ public class BuildingSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && temp.CanBePlaced())
         {
             temp.Place();
+
+            switch (temp.properties.type)
+            {
+                case BuildingProperties.BuildingType.Food:
+                    Debug.Log(temp.properties.type);
+                    placedBuildings.foodStands.Add(temp.GetComponent<Building>());
+                    break;
+
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.D))

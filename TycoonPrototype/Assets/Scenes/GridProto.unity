@@ -212,7 +212,7 @@ MonoBehaviour:
         m_MethodName: InitializeWithBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6636955633473660502, guid: 7ffe3057117265e4aa49e2c68a8f77ed, type: 3}
+          m_ObjectArgument: {fileID: 2616206265886582281, guid: 24f6178f7b947f849957393dda504b76, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Beer Stand
+  m_text: Building1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -413,6 +413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 541890872}
   - component: {fileID: 541890873}
+  - component: {fileID: 541890874}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -448,6 +449,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSelection: {fileID: 0}
+--- !u!114 &541890874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541890871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef4586d734967944937386ca7e08737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodStands: []
+  merchStands: []
+  beerStands: []
+  bathroomStands: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +808,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 377674523186238645, guid: d63644a5618197c4c81062051abf62cb, type: 3}
+      propertyPath: m_ChunkCullingBounds.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 377674523186238645, guid: d63644a5618197c4c81062051abf62cb, type: 3}
+      propertyPath: m_ChunkCullingBounds.y
+      value: 2.1999998
+      objectReference: {fileID: 0}
     - target: {fileID: 3493714671555357649, guid: d63644a5618197c4c81062051abf62cb, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -839,6 +864,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridProto1
       objectReference: {fileID: 0}
+    - target: {fileID: 3493714671555357654, guid: d63644a5618197c4c81062051abf62cb, type: 3}
+      propertyPath: placedBuildings
+      value: 
+      objectReference: {fileID: 541890874}
     - target: {fileID: 3493714672450634391, guid: d63644a5618197c4c81062051abf62cb, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -6,8 +6,14 @@ public class GameManager : MonoBehaviour
 {
     public GameObject currentSelection;
 
-    private void Update()
+    private void Start()
     {
 
+    }
+
+    private void Update()
+    {
+        //Debug.Log(PlacedBuildings.foodStands.Count);
+        
     }
 }

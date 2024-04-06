@@ -178,8 +178,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1571728505273514748, guid: 01111b8c8ead39248949fc270e393875, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 01111b8c8ead39248949fc270e393875, type: 3}
+--- !u!1 &120834890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1571728505273514744, guid: 01111b8c8ead39248949fc270e393875, type: 3}
+  m_PrefabInstance: {fileID: 120834889}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &120834891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120834890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fc749dd8012f04e99ae1c71a83fbb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panSpeed: 75
+  panBorderThickness: 10
+  minZoom: 5
+  maxZoom: 1000
+  zoomSpeed: 40
+  zoomSensitivity: 10
 --- !u!1001 &589210602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,6 +211,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 377674523186238645, guid: d63644a5618197c4c81062051abf62cb, type: 3}
+      propertyPath: m_ChunkCullingBounds.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 377674523186238645, guid: d63644a5618197c4c81062051abf62cb, type: 3}
+      propertyPath: m_ChunkCullingBounds.y
+      value: 2.1999998
+      objectReference: {fileID: 0}
     - target: {fileID: 3493714671555357649, guid: d63644a5618197c4c81062051abf62cb, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -565,7 +597,7 @@ PrefabInstance:
     - target: {fileID: 2067322517025724520, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: itemPrefab
       value: 
-      objectReference: {fileID: 6636955633473660502, guid: 7ffe3057117265e4aa49e2c68a8f77ed, type: 3}
+      objectReference: {fileID: 2616206265886582281, guid: 24f6178f7b947f849957393dda504b76, type: 3}
     - target: {fileID: 2067322517025724521, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
