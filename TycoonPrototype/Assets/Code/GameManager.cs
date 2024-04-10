@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject currentSelection;
 
     private void Start()
     {
@@ -13,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(PlacedBuildings.foodStands.Count);
         
     }
 }

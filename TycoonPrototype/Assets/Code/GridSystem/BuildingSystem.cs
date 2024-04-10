@@ -4,31 +4,43 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
 
+//Handles the placement and management of buildings on grid(s)
+
 public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem current;
 
+    //Grids and Tilemaps to use
     public GridLayout gridLayout;
-    public Tilemap MainTileMap;
-    public Tilemap TempTileMap;
+    public Tilemap MainTileMap; //tilemap where the buildings are placed
+    public Tilemap TempTileMap; //tilemap to show edit mode/building availability
     public PlacedBuildings placedBuildings;
 
+    //Stores basic tiles for visual clarity regarding placement
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
+    //Variables for currently selected building
     private Building currentSelectedBuilding;
     private Vector3 prevPos;
     private BoundsInt prevArea;
 
+    //Mouse
     private Vector3 mousePosOnGrid;
 
 
     private void Awake()
     {
-        current = this;
+        current = this; //init
     }
 
     private void Start()
     {
+        //Adds white, green and red tiles from the resources folder
+        //Logic: - white tiles mean unclaimed tiles, this scripts checks placement availability this way
+        //       - green tiles mean claimed tiles. Used once a building is placed down
+        //       - red tiles mean unavailable tiles. When checking for placement, turns the current placement
+        //         selection red, meaning the building cant be placed. Also shows red if tiles are empty, which
+        //         means white tiles are essentially also the building bounds
         string tilePath = @"Tiles\";
         tileBases.Add(TileType.Empty, null);
         tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
@@ -43,46 +55,18 @@ public class BuildingSystem : MonoBehaviour
         {
             return;
         }
-        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
-        /*
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (EventSystem.current.IsPointerOverGameObject(0))
-            {
-                return;
-            }
 
-            if (!temp.Placed)
-            {
-                Vector3 touchPos = mousePosOnGrid;
-                Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+        //Mouse Position translated to grid position
+        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, 
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
 
-                if (prevPos != cellPos)
-                {
-                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);// + new Vector3(-5f, 0f, 0f);
-                    prevPos = cellPos;
-                    FollowBuilding();
-                }
-            }
-        } else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (temp.CanBePlaced())
-            {
-                temp.Place();
-            }
-        } else if (Input.GetKeyDown(KeyCode.D))
-        {
-            ClearArea();
-            Destroy(temp.gameObject);
-        }
-        */
 
         if (EventSystem.current.IsPointerOverGameObject(0))
         {
             return;
         }
 
-        if (!currentSelectedBuilding.Placed)
+        if (!currentSelectedBuilding.Placed) //Selected building follows mouse as long as not placed
         {
             Vector3 touchPos = mousePosOnGrid;
             Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
@@ -95,12 +79,13 @@ public class BuildingSystem : MonoBehaviour
             }
 
         }
-        if (Input.GetMouseButtonDown(0) && currentSelectedBuilding.CanBePlaced())
+
+        if (Input.GetMouseButtonDown(0) && currentSelectedBuilding.CanBePlaced()) //Left Mouse Click and checks if temp building can be placed
         {
-            TruePlaceBuilding();
+            TruePlaceBuilding(); //Places building
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D)) //Removes selected building without placing it (might need to return it to inventory here once set up)
         {
             ClearArea();
             Destroy(currentSelectedBuilding.gameObject);
@@ -109,20 +94,20 @@ public class BuildingSystem : MonoBehaviour
 
     }
 
-    public void InitializeWithBuilding(GameObject building)
+    public void InitializeWithBuilding(GameObject building) //Initialises building at mouse position and follows it
     {
         currentSelectedBuilding = Instantiate(building, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
         FollowBuilding();
     }
 
-    private void ClearArea()
+    private void ClearArea() //clears building placement area
     {
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];
         FillTiles(toClear, TileType.Empty);
         TempTileMap.SetTilesBlock(prevArea, toClear);
     }
 
-    private void FollowBuilding()
+    private void FollowBuilding() //Makes the placement area below the building follow the selected building
     {
         ClearArea();
 
@@ -150,7 +135,7 @@ public class BuildingSystem : MonoBehaviour
         prevArea = buildingArea;
     }
 
-    public bool CanTakeArea(BoundsInt area)
+    public bool CanTakeArea(BoundsInt area) //checks if all tiles in current placement area are white (white tiles mean unclaimed area)
     {
         TileBase[] baseArray = GetTilesBlock(area, MainTileMap);
         foreach (var b in baseArray)
@@ -165,18 +150,20 @@ public class BuildingSystem : MonoBehaviour
         return true;
     }
 
-    public void TakeArea(BoundsInt area)
+    public void TakeArea(BoundsInt area) //sets the tiles in the current placement area to green
     {
         SetTilesBlock(area, TileType.Empty, TempTileMap);
         SetTilesBlock(area, TileType.Green, MainTileMap);
     }
 
-    public void TruePlaceBuilding()
+    public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
     {
         currentSelectedBuilding.Place();
 
         switch (currentSelectedBuilding.properties.type)
         {
+            //switch case to funnel placed building in the corresponding list
+            //TO DO: add other building type cases
             case BuildingProperties.BuildingType.Food:
                 Debug.Log(currentSelectedBuilding.properties.type);
                 placedBuildings.foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
@@ -185,6 +172,8 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
+    //region for functions that handle tile filling. For some reason, base unity fill commands can crash the editor
+    #region TileFillFunctions
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
         TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
@@ -216,7 +205,7 @@ public class BuildingSystem : MonoBehaviour
             arr[i] = tileBases[type];
         }
     }
-
+    #endregion
 
 
 }

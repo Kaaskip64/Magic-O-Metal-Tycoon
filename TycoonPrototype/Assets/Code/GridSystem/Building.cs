@@ -2,19 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Class that has to be attached to each building prefab
 public class Building : MonoBehaviour
 {
-    public bool Placed { get; private set; }
-    public BoundsInt area;
+    public bool Placed { get; private set; } //bool for other scripts to check if building has been placed
+    public BoundsInt area; //size of the placement area. ALWAYS keep the z value 1, or else it messes up the calculation
 
-    public BuildingProperties properties;
+    public BuildingProperties properties; //slot for scriptable object which holds properties
 
-
-    private void Start()
-    {
-    }
-
-    public bool CanBePlaced()
+    public bool CanBePlaced() //returns whether or not the building can be placed based on the current location on the grid
     {
         Vector3Int positionInt = BuildingSystem.current.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
@@ -28,7 +24,7 @@ public class Building : MonoBehaviour
         return false;
     }
 
-    public void Place()
+    public void Place() //When Place() is called, places building
     {
         Vector3Int positionInt = BuildingSystem.current.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
