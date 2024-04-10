@@ -22,6 +22,8 @@ public class PlayerPropertiesTest : MonoBehaviour
             money += value;
             MoneyAction?.Invoke(money);
         }
+
+        print("merge test");
     }
 
     private bool MoneyCheck(ShopProduct product)

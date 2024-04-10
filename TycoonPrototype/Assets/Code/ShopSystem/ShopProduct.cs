@@ -15,13 +15,13 @@ public class ShopProduct : MonoBehaviour
     [SerializeField]
     private int stock;
     [SerializeField]
-    public string Name => productName;
+    public string ProductName => productName;
     public float Price => price;
     public int Stock => stock;
 
     public GameObject itemPrefab;
 
-    public enum ProductCategory
+    public enum ProductSubCategory
     {
         Default,
         Stage,
@@ -30,8 +30,8 @@ public class ShopProduct : MonoBehaviour
         Lineups,
         PlayerImports,
     }
-    [SerializeField] private ProductCategory category = ProductCategory.Default;
-    public ProductCategory Category => category;
+    [SerializeField] private ProductSubCategory category = ProductSubCategory.Default;
+    public ProductSubCategory Category => category;
 
     private void Awake()
     {
@@ -43,11 +43,21 @@ public class ShopProduct : MonoBehaviour
         shopSystem.AddProduct(this);
         GetComponent<Button>().onClick.AddListener(Purchase);
     }
-    public void Purchase()
+
+    private void Purchase()
     {
         if (shopSystem != null)
         {
-            shopSystem.PurchaseProduct(Name);
+            //shopSystem.PurchaseProduct(ProductName);
+            shopSystem.StartPurchase(ProductName);
+        }
+    }
+
+    public void PurchaseConfirm()
+    {
+        if (shopSystem != null)
+        {
+            shopSystem.PurchaseProduct(ProductName);
         }
     }
 
