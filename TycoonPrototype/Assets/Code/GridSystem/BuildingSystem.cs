@@ -15,7 +15,7 @@ public class BuildingSystem : MonoBehaviour
 
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
-    private Building temp;
+    private Building currentSelectedBuilding;
     private Vector3 prevPos;
     private BoundsInt prevArea;
 
@@ -39,7 +39,7 @@ public class BuildingSystem : MonoBehaviour
     private void Update()
     {
 
-        if (!temp)
+        if (!currentSelectedBuilding)
         {
             return;
         }
@@ -82,37 +82,28 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
 
-        if (!temp.Placed)
+        if (!currentSelectedBuilding.Placed)
         {
             Vector3 touchPos = mousePosOnGrid;
             Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
 
             if (prevPos != cellPos)
             {
-                temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);// + new Vector3(-5f, 0f, 0f);
+                currentSelectedBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);// + new Vector3(-5f, 0f, 0f);
                 prevPos = cellPos;
                 FollowBuilding();
             }
 
         }
-        if (Input.GetMouseButtonDown(0) && temp.CanBePlaced())
+        if (Input.GetMouseButtonDown(0) && currentSelectedBuilding.CanBePlaced())
         {
-            temp.Place();
-
-            switch (temp.properties.type)
-            {
-                case BuildingProperties.BuildingType.Food:
-                    Debug.Log(temp.properties.type);
-                    placedBuildings.foodStands.Add(temp.GetComponent<Building>());
-                    break;
-
-            }
+            TruePlaceBuilding();
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             ClearArea();
-            Destroy(temp.gameObject);
+            Destroy(currentSelectedBuilding.gameObject);
         }
 
 
@@ -120,7 +111,7 @@ public class BuildingSystem : MonoBehaviour
 
     public void InitializeWithBuilding(GameObject building)
     {
-        temp = Instantiate(building, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
+        currentSelectedBuilding = Instantiate(building, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
         FollowBuilding();
     }
 
@@ -135,8 +126,8 @@ public class BuildingSystem : MonoBehaviour
     {
         ClearArea();
 
-        temp.area.position = gridLayout.WorldToCell(new Vector3(temp.gameObject.transform.position.x, 1, temp.gameObject.transform.position.z + 5));
-        BoundsInt buildingArea = temp.area;
+        currentSelectedBuilding.area.position = gridLayout.WorldToCell(new Vector3(currentSelectedBuilding.gameObject.transform.position.x, 1, currentSelectedBuilding.gameObject.transform.position.z + 5));
+        BoundsInt buildingArea = currentSelectedBuilding.area;
 
         TileBase[] baseArray = GetTilesBlock(buildingArea, MainTileMap);
 
@@ -178,6 +169,20 @@ public class BuildingSystem : MonoBehaviour
     {
         SetTilesBlock(area, TileType.Empty, TempTileMap);
         SetTilesBlock(area, TileType.Green, MainTileMap);
+    }
+
+    public void TruePlaceBuilding()
+    {
+        currentSelectedBuilding.Place();
+
+        switch (currentSelectedBuilding.properties.type)
+        {
+            case BuildingProperties.BuildingType.Food:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                break;
+
+        }
     }
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)

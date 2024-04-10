@@ -18,8 +18,10 @@ public class BuildingProperties : ScriptableObject
 
     public int queue;
     public int stock;
+    public int capacity;
 
     public float condition;
+
     
 
 }
