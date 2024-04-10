@@ -14,6 +14,7 @@ public class Guest : MonoBehaviour
         destinationSetter = GetComponent<AIDestinationSetter>();
     }
 
+    //set the target and move to it
     private void GoToTarget(Transform destination)
     {
         destinationTransform = destination;

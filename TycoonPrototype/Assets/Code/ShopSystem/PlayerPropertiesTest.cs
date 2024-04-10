@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//just a player properties test scripts
 public class PlayerPropertiesTest : MonoBehaviour
 {
     public static Action<int> MoneyAction;
