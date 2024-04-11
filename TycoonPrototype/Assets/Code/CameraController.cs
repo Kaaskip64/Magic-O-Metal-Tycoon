@@ -26,11 +26,11 @@ public class CameraController : MonoBehaviour
         Vector3 pos = transform.position;
         if (Input.mousePosition.y >= Screen.height - panBorderThickness)
         {
-            pos.z += panSpeed * Time.deltaTime;
+            pos.y += panSpeed * Time.deltaTime;
         }
         if (Input.mousePosition.y <= panBorderThickness)
         {
-            pos.z -= panSpeed * Time.deltaTime;
+            pos.y -= panSpeed * Time.deltaTime;
         }
         if (Input.mousePosition.x >= Screen.width - panBorderThickness)
         {

@@ -57,8 +57,9 @@ public class BuildingSystem : MonoBehaviour
         }
 
         //Mouse Position translated to grid position
-        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, 
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
+        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
+            0);
 
 
         if (EventSystem.current.IsPointerOverGameObject(0))
@@ -111,7 +112,8 @@ public class BuildingSystem : MonoBehaviour
     {
         ClearArea();
 
-        currentSelectedBuilding.area.position = gridLayout.WorldToCell(new Vector3(currentSelectedBuilding.gameObject.transform.position.x, 1, currentSelectedBuilding.gameObject.transform.position.z + 5));
+        currentSelectedBuilding.area.position = gridLayout.WorldToCell(new Vector3(currentSelectedBuilding.gameObject.transform.position.x, 
+            currentSelectedBuilding.gameObject.transform.position.y + 5, 0));
         BoundsInt buildingArea = currentSelectedBuilding.area;
 
         TileBase[] baseArray = GetTilesBlock(buildingArea, MainTileMap);
