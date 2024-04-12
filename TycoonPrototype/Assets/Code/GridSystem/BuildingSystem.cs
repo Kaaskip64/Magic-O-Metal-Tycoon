@@ -26,6 +26,8 @@ public class BuildingSystem : MonoBehaviour
 
     //Mouse
     private Vector3 mousePosOnGrid;
+    Ray rayCast;
+    RaycastHit hit;
 
 
     private void Awake()
@@ -60,7 +62,9 @@ public class BuildingSystem : MonoBehaviour
         mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 
             Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
             0);
-
+        //raycast
+        rayCast = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
 
         if (EventSystem.current.IsPointerOverGameObject(0))
         {
@@ -81,9 +85,24 @@ public class BuildingSystem : MonoBehaviour
 
         }
 
-        if (Input.GetMouseButtonDown(0) && currentSelectedBuilding.CanBePlaced()) //Left Mouse Click and checks if temp building can be placed
+        if (Input.GetMouseButtonDown(0)) //Left Mouse Click and checks if temp building can be placed
         {
-            TruePlaceBuilding(); //Places building
+            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
+            {
+                TruePlaceBuilding(); //Places building
+
+            } else if (Physics.Raycast(rayCast, out hit)) //if on click there is no selected building, try to find a new one with raycast
+            {
+                if (hit.collider.CompareTag("Building"))
+                {
+                    currentSelectedBuilding = hit.transform.gameObject.GetComponent<Building>();
+                    SetTilesBlock(currentSelectedBuilding.area, TileType.White, MainTileMap);
+                    currentSelectedBuilding.Placed = false;
+
+                }
+            }
+
+
         }
 
         if (Input.GetKeyDown(KeyCode.D)) //Removes selected building without placing it (might need to return it to inventory here once set up)

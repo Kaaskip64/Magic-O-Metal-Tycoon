@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5014062777941128202}
   - component: {fileID: 6520299596572170745}
+  - component: {fileID: 9066718493858232589}
   m_Layer: 0
   m_Name: FoodStand2
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,10 +46,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df685c7c466ace4fbfd325a7fb7fa48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseHover: 0
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 3, y: 3, z: 1}
   properties: {fileID: 11400000, guid: fe1c8927b431e194c8c4f58fd7e8cfac, type: 2}
+--- !u!65 &9066718493858232589
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616206265886582281}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 30.716991, y: 28.103167, z: 1}
+  m_Center: {x: -0.611372, y: 13.551583, z: 0}
 --- !u!1 &5113700797749537036
 GameObject:
   m_ObjectHideFlags: 0

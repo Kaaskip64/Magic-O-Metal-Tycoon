@@ -5,7 +5,8 @@ using UnityEngine;
 //Class that has to be attached to each building prefab
 public class Building : MonoBehaviour
 {
-    public bool Placed { get; private set; } //bool for other scripts to check if building has been placed
+    public bool Placed; //bool for other scripts to check if building has been placed
+    public bool mouseHover;
     public BoundsInt area; //size of the placement area. ALWAYS keep the z value 1, or else it messes up the calculation
 
     public BuildingProperties properties; //slot for scriptable object which holds properties
@@ -32,5 +33,15 @@ public class Building : MonoBehaviour
         Placed = true;
         BuildingSystem.current.TakeArea(areaTemp);
         
+    }
+
+    private void OnMouseOver()
+    {
+        mouseHover = true;
+    }
+
+    private void OnMouseExit()
+    {
+        mouseHover = false;
     }
 }
