@@ -6,10 +6,16 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public bool Placed; //bool for other scripts to check if building has been placed
-    public bool mouseHover;
-    public BoundsInt area; //size of the placement area. ALWAYS keep the z value 1, or else it messes up the calculation
 
     public BuildingProperties properties; //slot for scriptable object which holds properties
+    public SpriteRenderer image;
+
+    public BoundsInt area; //size of the placement area. ALWAYS keep the z value 1, or else it messes up the calculation
+
+    private void Start()
+    {
+        area = properties.placementArea;
+    }
 
     public bool CanBePlaced() //returns whether or not the building can be placed based on the current location on the grid
     {
@@ -33,15 +39,5 @@ public class Building : MonoBehaviour
         Placed = true;
         BuildingSystem.current.TakeArea(areaTemp);
         
-    }
-
-    private void OnMouseOver()
-    {
-        mouseHover = true;
-    }
-
-    private void OnMouseExit()
-    {
-        mouseHover = false;
     }
 }

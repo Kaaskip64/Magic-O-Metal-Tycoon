@@ -46,11 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df685c7c466ace4fbfd325a7fb7fa48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseHover: 0
+  Placed: 0
+  properties: {fileID: 11400000, guid: fe1c8927b431e194c8c4f58fd7e8cfac, type: 2}
+  image: {fileID: 5113700797749537037}
   area:
     m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 3, y: 3, z: 1}
-  properties: {fileID: 11400000, guid: fe1c8927b431e194c8c4f58fd7e8cfac, type: 2}
+    m_Size: {x: 0, y: 0, z: 0}
 --- !u!65 &9066718493858232589
 BoxCollider:
   m_ObjectHideFlags: 0
