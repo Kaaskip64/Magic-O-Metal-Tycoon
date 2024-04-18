@@ -12,11 +12,13 @@ public class BuildingProperties : ScriptableObject
         Food,
         Beer,
         Merch,
-        Bathroom
+        Bathroom,
+        Stage
     };
 
     public BuildingType type;
 
+    public BoundsInt placementArea;
 
     //variables:
     public int queue;

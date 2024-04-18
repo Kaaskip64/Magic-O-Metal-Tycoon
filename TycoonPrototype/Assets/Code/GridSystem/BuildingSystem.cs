@@ -12,12 +12,12 @@ public class BuildingSystem : MonoBehaviour
 
     //Grids and Tilemaps to use
     public GridLayout gridLayout;
-    public Tilemap MainTileMap; //tilemap where the buildings are placed
-    public Tilemap TempTileMap; //tilemap to show edit mode/building availability
+    public Tilemap MainTileMap; //tilemap to show edit mode/building availability
+    public Tilemap TempTileMap; //tilemap where the buildings are hovering
     public PlacedBuildings placedBuildings;
 
     //Stores basic tiles for visual clarity regarding placement
-    private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
+    public static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
     //Variables for currently selected building
     private Building currentSelectedBuilding;
@@ -25,7 +25,9 @@ public class BuildingSystem : MonoBehaviour
     private BoundsInt prevArea;
 
     //Mouse
-    private Vector3 mousePosOnGrid;
+    public Vector3 mousePosOnGrid;
+    Ray rayCast;
+    RaycastHit hit;
 
 
     private void Awake()
@@ -57,9 +59,12 @@ public class BuildingSystem : MonoBehaviour
         }
 
         //Mouse Position translated to grid position
-        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, 
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
-
+        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
+            0);
+        //raycast
+        rayCast = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
 
         if (EventSystem.current.IsPointerOverGameObject(0))
         {
@@ -73,16 +78,35 @@ public class BuildingSystem : MonoBehaviour
 
             if (prevPos != cellPos)
             {
-                currentSelectedBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);// + new Vector3(-5f, 0f, 0f);
+                currentSelectedBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
                 prevPos = cellPos;
-                FollowBuilding();
+                FollowBuilding(currentSelectedBuilding.area);
             }
 
         }
 
-        if (Input.GetMouseButtonDown(0) && currentSelectedBuilding.CanBePlaced()) //Left Mouse Click and checks if temp building can be placed
+        if (Input.GetMouseButtonDown(0)) //Left Mouse Click and checks if temp building can be placed
         {
-            TruePlaceBuilding(); //Places building
+            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
+            {
+                TruePlaceBuilding(); //Places building
+                MainTileMap.gameObject.SetActive(false);
+
+
+            } else if (Physics.Raycast(rayCast, out hit)) //if on click there is no selected building, try to find a new one with raycast
+            {
+                if (hit.collider.CompareTag("Building"))
+                {
+                    currentSelectedBuilding = hit.transform.gameObject.GetComponent<Building>();
+                    MainTileMap.gameObject.SetActive(true);
+                    SetTilesBlock(currentSelectedBuilding.area, TileType.White, MainTileMap);
+                    currentSelectedBuilding.Placed = false;
+                    currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 0.5f);
+
+                }
+            }
+
+
         }
 
         if (Input.GetKeyDown(KeyCode.D)) //Removes selected building without placing it (might need to return it to inventory here once set up)
@@ -97,7 +121,9 @@ public class BuildingSystem : MonoBehaviour
     public void InitializeWithBuilding(GameObject building) //Initialises building at mouse position and follows it
     {
         currentSelectedBuilding = Instantiate(building, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
-        FollowBuilding();
+        FollowBuilding(currentSelectedBuilding.area);
+        MainTileMap.gameObject.SetActive(true);
+        currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 0.5f);
     }
 
     private void ClearArea() //clears building placement area
@@ -107,12 +133,13 @@ public class BuildingSystem : MonoBehaviour
         TempTileMap.SetTilesBlock(prevArea, toClear);
     }
 
-    private void FollowBuilding() //Makes the placement area below the building follow the selected building
+    public void FollowBuilding(BoundsInt currentBuilding) //Makes the placement area below the building follow the selected building
     {
         ClearArea();
 
-        currentSelectedBuilding.area.position = gridLayout.WorldToCell(new Vector3(currentSelectedBuilding.gameObject.transform.position.x, 1, currentSelectedBuilding.gameObject.transform.position.z + 5));
-        BoundsInt buildingArea = currentSelectedBuilding.area;
+        currentBuilding.position = gridLayout.WorldToCell(new Vector3(mousePosOnGrid.x, 
+            mousePosOnGrid.y, 0));
+        BoundsInt buildingArea = currentBuilding;
 
         TileBase[] baseArray = GetTilesBlock(buildingArea, MainTileMap);
 
@@ -159,6 +186,8 @@ public class BuildingSystem : MonoBehaviour
     public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
     {
         currentSelectedBuilding.Place();
+        currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 1f);
+
 
         switch (currentSelectedBuilding.properties.type)
         {
@@ -174,7 +203,7 @@ public class BuildingSystem : MonoBehaviour
 
     //region for functions that handle tile filling. For some reason, base unity fill commands can crash the editor
     #region TileFillFunctions
-    private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
+    public static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
         TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
         int counter = 0;
@@ -189,7 +218,7 @@ public class BuildingSystem : MonoBehaviour
         return array;
     }
 
-    private static void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
+    public static void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
         int size = area.size.x * area.size.y * area.size.z;
         TileBase[] tileArray = new TileBase[size];
@@ -198,7 +227,7 @@ public class BuildingSystem : MonoBehaviour
 
     }
 
-    private static void FillTiles(TileBase[] arr, TileType type)
+    public static void FillTiles(TileBase[] arr, TileType type)
     {
         for (int i = 0; i < arr.Length; i++)
         {
