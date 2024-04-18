@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class StageBuilder : MonoBehaviour
+public class StageBuilder : BuildingSystem
 {
-    public Tilemap groundMap;
+    public GameObject blankTileMap;
     public TileBase currentStageTile;
     public BuildingProperties properties;
 
@@ -17,12 +17,8 @@ public class StageBuilder : MonoBehaviour
 
     public BoundsInt placementArea;
 
-    private Tilemap mainMap;
-
-    private void Start()
-    {
-        mainMap = BuildingSystem.current.MainTileMap;
-    }
+    private GameObject stageObject;
+    private Tilemap stageMap;
 
     private void Update()
     {
@@ -31,25 +27,23 @@ public class StageBuilder : MonoBehaviour
             return;
         }
 
-        BuildingSystem.current.MainTileMap.gameObject.SetActive(true);
-        
+        currentInstance.MainTileMap.gameObject.SetActive(true);
 
         Vector3 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
             Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
             0);
+        Vector3Int currentTilePos = stageMap.WorldToCell(new Vector3(mousePos.x, mousePos.y));
 
-        Vector3Int currentTile = groundMap.WorldToCell(new Vector3(mousePos.x, mousePos.y));
-
-        placementArea.x = currentTile.x - (placementArea.size.x / 2);
-        placementArea.y = currentTile.y - (placementArea.size.y / 2);
+        placementArea.x = currentTilePos.x - (placementArea.size.x / 2);
+        placementArea.y = currentTilePos.y - (placementArea.size.y / 2);
 
         //BuildingSystem.current.FollowBuilding(placementArea);
         
 
         if (Input.GetMouseButton(0))
         {
-            groundMap.SetTile(currentTile, currentStageTile);
-            BuildingSystem.SetTilesBlock(placementArea, TileType.Red, mainMap);
+            stageMap.SetTile(currentTilePos, currentStageTile);
+            SetTilesBlock(placementArea, TileType.Red, MainTileMap);
         }
 
     }
@@ -59,10 +53,26 @@ public class StageBuilder : MonoBehaviour
 
         if(editingStageTiles)
         {
+            CompositeCollider2D tempComposite =  stageObject.AddComponent<CompositeCollider2D>();
+            TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
+            Stage tempStage = stageObject.AddComponent<Stage>();
 
-            BuildingSystem.current.MainTileMap.gameObject.SetActive(false);
+            tempTileCol.usedByComposite = true;
+            tempComposite.isTrigger = true;
+            tempComposite.attachedRigidbody.isKinematic = true;
+            tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+
+            currentInstance.MainTileMap.gameObject.SetActive(false);
+        } else
+        {
+            stageObject = Instantiate(blankTileMap);
+            stageObject.transform.SetParent(gridLayout.gameObject.transform);
+            stageMap = stageObject.GetComponent<Tilemap>();
         }
+
+
         editingStageTiles = !editingStageTiles;
+
     }
 
     public void EraseMode()

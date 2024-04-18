@@ -19,11 +19,11 @@ public class Building : MonoBehaviour
 
     public bool CanBePlaced() //returns whether or not the building can be placed based on the current location on the grid
     {
-        Vector3Int positionInt = BuildingSystem.current.gridLayout.LocalToCell(transform.position);
+        Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
 
-        if (BuildingSystem.current.CanTakeArea(areaTemp))
+        if (BuildingSystem.currentInstance.CanTakeArea(areaTemp))
         {
             return true;
         }
@@ -33,11 +33,11 @@ public class Building : MonoBehaviour
 
     public void Place() //When Place() is called, places building
     {
-        Vector3Int positionInt = BuildingSystem.current.gridLayout.LocalToCell(transform.position);
+        Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
         Placed = true;
-        BuildingSystem.current.TakeArea(areaTemp);
+        BuildingSystem.currentInstance.TakeArea(areaTemp);
         
     }
 }

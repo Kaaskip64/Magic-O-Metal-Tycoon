@@ -29,7 +29,7 @@ public class ShopSystem : MonoBehaviour
             {
                 if (MoneyCheck != null && MoneyCheck(product)) // Check if player has enough money
                 {
-                    BuildingSystem.current.InitializeWithBuilding(product.itemPrefab); // Initialize with building
+                    BuildingSystem.currentInstance.InitializeWithBuilding(product.itemPrefab); // Initialize with building
                     product.ChangeStock(-1); // Reduce stock
                     SuccessfulPurchase(-(int)product.Price); // Notify successful purchase
                     Debug.Log("Purchase product: " + productName);

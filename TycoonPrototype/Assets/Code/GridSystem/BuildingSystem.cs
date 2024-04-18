@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class BuildingSystem : MonoBehaviour
 {
-    public static BuildingSystem current;
+    public static BuildingSystem currentInstance;
 
     //Grids and Tilemaps to use
     public GridLayout gridLayout;
@@ -32,7 +32,7 @@ public class BuildingSystem : MonoBehaviour
 
     private void Awake()
     {
-        current = this; //init
+        currentInstance = this; //init
     }
 
     private void Start()
