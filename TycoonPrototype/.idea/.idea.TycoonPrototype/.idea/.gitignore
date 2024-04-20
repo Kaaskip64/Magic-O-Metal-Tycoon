@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/modules.xml
+/contentModel.xml
+/.idea.TycoonPrototype.iml
+# Datasource local storage ignored files
+/../../../../../../../../../../../../../:\Users\User\OneDrive\Documenten\HKU\Jaar3\Context\TycoonGame\TycoonPrototype\.idea\.idea.TycoonPrototype\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
