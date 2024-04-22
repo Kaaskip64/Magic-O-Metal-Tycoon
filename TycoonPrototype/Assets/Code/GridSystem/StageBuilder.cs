@@ -53,14 +53,18 @@ public class StageBuilder : BuildingSystem
 
         if(editingStageTiles)
         {
+            //initialisation new built stage
             CompositeCollider2D tempComposite =  stageObject.AddComponent<CompositeCollider2D>();
             TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
             Stage tempStage = stageObject.AddComponent<Stage>();
 
             tempTileCol.usedByComposite = true;
+
             tempComposite.isTrigger = true;
             tempComposite.attachedRigidbody.isKinematic = true;
             tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+
+            
 
             currentInstance.MainTileMap.gameObject.SetActive(false);
         } else

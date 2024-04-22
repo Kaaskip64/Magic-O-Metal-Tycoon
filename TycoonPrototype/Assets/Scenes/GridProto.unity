@@ -414,6 +414,7 @@ GameObject:
   - component: {fileID: 541890872}
   - component: {fileID: 541890873}
   - component: {fileID: 541890874}
+  - component: {fileID: 541890875}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -464,6 +465,21 @@ MonoBehaviour:
   merchStands: []
   beerStands: []
   bathroomStands: []
+--- !u!114 &541890875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541890871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2580ef3ebe2154aac0188d5a1d9ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableSongs:
+  - {fileID: 11400000, guid: 4ee6575976f3f0b4f80ca1309bb18e52, type: 2}
+  - {fileID: 11400000, guid: 35b837385c963d9478e901a78539404f, type: 2}
 --- !u!1 &591011328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3493714671555357651, guid: d63644a5618197c4c81062051abf62cb, type: 3}
