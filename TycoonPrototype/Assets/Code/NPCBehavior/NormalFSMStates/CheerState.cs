@@ -18,17 +18,14 @@ public class CheerState : BaseState
 
     public override void OnUpdate()
     {
-        // 减少属性值
         guest.hungryMeter -= NPCGlobalData.Instance.hungryChangeRate * Time.deltaTime;
         guest.thristMeter -= NPCGlobalData.Instance.thirstChangeRate * Time.deltaTime;
         guest.urgencyMeter -= NPCGlobalData.Instance.urgencyChangeRate * Time.deltaTime;
 
-        // 判断是否有属性值小于阈值
-        bool isHungryLow = guest.hungryMeter < 30;
-        bool isThirstLow = guest.thristMeter < 30;
-        bool isUrgencyLow = guest.urgencyMeter < 30;
+        bool isHungryLow = guest.hungryMeter < NPCGlobalData.Instance.hungryMeterThreshold;
+        bool isThirstLow = guest.thristMeter < NPCGlobalData.Instance.thristMeterThreshold;
+        bool isUrgencyLow = guest.urgencyMeter < NPCGlobalData.Instance.uregencyMeterThreshold;
 
-        // 如果有任何一个属性值小于阈值
         if (isHungryLow || isThirstLow || isUrgencyLow)
         {
             guest.SwitchState(guest.breakState);

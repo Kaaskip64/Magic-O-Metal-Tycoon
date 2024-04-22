@@ -321,13 +321,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage: {fileID: 473703303}
-  toliet: {fileID: 94953430}
+  toilet: {fileID: 94953430}
   buergerKing: {fileID: 1775801256}
   beerStand: {fileID: 1056437289}
   initialHungryMeter: 50
   initialThristMeter: 50
   initialUregencyMeter: 50
   initialSatisfaction: 100
+  hungryMeterThreshold: 30
+  thristMeterThreshold: 30
+  uregencyMeterThreshold: 30
+  satisfactionThreshold: 30
   hungryChangeRate: 1
   thirstChangeRate: 2
   urgencyChangeRate: 1.5

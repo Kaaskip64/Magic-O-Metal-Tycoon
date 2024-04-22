@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class NPCGlobalData : MonoBehaviour
 {
-    // 单例实例
+    
     public static NPCGlobalData Instance { get; private set; }
 
     [Header("Destinations")]
     public Transform stage;
-    public Transform toliet;
+    public Transform toilet;
     public Transform buergerKing;
     public Transform beerStand;
 
@@ -16,6 +16,12 @@ public class NPCGlobalData : MonoBehaviour
     public float initialThristMeter;
     public float initialUregencyMeter;
     public float initialSatisfaction;
+
+    [Header("MeterThreshold")]
+    public float hungryMeterThreshold;
+    public float thristMeterThreshold;
+    public float uregencyMeterThreshold;
+    public float satisfactionThreshold;
 
     [Header("ChangeRate")]
     public float hungryChangeRate;
@@ -27,7 +33,7 @@ public class NPCGlobalData : MonoBehaviour
     public float eatTime;
     public float drinkTime;
     public float peeTime;
-    // 防止其他脚本通过实例化来创建新的实例
+    
     private void Awake()
     {
         if (Instance == null)

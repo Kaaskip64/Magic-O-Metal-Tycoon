@@ -20,9 +20,9 @@ public class Guest : NPC_FSM
     public float satisfaction;
 
     [Header("Movement Parameters")]
-    public int numberOfRays = 5; // 射线数量
-    public float rayLength = 2f; // 射线长度
-    public float angleRange = 120f; // 射线范围（度）
+    public int numberOfRays = 5;
+    public float rayLength = 2f;
+    public float angleRange = 120f;
     public float offsetRatio = 5;
 
     private Transform destinationTransform;
@@ -31,45 +31,53 @@ public class Guest : NPC_FSM
 
     private void Awake()
     {
+        RefrencenInit();
+    }
+
+    private void RefrencenInit()
+    {
+        //pathfinding component
         destinationSetter = GetComponent<AIDestinationSetter>();
         aIPath = GetComponent<AIPath>();
 
+        //Init states
         idleState = new IdleState();
         cheerState = new CheerState();
         breakState = new BreakState();
         restoreState = new RestoreState();
 
+        //Physics
         rb = GetComponent<Rigidbody2D>();
     }
 
     protected override void Start()
     {
-
-        // 初始化NPC状态值
+        //NPC value init
         hungryMeter = NPCGlobalData.Instance.initialHungryMeter + Random.Range(-10, 10);
         thristMeter = NPCGlobalData.Instance.initialThristMeter + Random.Range(-10, 10);
         urgencyMeter = NPCGlobalData.Instance.initialUregencyMeter + Random.Range(-10, 10);
         satisfaction = NPCGlobalData.Instance.initialSatisfaction + Random.Range(-10, 10);
 
-        // 切换到欢呼状态
+        //Initialize state
         SwitchState(cheerState);
+    }
+    protected override void OnEnable()
+    {
+
     }
 
     protected override void Update()
     {
         base.Update();
 
-        // 更新NPC的移动方向
         movingDirection = (destinationTransform.position - transform.position).normalized;
     }
 
     private void FixedUpdate()
     {
-        // 检测碰撞并避免
-        CollisionAvoid();
+        CollisionAvoid();       
     }
 
-    // 设置目标并移动向它
     public void GoToTarget(Transform destination)
     {
         destinationTransform = destination;
@@ -78,34 +86,25 @@ public class Guest : NPC_FSM
 
     private void CollisionAvoid()
     {
-        // 获取当前物体的朝向作为射线的方向
         Vector2 direction = movingDirection.normalized;
 
-        // 计算每条射线之间的角度间距
         float angleStep = angleRange / (numberOfRays - 1);
 
-        // 计算第一条射线的起始角度
         float startAngle = -angleRange / 2;
 
-        // 循环发射射线
         for (int i = 0; i < numberOfRays; i++)
         {
-            // 计算当前射线的角度
             float angle = startAngle + angleStep * i;
 
-            // 将角度转换为方向向量
             Vector2 rayDirection = Quaternion.Euler(0, 0, angle) * direction;
 
             Vector2 rayPosition = new Vector2(transform.position.x + movingDirection.x * 0.6f, transform.position.y + movingDirection.y * 0.6f);
 
-            // 发射射线
             RaycastHit2D hit = Physics2D.Raycast(rayPosition, rayDirection, rayLength);
             Debug.DrawRay(rayPosition, rayDirection * rayLength, Color.red);
 
-            // 如果射线击中了物体
             if (hit.collider != null && hit.collider.CompareTag("NPC") && hit.collider.transform != transform)
             {
-                // 在控制台输出击中的物体信息
                 Debug.Log("Ray hit: " + hit.collider.gameObject.name + " at distance: " + hit.distance);
                 Vector2 perpendicularDirection = new Vector2(-movingDirection.y, movingDirection.x);
                 rb.AddForce(perpendicularDirection* offsetRatio);
@@ -113,10 +112,7 @@ public class Guest : NPC_FSM
         }
     }
 
-    protected override void OnEnable()
-    {
-        
-    }
+
 
     public void ExecuteCoroutine(IEnumerator routine)
     {

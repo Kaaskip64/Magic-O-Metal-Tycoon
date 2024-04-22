@@ -20,7 +20,7 @@ public class RestoreState : BaseState
         {
             guest.ExecuteCoroutine(DrinkBeer());
         }
-        else if(guest.destinationSetter.target == NPCGlobalData.Instance.toliet)
+        else if(guest.destinationSetter.target == NPCGlobalData.Instance.toilet)
         {
             guest.ExecuteCoroutine(Peeing());
         }

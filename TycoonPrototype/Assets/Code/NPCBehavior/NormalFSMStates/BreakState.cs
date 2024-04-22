@@ -1,50 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class BreakState : BaseState
 {
-    Guest guest;
+    private Guest guest;
+
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
-        float minMeter = Mathf.Min(guest.hungryMeter, guest.thristMeter, guest.urgencyMeter);
-        if (guest.hungryMeter == minMeter)
-        {
-            //transform closestOne;
-            //closestOne = List[0];
-            //foreach(for item in List)
-            //{
-            //     closestOne  = Mathf.Min((closesOne.transform.position-transform.position).Length,
-            //                             (item.transform.position-transform.position).Length);
-            //}
-            guest.GoToTarget(NPCGlobalData.Instance.buergerKing);
-        }
-        else if (guest.thristMeter == minMeter)
-        {
-            guest.GoToTarget(NPCGlobalData.Instance.beerStand);
-        }
-        else if (guest.urgencyMeter == minMeter)
-        {
-            guest.GoToTarget(NPCGlobalData.Instance.toliet);
-        }
+        SetDestination();
     }
 
     public override void ExitState()
     {
-        
+        // Nothing to do when exiting the break state
     }
 
     public override void OnUpdate()
     {
-        guest.hungryMeter -= NPCGlobalData.Instance.hungryChangeRate/10 * Time.deltaTime;
-        guest.thristMeter -= NPCGlobalData.Instance.thirstChangeRate/10 * Time.deltaTime;
-        guest.urgencyMeter -= NPCGlobalData.Instance.urgencyChangeRate/10 * Time.deltaTime;
+        UpdateMeters();
+        CheckDestinationReached();
+    }
 
+    private void SetDestination()
+    {
+        float minMeter = Mathf.Min(guest.hungryMeter, guest.thristMeter, guest.urgencyMeter);
+        if (guest.hungryMeter == minMeter)
+            guest.GoToTarget(NPCGlobalData.Instance.buergerKing);
+        else if (guest.thristMeter == minMeter)
+            guest.GoToTarget(NPCGlobalData.Instance.beerStand);
+        else if (guest.urgencyMeter == minMeter)
+            guest.GoToTarget(NPCGlobalData.Instance.toilet);
+    }
+
+    private void UpdateMeters()
+    {
+        float deltaTime = Time.deltaTime;
+        guest.hungryMeter -= NPCGlobalData.Instance.hungryChangeRate / 10 * deltaTime;
+        guest.thristMeter -= NPCGlobalData.Instance.thirstChangeRate / 10 * deltaTime;
+        guest.urgencyMeter -= NPCGlobalData.Instance.urgencyChangeRate / 10 * deltaTime;
+    }
+
+    private void CheckDestinationReached()
+    {
         if (guest.aIPath.reachedDestination)
-        {
             guest.SwitchState(guest.restoreState);
-        }
     }
 }
