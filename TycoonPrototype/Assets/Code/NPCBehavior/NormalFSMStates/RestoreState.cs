@@ -14,15 +14,15 @@ public class RestoreState : BaseState
 
         if(guest.destinationSetter.target == NPCGlobalData.Instance.buergerKing)
         {
-            EatBurger();
+            guest.ExecuteCoroutine(EatBurger());
         }
         else if(guest.destinationSetter.target == NPCGlobalData.Instance.beerStand)
         {
-            DrinkBeer();
+            guest.ExecuteCoroutine(DrinkBeer());
         }
         else if(guest.destinationSetter.target == NPCGlobalData.Instance.toliet)
         {
-            Peeing();
+            guest.ExecuteCoroutine(Peeing());
         }
     }
     public override void ExitState()
@@ -34,22 +34,27 @@ public class RestoreState : BaseState
     {
         
     }
-
-    private void EatBurger()
+    IEnumerator EatBurger()
     {
         guest.hungryMeter = NPCGlobalData.Instance.initialHungryMeter;
+        yield return new WaitForSeconds(NPCGlobalData.Instance.eatTime);
         guest.SwitchState(guest.cheerState);
+        
     }
 
-    private void DrinkBeer()
+    IEnumerator DrinkBeer()
     {
         guest.thristMeter = NPCGlobalData.Instance.initialThristMeter;
+        yield return new WaitForSeconds(NPCGlobalData.Instance.drinkTime);
         guest.SwitchState(guest.cheerState);
+        
     }
 
-    private void Peeing()
+    IEnumerator Peeing()
     {
         guest.urgencyMeter = NPCGlobalData.Instance.initialUregencyMeter;
+        yield return new WaitForSeconds(NPCGlobalData.Instance.peeTime);
         guest.SwitchState(guest.cheerState);
+        
     }
 }

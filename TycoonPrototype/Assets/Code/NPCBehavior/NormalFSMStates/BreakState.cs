@@ -12,6 +12,13 @@ public class BreakState : BaseState
         float minMeter = Mathf.Min(guest.hungryMeter, guest.thristMeter, guest.urgencyMeter);
         if (guest.hungryMeter == minMeter)
         {
+            //transform closestOne;
+            //closestOne = List[0];
+            //foreach(for item in List)
+            //{
+            //     closestOne  = Mathf.Min((closesOne.transform.position-transform.position).Length,
+            //                             (item.transform.position-transform.position).Length);
+            //}
             guest.GoToTarget(NPCGlobalData.Instance.buergerKing);
         }
         else if (guest.thristMeter == minMeter)
