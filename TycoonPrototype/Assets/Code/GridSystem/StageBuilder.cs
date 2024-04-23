@@ -44,6 +44,8 @@ public class StageBuilder : BuildingSystem
         {
             stageMap.SetTile(currentTilePos, currentStageTile);
             SetTilesBlock(placementArea, TileType.Red, MainTileMap);
+            //TODO
+            //-Economy
         }
 
     }
