@@ -1,31 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Threading.Tasks;
 
-public class BandAdder : MonoBehaviour
+public class BandListings : MonoBehaviour
 {
     [SerializeField]
-    private GameObject objectToSpawn;
-    
-    [SerializeField]
-    private RectTransform ParentObject;
-    
+    private List<GameObject> BandsAmount;
+
+    public List<ScriptableObject> BandData;
+
     public async Task AddNewBandAddressable()
     {
-        AsyncOperationHandle<GameObject> goHandle = Addressables.LoadAssetAsync<GameObject>("BandPrefab");
-
+        AsyncOperationHandle<GameObject> goHandle = Addressables.LoadAssetAsync<GameObject>("BandNode");
         await goHandle.Task;
-
+        
         if (goHandle.Status == AsyncOperationStatus.Succeeded)
         {
             GameObject obj = goHandle.Result;
-            if (this != null && transform.parent != null && transform.parent != null)
+            if (this != null && transform != null && transform != null)
             {
-               GameObject BandOpening =  Instantiate(obj, transform.parent);
+              GameObject BandListing =   Instantiate(obj, this.transform);
+              BandsAmount.Add(BandListing);
             }
             else
             {
@@ -41,26 +40,19 @@ public class BandAdder : MonoBehaviour
             }
         }
     }
-
-
-    public void AddNewBand()
+    
+    
+    public void SortListing()
     {
-        AddNewBandAddressable();
+        foreach (ScriptableObject bandData in BandData)
+        {
+            AddNewBandAddressable();
+            Debug.Log("hit");
+        }  
     }
 
-  public void SetParent(RectTransform newParent)
-  {
-      ParentObject = newParent;
-  }
-
-  public RectTransform GetParent()
-  {
-      return ParentObject;
-  }
-
-  public void SetObjectToSpawn(GameObject newObject)
-  {
-      objectToSpawn = newObject;
-  }
-  
+    public void Start()
+    {
+        SortListing();
+    }
 }
