@@ -8,4 +8,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MergeScene1.unity
     guid: bc1a66bc9b6898e47b575a7d1a1aff2f
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: a58a92defaf8fb548bf08b55250e9924, type: 2}
