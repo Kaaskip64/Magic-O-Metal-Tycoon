@@ -188,6 +188,8 @@ public class BuildingSystem : MonoBehaviour
         currentSelectedBuilding.Place();
         currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 1f);
 
+        AstarPath.active.data.gridGraph.Scan();
+        
 
         switch (currentSelectedBuilding.properties.type)
         {

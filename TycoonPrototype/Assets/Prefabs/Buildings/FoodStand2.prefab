@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5014062777941128202}
   - component: {fileID: 6520299596572170745}
   - component: {fileID: 9066718493858232589}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FoodStand2
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5113700797749537038}
   - component: {fileID: 5113700797749537037}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
