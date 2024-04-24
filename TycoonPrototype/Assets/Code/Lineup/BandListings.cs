@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class BandListings : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> BandsAmount;
 
-    public List<ScriptableObject> BandData;
+    public List<BandListingData> BandData;
 
     public async Task AddNewBandAddressable()
     {
@@ -42,15 +43,29 @@ public class BandListings : MonoBehaviour
     }
     
     
-    public void SortListing()
+    public async void SortListing()
     {
-        foreach (ScriptableObject bandData in BandData)
-        {
-            AddNewBandAddressable();
-            Debug.Log("hit");
-        }  
+        foreach (BandListingData bandData in BandData)
+        {   
+            await AddNewBandAddressable();
+        }
+        SortData();
     }
 
+    public void SortData()
+    {
+        for(int i = 0; i <BandData.Count; i++)
+        {
+            BandListingDataTranslator data = BandsAmount[i].GetComponent<BandListingDataTranslator>();
+           data.data = BandData[i];
+           data.translateData();
+        }
+    }
+
+    public List<GameObject> getBandAmount()
+    {
+        return BandsAmount;
+    }
     public void Start()
     {
         SortListing();

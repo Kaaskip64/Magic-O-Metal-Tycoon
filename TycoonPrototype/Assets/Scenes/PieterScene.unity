@@ -747,55 +747,6 @@ MonoBehaviour:
   BandsAmount: []
   BandData:
   - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
 --- !u!1 &541890871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,6 +1920,8 @@ GameObject:
   - component: {fileID: 1537766050}
   - component: {fileID: 1537766051}
   - component: {fileID: 1537766052}
+  - component: {fileID: 1537766053}
+  - component: {fileID: 1537766054}
   m_Layer: 5
   m_Name: content
   m_TagString: Untagged
@@ -2050,6 +2003,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1537766053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537766048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbfae0edffff4e4a9cac48db490ca98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 1971880165}
+--- !u!114 &1537766054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537766048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3c969306c9b0441911c7c971a59b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentNodeSelected: {fileID: 0}
+  bandListings: {fileID: 509107916}
+  musicDataList: []
 --- !u!1 &1609067741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,6 +2619,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f3c2fdfa5f844e4da3935fa7a7cccce, type: 3}
+--- !u!1 &1971880165 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9177297677347279755, guid: 4f3c2fdfa5f844e4da3935fa7a7cccce, type: 3}
+  m_PrefabInstance: {fileID: 1971880164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1985308553
 GameObject:
   m_ObjectHideFlags: 0
