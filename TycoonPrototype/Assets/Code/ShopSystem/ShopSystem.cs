@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class ShopSystem : MonoBehaviour
 {
-    public static UnityAction<int> SuccessfulPurchase; // Event to notify successful purchase
+    public static UnityAction<float> SuccessfulPurchase; // Event to notify successful purchase
     public static Func<ShopProduct, bool> MoneyCheck; // Function to check if player has enough money
 
     private Dictionary<string, ShopProduct> productDict = new Dictionary<string, ShopProduct>(); // Dictionary to store products
