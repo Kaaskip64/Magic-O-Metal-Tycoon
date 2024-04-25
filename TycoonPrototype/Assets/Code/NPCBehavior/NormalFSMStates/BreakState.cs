@@ -25,19 +25,19 @@ public class BreakState : BaseState
     {
         float minMeter = Mathf.Min(guest.hungryMeter, guest.thristMeter, guest.urgencyMeter);
         if (guest.hungryMeter == minMeter)
-            guest.GoToTarget(NPCGlobalData.Instance.buergerKing);
+            guest.GoToTarget(NPCManager.Instance.buergerKing);
         else if (guest.thristMeter == minMeter)
-            guest.GoToTarget(NPCGlobalData.Instance.beerStand);
+            guest.GoToTarget(NPCManager.Instance.beerStand);
         else if (guest.urgencyMeter == minMeter)
-            guest.GoToTarget(NPCGlobalData.Instance.toilet);
+            guest.GoToTarget(NPCManager.Instance.toilet);
     }
 
     private void UpdateMeters()
     {
         float deltaTime = Time.deltaTime;
-        guest.hungryMeter -= NPCGlobalData.Instance.hungryChangeRate / 10 * deltaTime;
-        guest.thristMeter -= NPCGlobalData.Instance.thirstChangeRate / 10 * deltaTime;
-        guest.urgencyMeter -= NPCGlobalData.Instance.urgencyChangeRate / 10 * deltaTime;
+        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 10 * deltaTime;
+        guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 10 * deltaTime;
+        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 10 * deltaTime;
     }
 
     private void CheckDestinationReached()

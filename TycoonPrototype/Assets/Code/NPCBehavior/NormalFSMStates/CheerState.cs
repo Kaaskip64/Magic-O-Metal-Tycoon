@@ -8,7 +8,7 @@ public class CheerState : BaseState
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
-        guest.GoToTarget(NPCGlobalData.Instance.stage);
+        guest.GoToTarget(NPCManager.Instance.stage);
     }
 
     public override void ExitState()
@@ -18,13 +18,13 @@ public class CheerState : BaseState
 
     public override void OnUpdate()
     {
-        guest.hungryMeter -= NPCGlobalData.Instance.hungryChangeRate * Time.deltaTime;
-        guest.thristMeter -= NPCGlobalData.Instance.thirstChangeRate * Time.deltaTime;
-        guest.urgencyMeter -= NPCGlobalData.Instance.urgencyChangeRate * Time.deltaTime;
+        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate * Time.deltaTime;
+        guest.thristMeter -= NPCManager.Instance.thirstChangeRate * Time.deltaTime;
+        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate * Time.deltaTime;
 
-        bool isHungryLow = guest.hungryMeter < NPCGlobalData.Instance.hungryMeterThreshold;
-        bool isThirstLow = guest.thristMeter < NPCGlobalData.Instance.thristMeterThreshold;
-        bool isUrgencyLow = guest.urgencyMeter < NPCGlobalData.Instance.uregencyMeterThreshold;
+        bool isHungryLow = guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold;
+        bool isThirstLow = guest.thristMeter < NPCManager.Instance.thristMeterThreshold;
+        bool isUrgencyLow = guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold;
 
         if (isHungryLow || isThirstLow || isUrgencyLow)
         {

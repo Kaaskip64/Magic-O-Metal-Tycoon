@@ -12,17 +12,17 @@ public class RestoreState : BaseState
     {
         guest = obj as Guest;
 
-        if(guest.destinationSetter.target == NPCGlobalData.Instance.buergerKing)
+        if(guest.destinationSetter.target == NPCManager.Instance.buergerKing)
         {
-            guest.ExecuteCoroutine(EatBurger());
+            guest.StartCoroutine(EatBurger());
         }
-        else if(guest.destinationSetter.target == NPCGlobalData.Instance.beerStand)
+        else if(guest.destinationSetter.target == NPCManager.Instance.beerStand)
         {
-            guest.ExecuteCoroutine(DrinkBeer());
+            guest.StartCoroutine(DrinkBeer());
         }
-        else if(guest.destinationSetter.target == NPCGlobalData.Instance.toilet)
+        else if(guest.destinationSetter.target == NPCManager.Instance.toilet)
         {
-            guest.ExecuteCoroutine(Peeing());
+            guest.StartCoroutine(Peeing());
         }
     }
     public override void ExitState()
@@ -36,24 +36,27 @@ public class RestoreState : BaseState
     }
     IEnumerator EatBurger()
     {
-        guest.hungryMeter = NPCGlobalData.Instance.initialHungryMeter;
-        yield return new WaitForSeconds(NPCGlobalData.Instance.eatTime);
+        PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.burgerPrice);
+        guest.hungryMeter = NPCManager.Instance.initialHungryMeter;
+        yield return new WaitForSeconds(NPCManager.Instance.eatTime);
         guest.SwitchState(guest.cheerState);
         
     }
 
     IEnumerator DrinkBeer()
     {
-        guest.thristMeter = NPCGlobalData.Instance.initialThristMeter;
-        yield return new WaitForSeconds(NPCGlobalData.Instance.drinkTime);
+        PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.beerPrice);
+        guest.thristMeter = NPCManager.Instance.initialThristMeter;
+        yield return new WaitForSeconds(NPCManager.Instance.drinkTime);
         guest.SwitchState(guest.cheerState);
         
     }
 
     IEnumerator Peeing()
     {
-        guest.urgencyMeter = NPCGlobalData.Instance.initialUregencyMeter;
-        yield return new WaitForSeconds(NPCGlobalData.Instance.peeTime);
+        PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.toiletPrice);
+        guest.urgencyMeter = NPCManager.Instance.initialUregencyMeter;
+        yield return new WaitForSeconds(NPCManager.Instance.peeTime);
         guest.SwitchState(guest.cheerState);
         
     }

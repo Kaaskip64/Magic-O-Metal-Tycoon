@@ -53,10 +53,10 @@ public class Guest : NPC_FSM
     protected override void Start()
     {
         //NPC value init
-        hungryMeter = NPCGlobalData.Instance.initialHungryMeter + Random.Range(-10, 10);
-        thristMeter = NPCGlobalData.Instance.initialThristMeter + Random.Range(-10, 10);
-        urgencyMeter = NPCGlobalData.Instance.initialUregencyMeter + Random.Range(-10, 10);
-        satisfaction = NPCGlobalData.Instance.initialSatisfaction + Random.Range(-10, 10);
+        hungryMeter = NPCManager.Instance.initialHungryMeter + Random.Range(-10, 10);
+        thristMeter = NPCManager.Instance.initialThristMeter + Random.Range(-10, 10);
+        urgencyMeter = NPCManager.Instance.initialUregencyMeter + Random.Range(-10, 10);
+        satisfaction = NPCManager.Instance.initialSatisfaction + Random.Range(-10, 10);
 
         //Initialize state
         SwitchState(cheerState);
@@ -110,12 +110,5 @@ public class Guest : NPC_FSM
                 rb.AddForce(perpendicularDirection* offsetRatio);
             }
         }
-    }
-
-
-
-    public void ExecuteCoroutine(IEnumerator routine)
-    {
-        StartCoroutine(routine);
     }
 }
