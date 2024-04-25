@@ -9,7 +9,7 @@ public class StageBuilder : BuildingSystem
     public GameObject blankTileMap;
     public TileBase currentStageTile;
     public BuildingProperties properties;
-    public GameObject shopLineupButton;
+    public GameObject shopStageButton;
 
     public Button eraseButton;
     public bool eraseMode = false;
@@ -23,16 +23,12 @@ public class StageBuilder : BuildingSystem
 
     private void Update()
     {
+
         if (!editingStageTiles)
         {
             return;
         }
 
-        if (shopLineupButton.gameObject.activeInHierarchy)
-        {
-            //TODO
-            //- Make stage selection menu active based on stage list in PlacedBuilding script
-        }
 
         currentInstance.MainTileMap.gameObject.SetActive(true);
 

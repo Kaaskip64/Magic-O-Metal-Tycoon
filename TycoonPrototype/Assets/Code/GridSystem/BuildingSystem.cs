@@ -21,6 +21,7 @@ public class BuildingSystem : MonoBehaviour
 
     //Variables for currently selected building
     private Building currentSelectedBuilding;
+    private Color currentBuildingColor;
     private Vector3 prevPos;
     private BoundsInt prevArea;
 
@@ -103,7 +104,7 @@ public class BuildingSystem : MonoBehaviour
                     MainTileMap.gameObject.SetActive(true);
                     SetTilesBlock(currentSelectedBuilding.area, TileType.White, MainTileMap);
                     currentSelectedBuilding.Placed = false;
-                    currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 0.5f);
+                    currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
 
                 }
             }
@@ -124,9 +125,12 @@ public class BuildingSystem : MonoBehaviour
     public void InitializeWithBuilding(GameObject building) //Initialises building at mouse position and follows it
     {
         currentSelectedBuilding = Instantiate(building, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
+        currentSelectedBuilding.gameObject.name = building.gameObject.name;
         FollowBuilding(currentSelectedBuilding.area);
         MainTileMap.gameObject.SetActive(true);
-        currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 0.5f);
+
+        currentBuildingColor = currentSelectedBuilding.image.color;
+        currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
     }
 
     private void ClearArea() //clears building placement area
@@ -189,7 +193,7 @@ public class BuildingSystem : MonoBehaviour
     public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
     {
         currentSelectedBuilding.Place();
-        currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 1f);
+        currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 1f);
 
         AstarPath.active.data.gridGraph.Scan();
 
@@ -214,6 +218,13 @@ public class BuildingSystem : MonoBehaviour
             case BuildingProperties.BuildingType.Bathroom:
                 Debug.Log(currentSelectedBuilding.properties.type);
                 placedBuildings.bathroomStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                break;
+
+            case BuildingProperties.BuildingType.Audience:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
+                currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
+
                 break;
         }
     }
