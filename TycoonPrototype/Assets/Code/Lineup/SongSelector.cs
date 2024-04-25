@@ -5,18 +5,31 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class SongSelector : MonoBehaviour, IPointerClickHandler
+public class SongSelector : MonoBehaviour
 {
     [SerializeField]
     private GameObject currentNodeSelected;
     [SerializeField] private BandListings bandListings;
-    [SerializeField] private List<GameObject> musicDataList;
-    
-    public void OnPointerClick(PointerEventData pointerEventData)
+    public GameObject MusicSelection;
+    private void Start()
     {
-        Debug.Log(pointerEventData);
+        bandListings.bansListSorted += AddListeners;
     }
-    
+
+
+    public void AddListeners(List<GameObject> bandList)
+    {
+        foreach (GameObject musicNode in bandList)
+        {
+          MusicListDataEvents mNode =  musicNode.GetComponent<MusicListDataEvents>();
+          mNode.dataTransfer += SaveData;
+        }
+    }
+
+    public void SaveData(BandListingData data)
+    {
+        currentNodeSelected.GetComponentInParent<NewBandData>().setNewBandData(data);
+    }
     
     public GameObject getCurrentNodeSelected()
     {

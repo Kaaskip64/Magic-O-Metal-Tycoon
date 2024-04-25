@@ -14,6 +14,9 @@ public class BandListings : MonoBehaviour
 
     public List<BandListingData> BandData;
 
+    public delegate void BandlistingFilledEvent(List<GameObject> bandList);
+
+    public event BandlistingFilledEvent bansListSorted;
     public async Task AddNewBandAddressable()
     {
         AsyncOperationHandle<GameObject> goHandle = Addressables.LoadAssetAsync<GameObject>("BandNode");
@@ -49,13 +52,18 @@ public class BandListings : MonoBehaviour
         {   
             await AddNewBandAddressable();
         }
+
+        if (bansListSorted != null)
+        {
+            bansListSorted(BandsAmount);
+        }
         SortData();
     }
 
     public void SortData()
     {
         for(int i = 0; i <BandData.Count; i++)
-        {
+        { 
             BandListingDataTranslator data = BandsAmount[i].GetComponent<BandListingDataTranslator>();
            data.data = BandData[i];
            data.translateData();

@@ -14,12 +14,13 @@ public class SongSelectorButton : MonoBehaviour
         grandParent = transform.parent.parent;
         button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(setCurrentActiveButton);
+        
     }
 
     public void setCurrentActiveButton()
     {
         SongSelector SSelector = grandParent.gameObject.GetComponent<SongSelector>();
+        SSelector.MusicSelection.SetActive(true);
         SSelector.SetCurrentNodeSelected(this.gameObject);
     }
-    
 }
