@@ -65,11 +65,12 @@ public class BuildingSystem : MonoBehaviour
         //raycast
         rayCast = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-
+        /*
         if (EventSystem.current.IsPointerOverGameObject(0))
         {
             return;
         }
+        */
 
         if (!currentSelectedBuilding.Placed) //Selected building follows mouse as long as not placed
         {
@@ -90,7 +91,8 @@ public class BuildingSystem : MonoBehaviour
             if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
             {
                 TruePlaceBuilding(); //Places building
-                MainTileMap.gameObject.SetActive(false);
+                InitializeWithBuilding(currentSelectedBuilding.gameObject);
+                currentSelectedBuilding.Placed = false;
 
 
             } else if (Physics.Raycast(rayCast, out hit)) //if on click there is no selected building, try to find a new one with raycast
@@ -113,6 +115,7 @@ public class BuildingSystem : MonoBehaviour
         {
             ClearArea();
             Destroy(currentSelectedBuilding.gameObject);
+            MainTileMap.gameObject.SetActive(false);
         }
 
 
@@ -193,12 +196,25 @@ public class BuildingSystem : MonoBehaviour
         switch (currentSelectedBuilding.properties.type)
         {
             //switch case to funnel placed building in the corresponding list
-            //TO DO: add other building type cases
             case BuildingProperties.BuildingType.Food:
                 Debug.Log(currentSelectedBuilding.properties.type);
                 placedBuildings.foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
+            case BuildingProperties.BuildingType.Beer:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.beerStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                break;
+
+            case BuildingProperties.BuildingType.Merch:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.merchStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                break;
+
+            case BuildingProperties.BuildingType.Bathroom:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.bathroomStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                break;
         }
     }
 

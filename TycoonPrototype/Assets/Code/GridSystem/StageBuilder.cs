@@ -9,6 +9,7 @@ public class StageBuilder : BuildingSystem
     public GameObject blankTileMap;
     public TileBase currentStageTile;
     public BuildingProperties properties;
+    public GameObject shopLineupButton;
 
     public Button eraseButton;
     public bool eraseMode = false;
@@ -25,6 +26,12 @@ public class StageBuilder : BuildingSystem
         if (!editingStageTiles)
         {
             return;
+        }
+
+        if (shopLineupButton.gameObject.activeInHierarchy)
+        {
+            //TODO
+            //- Make stage selection menu active based on stage list in PlacedBuilding script
         }
 
         currentInstance.MainTileMap.gameObject.SetActive(true);
@@ -65,7 +72,7 @@ public class StageBuilder : BuildingSystem
             tempComposite.isTrigger = true;
             tempComposite.attachedRigidbody.isKinematic = true;
             tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
-
+            currentInstance.placedBuildings.stages.Add(tempStage);
             
 
             currentInstance.MainTileMap.gameObject.SetActive(false);
