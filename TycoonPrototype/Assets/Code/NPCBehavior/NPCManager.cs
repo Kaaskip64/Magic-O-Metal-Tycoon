@@ -59,5 +59,9 @@ public class NPCManager : MonoBehaviour
         Instantiate(npcPrefab, spawnPosition);
     }
 
+    private void Test()
+    {
+        
+    }
 
 }
