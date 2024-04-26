@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AvailablePlaylist : MonoBehaviour
 {
+
+    /*
     public List<Song> availableSongs;
 
     private void Start()
@@ -13,4 +15,6 @@ public class AvailablePlaylist : MonoBehaviour
             song.songLength = song.songFile.length;
         }
     }
+    */
+
 }

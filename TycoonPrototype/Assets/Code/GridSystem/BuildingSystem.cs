@@ -21,6 +21,7 @@ public class BuildingSystem : MonoBehaviour
 
     //Variables for currently selected building
     private Building currentSelectedBuilding;
+    private Color currentBuildingColor;
     private Vector3 prevPos;
     private BoundsInt prevArea;
 
@@ -65,11 +66,12 @@ public class BuildingSystem : MonoBehaviour
         //raycast
         rayCast = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-
+        
         if (EventSystem.current.IsPointerOverGameObject(0))
         {
             return;
         }
+        
 
         if (!currentSelectedBuilding.Placed) //Selected building follows mouse as long as not placed
         {
@@ -90,7 +92,8 @@ public class BuildingSystem : MonoBehaviour
             if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
             {
                 TruePlaceBuilding(); //Places building
-                MainTileMap.gameObject.SetActive(false);
+                InitializeWithBuilding(currentSelectedBuilding.gameObject);
+                currentSelectedBuilding.Placed = false;
 
 
             } else if (Physics.Raycast(rayCast, out hit)) //if on click there is no selected building, try to find a new one with raycast
@@ -101,7 +104,7 @@ public class BuildingSystem : MonoBehaviour
                     MainTileMap.gameObject.SetActive(true);
                     SetTilesBlock(currentSelectedBuilding.area, TileType.White, MainTileMap);
                     currentSelectedBuilding.Placed = false;
-                    currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 0.5f);
+                    currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
 
                 }
             }
@@ -113,6 +116,7 @@ public class BuildingSystem : MonoBehaviour
         {
             ClearArea();
             Destroy(currentSelectedBuilding.gameObject);
+            MainTileMap.gameObject.SetActive(false);
         }
 
 
@@ -121,9 +125,12 @@ public class BuildingSystem : MonoBehaviour
     public void InitializeWithBuilding(GameObject building) //Initialises building at mouse position and follows it
     {
         currentSelectedBuilding = Instantiate(building, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
+        currentSelectedBuilding.gameObject.name = building.gameObject.name;
         FollowBuilding(currentSelectedBuilding.area);
         MainTileMap.gameObject.SetActive(true);
-        currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 0.5f);
+
+        currentBuildingColor = currentSelectedBuilding.image.color;
+        currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
     }
 
     private void ClearArea() //clears building placement area
@@ -186,19 +193,39 @@ public class BuildingSystem : MonoBehaviour
     public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
     {
         currentSelectedBuilding.Place();
-        currentSelectedBuilding.image.color = new Color(1f, 1f, 1f, 1f);
+        currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 1f);
 
         AstarPath.active.data.gridGraph.Scan();
 
         switch (currentSelectedBuilding.properties.type)
         {
             //switch case to funnel placed building in the corresponding list
-            //TO DO: add other building type cases
             case BuildingProperties.BuildingType.Food:
                 Debug.Log(currentSelectedBuilding.properties.type);
                 placedBuildings.foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
+            case BuildingProperties.BuildingType.Beer:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.beerStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                break;
+
+            case BuildingProperties.BuildingType.Merch:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.merchStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                break;
+
+            case BuildingProperties.BuildingType.Bathroom:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.bathroomStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                break;
+
+            case BuildingProperties.BuildingType.Audience:
+                Debug.Log(currentSelectedBuilding.properties.type);
+                placedBuildings.audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
+                currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
+
+                break;
         }
     }
 

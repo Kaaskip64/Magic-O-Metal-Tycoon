@@ -13,7 +13,8 @@ public class BuildingProperties : ScriptableObject
         Beer,
         Merch,
         Bathroom,
-        Stage
+        Stage,
+        Audience
     };
 
     public BuildingType type;

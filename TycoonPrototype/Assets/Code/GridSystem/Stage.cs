@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Stage : MonoBehaviour
 {
-    public List<Song> currentStagePlaylist;
+    //public List<Song> currentStagePlaylist;
 
     private Tilemap tilemap;
     private CompositeCollider2D collider;
@@ -24,14 +24,17 @@ public class Stage : MonoBehaviour
 
         stageCenterTile = tilemap.WorldToCell(stageCenter);
 
+
+
+        /*
         audienceAreaSize.position = BuildingSystem.currentInstance.MainTileMap.WorldToCell(stageCenter);
 
         audienceAreaSize.size.Set(Mathf.RoundToInt(collider.bounds.size.x) , /// BuildingSystem.currentInstance.gridLayout.cellSize.x),
             Mathf.RoundToInt(collider.bounds.size.y) / Mathf.RoundToInt(BuildingSystem.currentInstance.gridLayout.cellSize.y),
             1);
 
-        //audienceAreaSize.xMax = Mathf.RoundToInt(collider.bounds.size.x) / Mathf.RoundToInt(BuildingSystem.currentInstance.gridLayout.cellSize.x);
-
+        audienceAreaSize.xMax = Mathf.RoundToInt(collider.bounds.size.x) / Mathf.RoundToInt(BuildingSystem.currentInstance.gridLayout.cellSize.x);
+        */
     }
 
     private void Update()
@@ -56,16 +59,14 @@ public class Stage : MonoBehaviour
     {
         //When stage is clicked, everything in this function gets executed
         Debug.Log(gameObject.name);
-        Debug.Log(tilemap.CellToWorld(stageCenterTile));
-        Debug.Log(Mathf.RoundToInt(collider.bounds.size.x));
-        Debug.Log(BuildingSystem.currentInstance.gridLayout.cellSize.x);
+        //Debug.Log(tilemap.CellToWorld(stageCenterTile));
 
 
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(tilemap.CellToWorld(stageCenterTile), 3);
+        //Gizmos.DrawSphere(tilemap.CellToWorld(stageCenterTile), 3);
 
     }
 }

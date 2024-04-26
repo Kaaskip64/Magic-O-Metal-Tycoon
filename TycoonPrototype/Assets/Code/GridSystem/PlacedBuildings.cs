@@ -11,6 +11,8 @@ public class PlacedBuildings : MonoBehaviour
     public List<Building> merchStands;
     public List<Building> beerStands;
     public List<Building> bathroomStands;
+    public List<Building> audienceAreas;
+    public List<Stage> stages;
 
 
 }
