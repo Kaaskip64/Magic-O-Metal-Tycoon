@@ -66,12 +66,12 @@ public class BuildingSystem : MonoBehaviour
         //raycast
         rayCast = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-        /*
+        
         if (EventSystem.current.IsPointerOverGameObject(0))
         {
             return;
         }
-        */
+        
 
         if (!currentSelectedBuilding.Placed) //Selected building follows mouse as long as not placed
         {
