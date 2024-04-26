@@ -5,14 +5,18 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class BandListings : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> BandsAmount;
 
-    public List<ScriptableObject> BandData;
+    public List<BandListingData> BandData;
 
+    public delegate void BandlistingFilledEvent(List<GameObject> bandList);
+
+    public event BandlistingFilledEvent bansListSorted;
     public async Task AddNewBandAddressable()
     {
         AsyncOperationHandle<GameObject> goHandle = Addressables.LoadAssetAsync<GameObject>("BandNode");
@@ -42,15 +46,34 @@ public class BandListings : MonoBehaviour
     }
     
     
-    public void SortListing()
+    public async void SortListing()
     {
-        foreach (ScriptableObject bandData in BandData)
+        foreach (BandListingData bandData in BandData)
+        {   
+            await AddNewBandAddressable();
+        }
+
+        if (bansListSorted != null)
         {
-            AddNewBandAddressable();
-            Debug.Log("hit");
-        }  
+            bansListSorted(BandsAmount);
+        }
+        SortData();
     }
 
+    public void SortData()
+    {
+        for(int i = 0; i <BandData.Count; i++)
+        { 
+            BandListingDataTranslator data = BandsAmount[i].GetComponent<BandListingDataTranslator>();
+           data.data = BandData[i];
+           data.translateData();
+        }
+    }
+
+    public List<GameObject> getBandAmount()
+    {
+        return BandsAmount;
+    }
     public void Start()
     {
         SortListing();

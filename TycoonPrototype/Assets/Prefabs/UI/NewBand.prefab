@@ -255,7 +255,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -562,6 +562,7 @@ GameObject:
   - component: {fileID: 9177297677460824756}
   - component: {fileID: 9177297677347279766}
   - component: {fileID: 9177297677347279752}
+  - component: {fileID: 1622291222028630575}
   m_Layer: 5
   m_Name: NewBand
   m_TagString: Untagged
@@ -614,6 +615,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 9177297677347279755}
   ParentObject: {fileID: 0}
+--- !u!114 &1622291222028630575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9177297677347279755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7cfe0fb2e9018a4688389e0fdf0f8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  text: {fileID: 5859648614229676610}
 --- !u!1 &9177297677765279160
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,6 +641,7 @@ GameObject:
   - component: {fileID: 9177297677765279172}
   - component: {fileID: 9177297677765279175}
   - component: {fileID: 9177297677765279174}
+  - component: {fileID: 3984422579697256577}
   m_Layer: 5
   m_Name: SongSelector
   m_TagString: Untagged
@@ -736,3 +752,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3984422579697256577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9177297677765279160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc513c481d4d9024abc0ccfd87a11748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grandParent: {fileID: 0}
+  button: {fileID: 0}

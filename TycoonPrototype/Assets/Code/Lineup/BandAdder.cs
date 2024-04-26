@@ -17,15 +17,14 @@ public class BandAdder : MonoBehaviour
     public async Task AddNewBandAddressable()
     {
         AsyncOperationHandle<GameObject> goHandle = Addressables.LoadAssetAsync<GameObject>("BandPrefab");
-
         await goHandle.Task;
-
         if (goHandle.Status == AsyncOperationStatus.Succeeded)
         {
             GameObject obj = goHandle.Result;
             if (this != null && transform.parent != null && transform.parent != null)
             {
                GameObject BandOpening =  Instantiate(obj, transform.parent);
+               BandOpening.transform.parent.gameObject.GetComponent<BandDataTransferScript>().UpdateListings(BandOpening);
             }
             else
             {
@@ -41,23 +40,18 @@ public class BandAdder : MonoBehaviour
             }
         }
     }
-
-
     public void AddNewBand()
     {
         AddNewBandAddressable();
     }
-
-  public void SetParent(RectTransform newParent)
+    public void SetParent(RectTransform newParent)
   {
       ParentObject = newParent;
   }
-
-  public RectTransform GetParent()
+    public RectTransform GetParent()
   {
       return ParentObject;
   }
-
   public void SetObjectToSpawn(GameObject newObject)
   {
       objectToSpawn = newObject;

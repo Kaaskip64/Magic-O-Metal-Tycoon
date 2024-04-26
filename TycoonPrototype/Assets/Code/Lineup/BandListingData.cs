@@ -6,8 +6,8 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/BandData", order = 1)]
 public class BandListingData : ScriptableObject
 {
-   public Image BandImage;
+   public Sprite BandImage;
    public String BandName;
-   public String AlbumName;
+   public String SongName;
    public AudioClip MusicFile;
 }

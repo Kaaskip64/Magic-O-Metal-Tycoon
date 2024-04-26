@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
-  m_Name: Data
+  m_Name: IronMaidenNumberOfTheBeast
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  AlbumName: 
+  BandImage: {fileID: 21300000, guid: 0863394c0641c76498863365047ff9a0, type: 3}
+  BandName: Iron Maiden
+  SongName: Legacy of the beast
   MusicFile: {fileID: 0}
