@@ -23,7 +23,9 @@ public class BandDataTransferScript : MonoBehaviour
     {
         foreach (GameObject node in nodes)
         {
+            nodes.Remove(node);
             Destroy(node);
+            
         }
     }
 }
