@@ -18,4 +18,12 @@ public class BandDataTransferScript : MonoBehaviour
     {
         return nodes;
     }
+
+    public void ResetListings()
+    {
+        foreach (GameObject node in nodes)
+        {
+            Destroy(node);
+        }
+    }
 }
