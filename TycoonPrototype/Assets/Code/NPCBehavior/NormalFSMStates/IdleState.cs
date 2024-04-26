@@ -6,10 +6,10 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class IdleState : BaseState
 {
     private Vector3 initialPosition;
-    private float wanderRadius = 5f; // ¶¨ÒåÂþ²½°ë¾¶
-    private float wanderTimer; // ¶¨ÒåÂþ²½¼ÆÊ±Æ÷
-    private float minWaitTime = 1f; // ×îÐ¡µÈ´ýÊ±¼ä
-    private float maxWaitTime = 2f; // ×î´óµÈ´ýÊ±¼ä
+    private float wanderRadius = 5f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¾¶
+    private float wanderTimer; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    private float minWaitTime = 1f; // ï¿½ï¿½Ð¡ï¿½È´ï¿½Ê±ï¿½ï¿½
+    private float maxWaitTime = 2f; // ï¿½ï¿½ï¿½È´ï¿½Ê±ï¿½ï¿½
 
     private Guest attachedGuest;
     public override void EnterState(object obj)
@@ -17,10 +17,10 @@ public class IdleState : BaseState
         Debug.Log("EnterIdleState");
 
         attachedGuest = (Guest)obj;
-        // »ñÈ¡½ÇÉ«³õÊ¼Î»ÖÃ
+        // ï¿½ï¿½È¡ï¿½ï¿½É«ï¿½ï¿½Ê¼Î»ï¿½ï¿½
         initialPosition = attachedGuest.transform.position;
 
-        // ³õÊ¼»¯Âþ²½¼ÆÊ±Æ÷
+        // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         wanderTimer = Random.Range(minWaitTime, maxWaitTime);
     }
 
@@ -31,30 +31,30 @@ public class IdleState : BaseState
 
     public override void OnUpdate()
     {
-        // ¸üÐÂÂþ²½¼ÆÊ±Æ÷
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         wanderTimer -= Time.deltaTime;
         Wander();
 
-        // Èç¹ûÂþ²½¼ÆÊ±Æ÷Ð¡ÓÚµÈÓÚ0£¬Ö´ÐÐÂþ²½ÐÐÎª
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ð¡ï¿½Úµï¿½ï¿½ï¿½0ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª
         if (wanderTimer <= 0f)
         {
             
-            wanderTimer = Random.Range(minWaitTime, maxWaitTime); // ÖØÐÂÉèÖÃÂþ²½¼ÆÊ±Æ÷
+            wanderTimer = Random.Range(minWaitTime, maxWaitTime); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         }
     }
 
     private void Wander()
     {
-        // Éú³ÉËæ»úÆ«ÒÆÁ¿
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ï¿½ï¿½
         Vector3 randomOffset = Random.insideUnitSphere * wanderRadius;
 
-        // ½«Ëæ»úÆ«ÒÆÁ¿Ó¦ÓÃµ½³õÊ¼Î»ÖÃ¸½½ü
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ãµï¿½ï¿½ï¿½Ê¼Î»ï¿½Ã¸ï¿½ï¿½ï¿½
         Vector3 targetPosition = initialPosition + randomOffset;
 
-        // ¼ÆËãÒÆ¶¯ËÙ¶È
-        float moveSpeed = 5f; // ¿ÉÒÔ¸ù¾ÝÐèÒªµ÷ÕûÒÆ¶¯ËÙ¶È
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
+        float moveSpeed = 5f; // ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
 
-        // ÒÆ¶¯½ÇÉ«ÏòÄ¿±êÎ»ÖÃ
+        // ï¿½Æ¶ï¿½ï¿½ï¿½É«ï¿½ï¿½Ä¿ï¿½ï¿½Î»ï¿½ï¿½
         attachedGuest.transform.position = Vector3.MoveTowards(attachedGuest.transform.position, targetPosition, moveSpeed * Time.deltaTime);
     }
 

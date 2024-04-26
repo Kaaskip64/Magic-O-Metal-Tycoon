@@ -13,7 +13,6 @@ public class PlayerPropertiesTest : MonoBehaviour
 
     private void Awake()
     {
-        ShopSystem.SuccessfulPurchase += MoneyChange;
         ShopSystem.MoneyCheck += MoneyCheck;
     }
     private void MoneyChange(int value)

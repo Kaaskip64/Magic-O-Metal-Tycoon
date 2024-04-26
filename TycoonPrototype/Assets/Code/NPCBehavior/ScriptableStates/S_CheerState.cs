@@ -1,23 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class CheerState : BaseState
+[CreateAssetMenu(fileName = "S_CheerState", menuName = "StatesObject/CheerState")]
+public class S_CheerState : S_BaseState
 {
-    Guest guest;
+    S_Guest guest;
     public override void EnterState(object obj)
     {
-        guest = obj as Guest;
+        guest = obj as S_Guest;
+        Debug.Log(NPCManager.Instance == null);
         guest.GoToTarget(NPCManager.Instance.stage);
     }
 
     public override void ExitState()
     {
-        
+
     }
 
     public override void OnUpdate()
     {
+        if (NPCManager.Instance == null)
+            return;
         guest.hungryMeter -= NPCManager.Instance.hungryChangeRate * Time.deltaTime;
         guest.thristMeter -= NPCManager.Instance.thirstChangeRate * Time.deltaTime;
         guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate * Time.deltaTime;

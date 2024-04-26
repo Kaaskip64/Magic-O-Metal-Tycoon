@@ -1,17 +1,17 @@
-﻿using Pathfinding;
+using Pathfinding;
 using System.Collections;
 using UnityEngine;
 
-public class Guest : NPC_FSM
+public class S_Guest : MonoBehaviour
 {
     [Header("References")]
     public AIDestinationSetter destinationSetter;
     public AIPath aIPath;
-    public IdleState idleState;
-    public BreakState breakState;
-    public CheerState cheerState;
-    public RestoreState restoreState;
-    public TestState testState;
+    public S_BreakState breakState;
+    public S_CheerState cheerState;
+    public S_RestoreState restoreState;
+
+    protected S_BaseState currentState;
 
     [Header("NPC Stats")]
     public float hungryMeter;
@@ -40,17 +40,11 @@ public class Guest : NPC_FSM
         destinationSetter = GetComponent<AIDestinationSetter>();
         aIPath = GetComponent<AIPath>();
 
-        //Init states
-        idleState = new IdleState();
-        cheerState = new CheerState();
-        breakState = new BreakState();
-        restoreState = new RestoreState();
-
         //Physics
         rb = GetComponent<Rigidbody2D>();
     }
 
-    protected override void Start()
+    protected void Start()
     {
         //NPC value init
         hungryMeter = NPCManager.Instance.initialHungryMeter + Random.Range(-10, 10);
@@ -61,21 +55,27 @@ public class Guest : NPC_FSM
         //Initialize state
         SwitchState(cheerState);
     }
-    protected override void OnEnable()
-    {
 
+    public void SwitchState(S_BaseState state)
+    {
+        if (currentState != null)
+        {
+            currentState.ExitState();
+        }
+        currentState = state;
+        currentState.EnterState(this);
     }
 
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
+        currentState.OnUpdate();
 
         movingDirection = (destinationTransform.position - transform.position).normalized;
     }
 
     private void FixedUpdate()
     {
-        CollisionAvoid();       
+        CollisionAvoid();
     }
 
     public void GoToTarget(Transform destination)
@@ -107,8 +107,10 @@ public class Guest : NPC_FSM
             {
                 Debug.Log("Ray hit: " + hit.collider.gameObject.name + " at distance: " + hit.distance);
                 Vector2 perpendicularDirection = new Vector2(-movingDirection.y, movingDirection.x);
-                rb.AddForce(perpendicularDirection* offsetRatio);
+                rb.AddForce(perpendicularDirection * offsetRatio);
             }
         }
     }
+
+
 }

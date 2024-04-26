@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class BreakState : BaseState
+[CreateAssetMenu(fileName = "S_BreakState", menuName = "StatesObject/BreakState")]
+public class S_BreakState : S_BaseState
 {
-    private Guest guest;
+    private S_Guest guest;
 
     public override void EnterState(object obj)
     {
-        guest = obj as Guest;
+        guest = obj as S_Guest;
         SetDestination();
     }
 

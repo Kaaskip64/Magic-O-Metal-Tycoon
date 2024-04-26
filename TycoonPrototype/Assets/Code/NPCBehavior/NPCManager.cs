@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class NPCGlobalData : MonoBehaviour
+public class NPCManager : MonoBehaviour
 {
     
-    public static NPCGlobalData Instance { get; private set; }
+    public static NPCManager Instance { get; private set; }
 
     [Header("Destinations")]
     public Transform stage;
@@ -33,7 +33,14 @@ public class NPCGlobalData : MonoBehaviour
     public float eatTime;
     public float drinkTime;
     public float peeTime;
-    
+
+    [Header("ServiceCost")]
+    public float burgerPrice;
+    public float beerPrice;
+    public float toiletPrice;
+
+    [Header("NPC Object")]
+    public GameObject npcPrefab;
     private void Awake()
     {
         if (Instance == null)
@@ -45,6 +52,16 @@ public class NPCGlobalData : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SpawnNPC(Transform spawnPosition)
+    {
+        Instantiate(npcPrefab, spawnPosition);
+    }
+
+    private void Test()
+    {
+        
     }
 
 }
