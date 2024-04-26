@@ -92,8 +92,8 @@ public class BuildingSystem : MonoBehaviour
             if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
             {
                 TruePlaceBuilding(); //Places building
-                InitializeWithBuilding(currentSelectedBuilding.gameObject);
-                currentSelectedBuilding.Placed = false;
+                //InitializeWithBuilding(currentSelectedBuilding.gameObject);
+                //currentSelectedBuilding.Placed = false;
 
 
             } else if (Physics.Raycast(rayCast, out hit)) //if on click there is no selected building, try to find a new one with raycast
