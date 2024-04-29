@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class StageBuilder : BuildingSystem
+public class StageBuilder : MonoBehaviour
 {
     public GameObject blankTileMap;
     public TileBase currentStageTile;
@@ -30,7 +30,7 @@ public class StageBuilder : BuildingSystem
         }
 
 
-        currentInstance.MainTileMap.gameObject.SetActive(true);
+        BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
 
         Vector3 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
             Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
@@ -46,7 +46,7 @@ public class StageBuilder : BuildingSystem
         if (Input.GetMouseButton(0))
         {
             stageMap.SetTile(currentTilePos, currentStageTile);
-            SetTilesBlock(placementArea, TileType.Red, MainTileMap);
+            BuildingSystem.SetTilesBlock(placementArea, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
             //TODO
             //-Economy
         }
@@ -68,14 +68,14 @@ public class StageBuilder : BuildingSystem
             tempComposite.isTrigger = true;
             tempComposite.attachedRigidbody.isKinematic = true;
             tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
-            currentInstance.placedBuildings.stages.Add(tempStage);
-            
+            BuildingSystem.currentInstance.placedBuildings.stages.Add(tempStage);
 
-            currentInstance.MainTileMap.gameObject.SetActive(false);
+
+            BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);
         } else
         {
             stageObject = Instantiate(blankTileMap);
-            stageObject.transform.SetParent(gridLayout.gameObject.transform);
+            stageObject.transform.SetParent(BuildingSystem.currentInstance.gridLayout.gameObject.transform);
             stageMap = stageObject.GetComponent<Tilemap>();
         }
 
