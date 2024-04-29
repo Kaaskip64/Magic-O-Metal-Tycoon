@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class PlayerProperties : MonoBehaviour
 {
     // Start is called before the first frame update
     public static PlayerProperties Instance { get; private set; }
+    public static Action<float> MoneyAction;
+
 
     [SerializeField]
     public float money;
@@ -19,7 +22,6 @@ public class PlayerProperties : MonoBehaviour
     }
     void Start()
     {
-        ShopSystem.SuccessfulPurchase += ChangeMoney;
         ShopSystem.MoneyCheck += MoneyCheck;
     }
 
@@ -31,7 +33,11 @@ public class PlayerProperties : MonoBehaviour
 
     public void ChangeMoney(float value)
     {
-        money += value;
+        if (value <= money)
+        {
+            money += value;
+            MoneyAction?.Invoke(money);
+        }
     }
 
     public void ChangeCredit(float value)

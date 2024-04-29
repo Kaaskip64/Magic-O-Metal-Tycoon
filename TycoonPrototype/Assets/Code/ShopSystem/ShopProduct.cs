@@ -9,12 +9,10 @@ public class ShopProduct : MonoBehaviour
 
     [SerializeField] private string productName = ""; // Name of the product
     [SerializeField] private float price; // Price of the product
-    [SerializeField] private int stock; // Stock of the product
     [SerializeField] public GameObject itemPrefab; // Prefab of the item associated with the product
 
     public string ProductName => productName; // Property to get the product name
     public float Price => price; // Property to get the product price
-    public int Stock => stock; // Property to get the product stock
 
     public enum ProductSubCategory // Enum to define product subcategories
     {
@@ -46,13 +44,6 @@ public class ShopProduct : MonoBehaviour
         {
             shopSystem.PurchaseProduct(ProductName); // Start purchase process for this product
         }
-    }
-
-
-    // Method to change the stock of the product
-    public void ChangeStock(int value)
-    {
-        stock += value;
     }
 
     // Method to change the price of the product

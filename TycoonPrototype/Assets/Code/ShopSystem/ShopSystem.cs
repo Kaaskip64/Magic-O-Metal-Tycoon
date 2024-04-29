@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class ShopSystem : MonoBehaviour
 {
-    public static UnityAction<float> SuccessfulPurchase; // Event to notify successful purchase
     public static Func<ShopProduct, bool> MoneyCheck; // Function to check if player has enough money
 
     private Dictionary<string, ShopProduct> productDict = new Dictionary<string, ShopProduct>(); // Dictionary to store products
@@ -30,8 +29,7 @@ public class ShopSystem : MonoBehaviour
                 if (MoneyCheck != null && MoneyCheck(product)) // Check if player has enough money
                 {
                     BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
-                    product.ChangeStock(-1); // Reduce stock
-                    SuccessfulPurchase(-(int)product.Price); // Notify successful purchase
+                    //product.ChangeStock(-1); // Reduce stock
                     Debug.Log("Purchase product: " + productName);
                     Debug.Log("Product stock: " + product.Stock);
                 }
