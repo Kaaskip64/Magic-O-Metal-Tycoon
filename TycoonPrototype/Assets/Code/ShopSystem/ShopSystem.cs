@@ -29,7 +29,7 @@ public class ShopSystem : MonoBehaviour
             {
                 if (MoneyCheck != null && MoneyCheck(product)) // Check if player has enough money
                 {
-                    BuildingSystem.currentInstance.InitializeWithBuilding(product.itemPrefab); // Initialize with building
+                    BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
                     product.ChangeStock(-1); // Reduce stock
                     SuccessfulPurchase(-(int)product.Price); // Notify successful purchase
                     Debug.Log("Purchase product: " + productName);
@@ -55,12 +55,6 @@ public class ShopSystem : MonoBehaviour
     public void AddProduct(ShopProduct product)
     {
         productDict.Add(product.ProductName, product);
-    }
-
-    // Method to start the purchase process
-    public void StartPurchase(string currentProductName)
-    {
-        shopUI.ShowPurchaseConfirmPanel(productDict[currentProductName]);
     }
 
     // Method to confirm the purchase

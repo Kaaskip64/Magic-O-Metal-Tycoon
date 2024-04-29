@@ -44,18 +44,10 @@ public class ShopProduct : MonoBehaviour
     {
         if (shopSystem != null)
         {
-            shopSystem.StartPurchase(ProductName); // Start purchase process for this product
+            shopSystem.PurchaseProduct(ProductName); // Start purchase process for this product
         }
     }
 
-    // Method to confirm the purchase
-    public void PurchaseConfirm()
-    {
-        if (shopSystem != null)
-        {
-            shopSystem.PurchaseProduct(ProductName); // Confirm purchase for this product
-        }
-    }
 
     // Method to change the stock of the product
     public void ChangeStock(int value)

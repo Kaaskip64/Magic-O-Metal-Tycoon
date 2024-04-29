@@ -20,6 +20,7 @@ public class BuildingSystem : MonoBehaviour
     public static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
     //Variables for currently selected building
+    private ShopProduct currentSelectedProduct;
     private Building currentSelectedBuilding;
     private Color currentBuildingColor;
     private Vector3 prevPos;
@@ -92,7 +93,7 @@ public class BuildingSystem : MonoBehaviour
             if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
             {
                 TruePlaceBuilding(); //Places building
-                InitializeWithBuilding(currentSelectedBuilding.gameObject);
+                InitializeWithBuilding(currentSelectedProduct);
                 currentSelectedBuilding.Placed = false;
 
 
@@ -122,10 +123,11 @@ public class BuildingSystem : MonoBehaviour
 
     }
 
-    public void InitializeWithBuilding(GameObject building) //Initialises building at mouse position and follows it
+    public void InitializeWithBuilding(ShopProduct building) //Initialises building at mouse position and follows it
     {
-        currentSelectedBuilding = Instantiate(building, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
-        currentSelectedBuilding.gameObject.name = building.gameObject.name;
+        currentSelectedProduct = building;
+        currentSelectedBuilding = Instantiate(building.itemPrefab, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
+        currentSelectedBuilding.gameObject.name = building.ProductName;
         FollowBuilding(currentSelectedBuilding.area);
         MainTileMap.gameObject.SetActive(true);
 
