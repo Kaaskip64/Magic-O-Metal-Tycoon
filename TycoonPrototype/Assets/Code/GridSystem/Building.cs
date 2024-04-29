@@ -12,6 +12,8 @@ public class Building : MonoBehaviour
 
     public BoundsInt area; //size of the placement area. ALWAYS keep the z value 1, or else it messes up the calculation
 
+    public Transform NPCTarget;
+
     private void Start()
     {
         area = properties.placementArea;

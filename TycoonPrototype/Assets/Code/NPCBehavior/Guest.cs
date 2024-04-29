@@ -70,7 +70,16 @@ public class Guest : NPC_FSM
     {
         base.Update();
 
-        movingDirection = (destinationTransform.position - transform.position).normalized;
+        CalculateMovingDirection();
+        
+    }
+
+    private void CalculateMovingDirection()
+    {
+        if(destinationTransform != null)
+        {
+            movingDirection = (destinationTransform.position - transform.position).normalized;
+        }
     }
 
     private void FixedUpdate()
@@ -80,6 +89,8 @@ public class Guest : NPC_FSM
 
     public void GoToTarget(Transform destination)
     {
+        if(destination == null)
+            return;
         destinationTransform = destination;
         destinationSetter.target = destinationTransform;
     }

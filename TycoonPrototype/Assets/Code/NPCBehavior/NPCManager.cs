@@ -7,9 +7,9 @@ public class NPCManager : MonoBehaviour
 
     [Header("Destinations")]
     public Transform stage;
-    public Transform toilet;
-    public Transform buergerKing;
-    public Transform beerStand;
+    //public Transform toilet;
+    //public Transform buergerKing;
+    //public Transform beerStand;
 
     [Header("BaseMeter")]
     public float initialHungryMeter;

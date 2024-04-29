@@ -13,15 +13,17 @@ public class S_RestoreState : S_BaseState
     {
         guest = obj as S_Guest;
 
-        if (guest.destinationSetter.target == NPCManager.Instance.buergerKing)
+        var buildType = guest.destinationSetter.target.gameObject.GetComponent<Building>().properties.type;
+
+        if (buildType == BuildingProperties.BuildingType.Food)
         {
             guest.StartCoroutine(EatBurger());
         }
-        else if (guest.destinationSetter.target == NPCManager.Instance.beerStand)
+        else if (buildType == BuildingProperties.BuildingType.Beer)
         {
             guest.StartCoroutine(DrinkBeer());
         }
-        else if (guest.destinationSetter.target == NPCManager.Instance.toilet)
+        else if (buildType == BuildingProperties.BuildingType.Bathroom)
         {
             guest.StartCoroutine(Peeing());
         }

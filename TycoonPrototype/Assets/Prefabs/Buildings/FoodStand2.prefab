@@ -148,6 +148,7 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
+  NPCTarget: {fileID: 5991479129788793028}
 --- !u!1 &5113700797749537036
 GameObject:
   m_ObjectHideFlags: 0
