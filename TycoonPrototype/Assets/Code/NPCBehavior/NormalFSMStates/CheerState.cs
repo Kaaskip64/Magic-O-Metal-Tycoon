@@ -8,7 +8,7 @@ public class CheerState : BaseState
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
-        guest.GoToTarget(NPCManager.Instance.stage);
+        guest.GoToTarget(FindStage(BuildingSystem.currentInstance.audienceAreas));
     }
 
     public override void ExitState()
@@ -30,5 +30,22 @@ public class CheerState : BaseState
         {
             guest.SwitchState(guest.breakState);
         }
+    }
+
+    private Transform FindStage(List<Building> stageArea)
+    {
+        if (stageArea.Count == 0)
+        {
+            return null;
+        }
+
+        var targetStage = stageArea[Random.Range(0, stageArea.Count - 1)];
+
+        Transform targetInStageArea;
+        CircleCollider2D audienceBounds = targetStage.gameObject.GetComponent<CircleCollider2D>();
+
+
+        return null;
+
     }
 }
