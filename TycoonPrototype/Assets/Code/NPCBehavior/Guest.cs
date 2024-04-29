@@ -29,6 +29,7 @@ public class Guest : NPC_FSM
     private Rigidbody2D rb;
     private Vector2 movingDirection;
 
+    public Transform audienceAreaTarget;
     private void Awake()
     {
         RefrencenInit();

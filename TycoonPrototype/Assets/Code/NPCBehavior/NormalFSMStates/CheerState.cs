@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 
 public class CheerState : BaseState
@@ -8,6 +9,7 @@ public class CheerState : BaseState
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
+        
         guest.GoToTarget(FindStage(BuildingSystem.currentInstance.audienceAreas));
     }
 
@@ -30,6 +32,8 @@ public class CheerState : BaseState
         {
             guest.SwitchState(guest.breakState);
         }
+
+
     }
 
     private Transform FindStage(List<Building> stageArea)
@@ -41,11 +45,6 @@ public class CheerState : BaseState
 
         var targetStage = stageArea[Random.Range(0, stageArea.Count - 1)];
 
-        Transform targetInStageArea;
-        CircleCollider2D audienceBounds = targetStage.gameObject.GetComponent<CircleCollider2D>();
-
-
-        return null;
-
+        return targetStage.transform;
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4931076014443140396}
   - component: {fileID: 4931076014443140397}
   - component: {fileID: 4931076014443140384}
+  - component: {fileID: 5599477398651336223}
   m_Layer: 0
   m_Name: Guest
   m_TagString: NPC
@@ -234,3 +235,22 @@ MonoBehaviour:
   rayLength: 1.2
   angleRange: 60
   offsetRatio: 5
+  audienceAreaTarget: {fileID: 0}
+--- !u!114 &5599477398651336223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931076014443140394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1fde00d94147246abd927774d35f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  distanceThreshold: 1
+  yOffset: -6
+  radius: 1
