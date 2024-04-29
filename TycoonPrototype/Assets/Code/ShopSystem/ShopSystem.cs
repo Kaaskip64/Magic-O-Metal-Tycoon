@@ -24,24 +24,16 @@ public class ShopSystem : MonoBehaviour
         {
             ShopProduct product = productDict[productName]; // Get the product
 
-            if (product.Stock > 0) // Check if there is enough stock
+            if (MoneyCheck != null && MoneyCheck(product)) // Check if player has enough money
             {
-                if (MoneyCheck != null && MoneyCheck(product)) // Check if player has enough money
-                {
-                    BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
-                    //product.ChangeStock(-1); // Reduce stock
-                    Debug.Log("Purchase product: " + productName);
-                    Debug.Log("Product stock: " + product.Stock);
-                }
-                else
-                {
-                    Debug.Log("Insufficient money");
-                }
+                BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
+                Debug.Log("Purchase product: " + productName);
             }
             else
             {
-                Debug.Log("Insufficient stock: " + productName);
+                Debug.Log("Insufficient money");
             }
+
         }
         else
         {

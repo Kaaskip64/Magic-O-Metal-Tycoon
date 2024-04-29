@@ -15,6 +15,8 @@ public class CameraController : MonoBehaviour
 
     private float zoomTarget;
 
+    public bool cameraActive;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -22,6 +24,15 @@ public class CameraController : MonoBehaviour
     }
 
     void Update()
+    {
+        if(cameraActive)
+        {
+            CameraMove();
+        }
+
+    }
+
+    void CameraMove()
     {
         Vector3 pos = transform.position;
         if (Input.mousePosition.y >= Screen.height - panBorderThickness)
@@ -46,7 +57,6 @@ public class CameraController : MonoBehaviour
         zoomTarget = Mathf.Clamp(zoomTarget, minZoom, maxZoom);
         float newSize = Mathf.MoveTowards(Camera.main.orthographicSize, zoomTarget, zoomSpeed * Time.deltaTime);
         Camera.main.orthographicSize = newSize;
-
     }
 
     

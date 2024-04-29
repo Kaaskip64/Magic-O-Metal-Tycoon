@@ -68,7 +68,7 @@ public class StageBuilder : MonoBehaviour
             tempComposite.isTrigger = true;
             tempComposite.attachedRigidbody.isKinematic = true;
             tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
-            BuildingSystem.currentInstance.placedBuildings.stages.Add(tempStage);
+            BuildingSystem.currentInstance.stages.Add(tempStage);
 
 
             BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);

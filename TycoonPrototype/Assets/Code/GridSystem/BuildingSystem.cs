@@ -14,7 +14,6 @@ public class BuildingSystem : MonoBehaviour
     public GridLayout gridLayout;
     public Tilemap MainTileMap; //tilemap to show edit mode/building availability
     public Tilemap TempTileMap; //tilemap where the buildings are hovering
-    public PlacedBuildings placedBuildings;
 
     //Stores basic tiles for visual clarity regarding placement
     public static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
@@ -30,6 +29,14 @@ public class BuildingSystem : MonoBehaviour
     public Vector3 mousePosOnGrid;
     Ray rayCast;
     RaycastHit hit;
+
+    //Building Lists
+    public List<Building> foodStands;
+    public List<Building> merchStands;
+    public List<Building> beerStands;
+    public List<Building> bathroomStands;
+    public List<Building> audienceAreas;
+    public List<Stage> stages;
 
 
     private void Awake()
@@ -113,7 +120,7 @@ public class BuildingSystem : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.D)) //Removes selected building without placing it (might need to return it to inventory here once set up)
+        if (Input.GetKeyDown(KeyCode.D)) //Removes selected building without placing it
         {
             ClearArea();
             Destroy(currentSelectedBuilding.gameObject);
@@ -204,28 +211,23 @@ public class BuildingSystem : MonoBehaviour
         {
             //switch case to funnel placed building in the corresponding list
             case BuildingProperties.BuildingType.Food:
-                Debug.Log(currentSelectedBuilding.properties.type);
-                placedBuildings.foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
             case BuildingProperties.BuildingType.Beer:
-                Debug.Log(currentSelectedBuilding.properties.type);
-                placedBuildings.beerStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                beerStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
             case BuildingProperties.BuildingType.Merch:
-                Debug.Log(currentSelectedBuilding.properties.type);
-                placedBuildings.merchStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                merchStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
             case BuildingProperties.BuildingType.Bathroom:
-                Debug.Log(currentSelectedBuilding.properties.type);
-                placedBuildings.bathroomStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                bathroomStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
             case BuildingProperties.BuildingType.Audience:
-                Debug.Log(currentSelectedBuilding.properties.type);
-                placedBuildings.audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
+                audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
                 currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
 
                 break;

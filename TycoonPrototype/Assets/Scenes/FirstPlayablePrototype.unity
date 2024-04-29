@@ -273,6 +273,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4687124840566533267, guid: f2d13c0e04390a845acb8078c4e8c9a0, type: 3}
+      propertyPath: zoomSpeed
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687124840566533267, guid: f2d13c0e04390a845acb8078c4e8c9a0, type: 3}
+      propertyPath: zoomSensitivity
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4687124840566533271, guid: f2d13c0e04390a845acb8078c4e8c9a0, type: 3}
       propertyPath: m_Name
       value: MainCamera
@@ -382,7 +390,6 @@ GameObject:
   - component: {fileID: 795919890}
   - component: {fileID: 795919889}
   - component: {fileID: 795919888}
-  - component: {fileID: 795919887}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -390,24 +397,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &795919887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795919886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ef4586d734967944937386ca7e08737, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodStands: []
-  merchStands: []
-  beerStands: []
-  bathroomStands: []
-  audienceAreas: []
-  stages: []
 --- !u!114 &795919888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43020,7 +43009,7 @@ PrefabInstance:
     - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: placedBuildings
       value: 
-      objectReference: {fileID: 795919887}
+      objectReference: {fileID: 0}
     - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: shopStageButton
       value: 
@@ -43088,7 +43077,7 @@ PrefabInstance:
     - target: {fileID: 8704790694108108982, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: placedBuildings
       value: 
-      objectReference: {fileID: 795919887}
+      objectReference: {fileID: 0}
     - target: {fileID: 8704790694566205632, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: m_Mode
       value: 1
