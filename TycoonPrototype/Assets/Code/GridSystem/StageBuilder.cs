@@ -108,7 +108,7 @@ public class StageBuilder : MonoBehaviour
     {
         if (currentActiveStageUI.currentStagePlaylist != null)
         {
-            //currentActiveStageUI.currentStagePlaylist.Clear();
+            currentActiveStageUI.currentStagePlaylist.Clear();
         }
 
         foreach (BandListingData data in stageBandData.GetNodesList())
@@ -116,6 +116,7 @@ public class StageBuilder : MonoBehaviour
             Debug.Log(data);
             currentActiveStageUI.currentStagePlaylist.Add(data);
         }
+        stageBandData.ResetListings();
 
         currentActiveStageUI = null;
     }

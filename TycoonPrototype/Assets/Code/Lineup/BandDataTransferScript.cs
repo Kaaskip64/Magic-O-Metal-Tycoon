@@ -22,7 +22,7 @@ public class BandDataTransferScript : MonoBehaviour
     {
         nodes.Add(NewListItem);
         
-        if(newbandAdded != null){newbandAdded();}
+        //if(newbandAdded != null){newbandAdded();}
     }
     public List<BandListingData> GetNodesList()
     {
@@ -38,7 +38,7 @@ public class BandDataTransferScript : MonoBehaviour
     {
 
         GameObject NewBand = Instantiate(freshListItem, this.transform);
-        nodes.Add(NewBand);
+        //nodes.Add(NewBand);
         UpdateListings(NewBand);
     }
 
@@ -60,7 +60,7 @@ public class BandDataTransferScript : MonoBehaviour
 
         for (int i = 0; i < nodes.Count; i++)
         {
-            if (i != nodes.Count)
+            if (i != nodes.Count - 1)
             {
                 nodes[i].transform.GetChild(1).gameObject.SetActive(false);
             }
