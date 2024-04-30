@@ -274,7 +274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4687124840566533267, guid: f2d13c0e04390a845acb8078c4e8c9a0, type: 3}
       propertyPath: cameraActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4687124840566533267, guid: f2d13c0e04390a845acb8078c4e8c9a0, type: 3}
       propertyPath: zoomSensitivity

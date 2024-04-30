@@ -104,8 +104,19 @@ public class StageBuilder : MonoBehaviour
         eraseMode = !eraseMode;
     }
 
-    public void ClearStageUI()
+    public void ClearStageUI() //Function for the playlistUI exit button to call
     {
+        if (currentActiveStageUI.currentStagePlaylist != null)
+        {
+            //currentActiveStageUI.currentStagePlaylist.Clear();
+        }
+
+        foreach (BandListingData data in stageBandData.GetNodesList())
+        {
+            Debug.Log(data);
+            currentActiveStageUI.currentStagePlaylist.Add(data);
+        }
+
         currentActiveStageUI = null;
     }
 }

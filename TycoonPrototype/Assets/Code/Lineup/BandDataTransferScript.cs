@@ -60,7 +60,7 @@ public class BandDataTransferScript : MonoBehaviour
 
         for (int i = 0; i < nodes.Count; i++)
         {
-            if (i != nodes.Count - 1)
+            if (i != nodes.Count)
             {
                 nodes[i].transform.GetChild(1).gameObject.SetActive(false);
             }

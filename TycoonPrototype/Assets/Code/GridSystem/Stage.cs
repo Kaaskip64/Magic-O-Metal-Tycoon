@@ -21,6 +21,7 @@ public class Stage : MonoBehaviour
 
     private void Start()
     {
+        currentStagePlaylist = new List<BandListingData>();
         tilemap = gameObject.GetComponent<Tilemap>();
         stageCollider = gameObject.GetComponent<CompositeCollider2D>();
 
@@ -28,8 +29,9 @@ public class Stage : MonoBehaviour
 
         stageCenterTile = tilemap.WorldToCell(stageCenter);
 
-        if (currentStagePlaylist != null) { 
-        dataTransferScript.newbandAdded += UpdateList;
+        if (currentStagePlaylist != null)
+        {
+            dataTransferScript.newbandAdded += UpdateList;
 
         }
 
@@ -71,14 +73,15 @@ public class Stage : MonoBehaviour
 
         StageBuilder.currentInstance.currentActiveStageUI = this;
 
-        dataTransferScript.ResetListings();
+        //dataTransferScript.ResetListings();
 
-        if(currentStagePlaylist == null)
+        if(currentStagePlaylist.Count == 0)
         {
             dataTransferScript.StartNewLineUp();
+        } else
+        {
+            dataTransferScript.UploadLineUp(currentStagePlaylist);
         }
-
-        dataTransferScript.UploadLineUp(currentStagePlaylist);
 
 
         Debug.Log(gameObject.name);
