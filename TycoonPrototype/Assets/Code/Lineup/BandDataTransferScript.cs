@@ -6,43 +6,64 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
+
 public class BandDataTransferScript : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> nodes;
 
     [SerializeField] private GameObject freshListItem;
+
+    public delegate void NewBandAdded();
+
+    public NewBandAdded newbandAdded;
     public void UpdateListings(GameObject NewListItem)
     {
         nodes.Add(NewListItem);
+        
+        if(newbandAdded != null){newbandAdded();}
     }
-    public List<GameObject> GetNodesList()
+    public List<BandListingData> GetNodesList()
     {
-        return nodes;
+        List<BandListingData> datalist = new List<BandListingData>();
+        foreach (GameObject node in nodes)
+        {
+            datalist.Add(node.GetComponent<NewBandData>().GetNewBandData());
+        }
+        return datalist;
     }
 
     public void StartNewLineUp()
     {
 
-        GameObject NewBand = Instantiate(freshListItem,this.transform);
+        GameObject NewBand = Instantiate(freshListItem, this.transform);
         nodes.Add(NewBand);
+        UpdateListings(NewBand);
     }
-    
+
     public void ResetListings()
     {
         foreach (GameObject node in nodes)
         {
-            nodes.Remove(node);
             Destroy(node);
-            
         }
+        nodes.Clear();
     }
 
-    public void UploadLineUp(List<BandListingData> items)
+    public async void UploadLineUp(List<BandListingData> items)
     {
         foreach (BandListingData data in items)
         {
-            AddNewBandAddressable(data);
+           await AddNewBandAddressable(data);
+        }
+
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            if (i != nodes.Count - 1)
+            {
+                nodes[i].transform.GetChild(1).gameObject.SetActive(false);
+            }
         }
     }
     

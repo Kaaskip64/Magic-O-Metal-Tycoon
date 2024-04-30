@@ -6,10 +6,16 @@ using UnityEngine.UI;
 
 public class StageBuilder : MonoBehaviour
 {
+    public static StageBuilder currentInstance;
+
     public GameObject blankTileMap;
     public TileBase currentStageTile;
     public BuildingProperties properties;
     public GameObject shopStageButton;
+    public GameObject MainUI;
+    public GameObject StageUI;
+    public BandDataTransferScript stageBandData;
+    public Stage currentActiveStageUI;
 
     public Button eraseButton;
     public bool eraseMode = false;
@@ -20,6 +26,11 @@ public class StageBuilder : MonoBehaviour
 
     private GameObject stageObject;
     private Tilemap stageMap;
+
+    private void Awake()
+    {
+        currentInstance = this; //init
+    }
 
     private void Update()
     {
@@ -68,6 +79,9 @@ public class StageBuilder : MonoBehaviour
             tempComposite.isTrigger = true;
             tempComposite.attachedRigidbody.isKinematic = true;
             tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            tempStage.MainUI = MainUI;
+            tempStage.StageUI = StageUI;
+            tempStage.dataTransferScript = stageBandData;
             BuildingSystem.currentInstance.stages.Add(tempStage);
 
 
@@ -88,6 +102,11 @@ public class StageBuilder : MonoBehaviour
     {
 
         eraseMode = !eraseMode;
+    }
+
+    public void ClearStageUI()
+    {
+        currentActiveStageUI = null;
     }
 }
 

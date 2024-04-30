@@ -35,8 +35,6 @@ public class LayerSorting : MonoBehaviour
             allHits.AddRange(hits);
         }
 
-        // Debug log to check the number of hits
-        Debug.Log("Number of hits: " + allHits.Count);
 
         if (allHits.Count != 0)
         {
@@ -57,13 +55,11 @@ public class LayerSorting : MonoBehaviour
             {
                 // NPC is above the building, set NPC's sorting order lower than the building
                 spriteRenderer.sortingOrder = -1;
-                print(spriteRenderer.sortingOrder);
             }
             else
             {
                 // NPC is below the building, set NPC's sorting order higher than the building
                 spriteRenderer.sortingOrder = 1;
-                print(spriteRenderer.sortingOrder);
             }
         }
     }

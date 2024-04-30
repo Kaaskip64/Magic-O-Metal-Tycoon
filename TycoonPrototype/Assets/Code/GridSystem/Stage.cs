@@ -5,10 +5,14 @@ using UnityEngine.Tilemaps;
 
 public class Stage : MonoBehaviour
 {
-    //public List<Song> currentStagePlaylist;
+    public List<BandListingData> currentStagePlaylist;
+
+    public GameObject MainUI;
+    public GameObject StageUI;
+    public BandDataTransferScript dataTransferScript;
 
     private Tilemap tilemap;
-    private CompositeCollider2D collider;
+    private CompositeCollider2D stageCollider;
 
     private Vector3 stageCenter;
     private Vector3Int stageCenterTile;
@@ -18,13 +22,16 @@ public class Stage : MonoBehaviour
     private void Start()
     {
         tilemap = gameObject.GetComponent<Tilemap>();
-        collider = gameObject.GetComponent<CompositeCollider2D>();
+        stageCollider = gameObject.GetComponent<CompositeCollider2D>();
 
-        stageCenter = collider.bounds.center;
+        stageCenter = stageCollider.bounds.center;
 
         stageCenterTile = tilemap.WorldToCell(stageCenter);
 
+        if (currentStagePlaylist != null) { 
+        dataTransferScript.newbandAdded += UpdateList;
 
+        }
 
         /*
         audienceAreaSize.position = BuildingSystem.currentInstance.MainTileMap.WorldToCell(stageCenter);
@@ -58,6 +65,22 @@ public class Stage : MonoBehaviour
     private void OnMouseDown()
     {
         //When stage is clicked, everything in this function gets executed
+
+        MainUI.SetActive(false);
+        StageUI.SetActive(true);
+
+        StageBuilder.currentInstance.currentActiveStageUI = this;
+
+        dataTransferScript.ResetListings();
+
+        if(currentStagePlaylist == null)
+        {
+            dataTransferScript.StartNewLineUp();
+        }
+
+        dataTransferScript.UploadLineUp(currentStagePlaylist);
+
+
         Debug.Log(gameObject.name);
         //Debug.Log(tilemap.CellToWorld(stageCenterTile));
 
@@ -68,5 +91,15 @@ public class Stage : MonoBehaviour
     {
         //Gizmos.DrawSphere(tilemap.CellToWorld(stageCenterTile), 3);
 
+    }
+
+    public void UpdateList()
+    {
+
+        currentStagePlaylist.Clear();
+        foreach (BandListingData data in dataTransferScript.GetNodesList())
+        {
+            currentStagePlaylist.Add(data);
+        }
     }
 }
