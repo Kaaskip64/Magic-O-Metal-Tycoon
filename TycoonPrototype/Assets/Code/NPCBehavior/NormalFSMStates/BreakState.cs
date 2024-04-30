@@ -22,7 +22,7 @@ public class BreakState : BaseState
     {
         UpdateMeters();
         CheckDestinationReached();
-        SetDestination();
+        //SetDestination();
     }
 
     private void SetDestination()

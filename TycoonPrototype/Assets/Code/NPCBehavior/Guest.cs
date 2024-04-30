@@ -25,7 +25,7 @@ public class Guest : NPC_FSM
     public float angleRange = 120f;
     public float offsetRatio = 5;
 
-    private Transform destinationTransform;
+    public Transform destinationTransform { get; private set; }
     private Rigidbody2D rb;
     private Vector2 movingDirection;
 

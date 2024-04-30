@@ -11,8 +11,7 @@ public class RestoreState : BaseState
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
-
-        var buildType = guest.destinationSetter.target.gameObject.GetComponent<Building>().properties.type;
+        var buildType = guest.destinationTransform.gameObject.GetComponentInParent<Building>().properties.type;
 
         if (buildType == BuildingProperties.BuildingType.Food)
         {
@@ -41,6 +40,7 @@ public class RestoreState : BaseState
         PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.burgerPrice);
         guest.hungryMeter = NPCManager.Instance.initialHungryMeter;
         yield return new WaitForSeconds(NPCManager.Instance.eatTime);
+        Debug.Log(1);
         guest.SwitchState(guest.cheerState);
         
     }
