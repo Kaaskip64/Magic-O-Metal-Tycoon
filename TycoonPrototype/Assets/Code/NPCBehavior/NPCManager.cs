@@ -41,26 +41,50 @@ public class NPCManager : MonoBehaviour
 
     [Header("NPC Object")]
     public GameObject npcPrefab;
+
+    [Header("SpawnProperties")]
+    public int maxNPCAmount;
+    public float npcSpawnInterval;
+    public Transform[] spawnPositions;
+
+    private int currentNPCAmount;
+    private float intervalCount;
     private void Awake()
     {
-        if (Instance == null)
+
+        Instance = this;
+
+
+    }
+
+    private void Start()
+    {
+        intervalCount = npcSpawnInterval;
+    }
+
+    private void FixedUpdate()
+    {
+        print(intervalCount);
+        if(currentNPCAmount < maxNPCAmount)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            SpawnNPC();
+        }
+        
+    }
+
+    public void SpawnNPC()
+    {
+        if(intervalCount<0)
+        {
+            Instantiate(npcPrefab, spawnPositions[Random.Range(0, spawnPositions.Length - 1)].position, Quaternion.identity);
+            currentNPCAmount++;
+            intervalCount = npcSpawnInterval;
+
         }
         else
         {
-            Destroy(gameObject);
+            intervalCount -= Time.fixedDeltaTime;
         }
-    }
-
-    public void SpawnNPC(Transform spawnPosition)
-    {
-        Instantiate(npcPrefab, spawnPosition);
-    }
-
-    private void Test()
-    {
         
     }
 
