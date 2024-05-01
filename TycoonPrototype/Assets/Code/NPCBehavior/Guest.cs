@@ -93,12 +93,12 @@ public class Guest : NPC_FSM
 
         if (destinationTransform == null || aIPath.reachedDestination)
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             animator.SetBool("isStop", true);
         }
         else
         {
-            Debug.Log("2");
+           // Debug.Log("2");
             animator.SetBool("isStop", false);
         }
     }
@@ -165,11 +165,11 @@ public class Guest : NPC_FSM
             Vector2 rayPosition = new Vector2(transform.position.x + movingDirection.x * 0.6f, transform.position.y + movingDirection.y * 0.6f);
 
             RaycastHit2D hit = Physics2D.Raycast(rayPosition, rayDirection, rayLength);
-            Debug.DrawRay(rayPosition, rayDirection * rayLength, Color.red);
+            //Debug.DrawRay(rayPosition, rayDirection * rayLength, Color.red);
 
             if (hit.collider != null && hit.collider.CompareTag("NPC") && hit.collider.transform != transform)
             {
-                Debug.Log("Ray hit: " + hit.collider.gameObject.name + " at distance: " + hit.distance);
+                //Debug.Log("Ray hit: " + hit.collider.gameObject.name + " at distance: " + hit.distance);
                 Vector2 perpendicularDirection = new Vector2(-movingDirection.y, movingDirection.x);
                 rb.AddForce(perpendicularDirection* offsetRatio);
             }
