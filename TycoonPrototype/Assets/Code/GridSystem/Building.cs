@@ -23,7 +23,7 @@ public class Building : MonoBehaviour
     {
         Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
-        areaTemp.position = positionInt;
+        areaTemp.position = positionInt + area.position;
 
         if (BuildingSystem.currentInstance.CanTakeArea(areaTemp))
         {
