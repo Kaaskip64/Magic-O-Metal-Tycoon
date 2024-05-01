@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Bathroom
   m_EditorClassIdentifier: 
   type: 3
+  placementArea:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 3, y: 3, z: 1}
   queue: 0
   stock: 0
+  capacity: 0
   condition: 0

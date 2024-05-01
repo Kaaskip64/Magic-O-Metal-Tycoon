@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: MerchStand
   m_EditorClassIdentifier: 
   type: 2
+  placementArea:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 7, y: 4, z: 1}
   queue: 0
   stock: 0
+  capacity: 0
   condition: 0
