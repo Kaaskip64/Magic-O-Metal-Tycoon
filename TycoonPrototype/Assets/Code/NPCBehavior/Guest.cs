@@ -1,16 +1,21 @@
 ﻿using Pathfinding;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class Guest : NPC_FSM
 {
-    [HideInInspector]
-    public AIPath aIPath;
     private AIDestinationSetter destinationSetter;
     public IdleState idleState;
     public BreakState breakState;
     public CheerState cheerState;
     public RestoreState restoreState;
+    [HideInInspector]
+    public AIPath aIPath;
+    [HideInInspector]
+    public Animator animator;
+    [HideInInspector]
+    public SpriteRenderer spriteRenderer;
 
     [Header("Movement Parameter")]
     public float maxSpeed;
@@ -49,6 +54,12 @@ public class Guest : NPC_FSM
 
         //Physics
         rb = GetComponent<Rigidbody2D>();
+
+        //Animator
+        animator = GetComponent<Animator>();
+
+        //Sprite
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void InstanceInit()
@@ -78,9 +89,32 @@ public class Guest : NPC_FSM
         base.Update();
 
         CalculateMovingDirection();
-        
+        SpriteFlip();
+
+        if (destinationTransform == null || aIPath.reachedDestination)
+        {
+            Debug.Log("1");
+            animator.SetBool("isStop", true);
+        }
+        else
+        {
+            Debug.Log("2");
+            animator.SetBool("isStop", false);
+        }
     }
 
+    private void SpriteFlip()
+    {
+        if (destinationTransform != null && destinationTransform.position.x - transform.position.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
+
+    }
     private void PathfindingSetting()
     {
         if(aIPath.maxSpeed!=maxSpeed)
