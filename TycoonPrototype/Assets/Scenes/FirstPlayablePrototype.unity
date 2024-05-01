@@ -123,6 +123,82 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &39801820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054248883411804629, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &39801822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5054248883411804631, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39801820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &39801824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39801820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2171b7ca1d9c144a60cc06cb0f20a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productName: BeerStand
+  price: 5
+  itemPrefab: {fileID: 2616206265886582281, guid: 4785139f9884be340925aaa859f3eed2, type: 3}
+  category: 2
+--- !u!114 &39801825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39801820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 39801822}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &163722874
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,6 +366,82 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2d13c0e04390a845acb8078c4e8c9a0, type: 3}
+--- !u!1 &404964903 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054248884437025191, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &404964905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5054248884437025193, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404964903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &404964907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404964903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2171b7ca1d9c144a60cc06cb0f20a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productName: Tower Dark
+  price: 20
+  itemPrefab: {fileID: 2616206265886582281, guid: 82b0c615b29e31e45b1679bb6ae74f50, type: 3}
+  category: 3
+--- !u!114 &404964908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404964903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 404964905}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &632524331
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +680,158 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6553e7a1d614264999f8017bf26ca84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1251130366 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054248884087485969, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1251130368 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5054248884087485971, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251130366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1251130370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251130366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2171b7ca1d9c144a60cc06cb0f20a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productName: Bathroom
+  price: 5
+  itemPrefab: {fileID: 2616206265886582281, guid: f620db2653120c44d98d4083b6e9fd86, type: 3}
+  category: 2
+--- !u!114 &1251130371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251130366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1251130368}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &1306920810 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054248883961305423, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1306920812 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5054248883961305425, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306920810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1306920814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306920810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1306920812}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1306920815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306920810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2171b7ca1d9c144a60cc06cb0f20a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productName: MerchStand
+  price: 5
+  itemPrefab: {fileID: 2616206265886582281, guid: 0b64b8144ae95954b89c500691ad0e8a, type: 3}
+  category: 2
 --- !u!1001 &1463864081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -607,7 +911,159 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes: []
   freshListItem: {fileID: 9177297677347279755, guid: 4f3c2fdfa5f844e4da3935fa7a7cccce, type: 3}
-  playHandeler: {fileID: 7372326291937942480}
+  playHandeler: {fileID: 0}
+--- !u!1 &1556982975 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054248882516233568, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1556982977 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5054248882516233570, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556982975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1556982979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556982975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2171b7ca1d9c144a60cc06cb0f20a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productName: Tower Red
+  price: 20
+  itemPrefab: {fileID: 2616206265886582281, guid: b45bb2f91970e7745911ed784a291015, type: 3}
+  category: 3
+--- !u!114 &1556982980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556982975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1556982977}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &1764447674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5054248882685748716, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1764447676 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5054248882685748718, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764447674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1764447678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764447674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2171b7ca1d9c144a60cc06cb0f20a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productName: Tower Purple
+  price: 20
+  itemPrefab: {fileID: 2616206265886582281, guid: f7a0bccd4816e7640b57900852b97874, type: 3}
+  category: 3
+--- !u!114 &1764447679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764447674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1764447676}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1872500449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42500,14 +42956,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7372326291305108863}
     - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
-      propertyPath: quitButton
-      value: 
-      objectReference: {fileID: 7372326292276527132}
-    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
-      propertyPath: stagePrice
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: stageBandData
       value: 
       objectReference: {fileID: 1493320641}
@@ -43186,6 +43634,142 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 828380400}
     m_Modifications:
+    - target: {fileID: 5054248882516233570, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: be7971a687d340e41a5e1cc0b9d9a5a8, type: 3}
+    - target: {fileID: 5054248882516233570, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882516233570, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882516233570, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882516233570, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882685748718, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b996b6dbc6b76a84b9ecdf4e51d0f4ad, type: 3}
+    - target: {fileID: 5054248882685748718, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882685748718, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882685748718, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882685748718, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882910501882, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cfeef58be2514b24fb60a7dbf6a99cef, type: 3}
+    - target: {fileID: 5054248882910501882, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882910501882, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882910501882, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882910501882, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882910501884, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: category
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882910501884, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: itemPrefab
+      value: 
+      objectReference: {fileID: 2616206265886582281, guid: 8087685b56a6d944f840f0254c7aa8a2, type: 3}
+    - target: {fileID: 5054248882910501884, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: productName
+      value: Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882982974519, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882982974519, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248882982974519, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883371619044, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c7649f2916b05c54982694cc9229ab56, type: 3}
+    - target: {fileID: 5054248883371619044, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883371619044, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883371619044, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883371619044, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883411804631, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e904e1fee326e0a43a054d27536fd282, type: 3}
+    - target: {fileID: 5054248883411804631, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883411804631, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883411804631, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883961305425, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6d84922a0887bf242bc16f2e72aa4212, type: 3}
+    - target: {fileID: 5054248883961305425, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883961305425, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248883961305425, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5054248884044969436, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_Name
       value: ShopPanel
@@ -43273,6 +43857,42 @@ PrefabInstance:
     - target: {fileID: 5054248884044969437, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248884087485971, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b7802f70e1804144dad27c458bb2ea81, type: 3}
+    - target: {fileID: 5054248884087485971, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248884087485971, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248884087485971, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248884437025193, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c6aea38f39786eb4d96fa54f7d68627d, type: 3}
+    - target: {fileID: 5054248884437025193, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248884437025193, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248884437025193, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054248884437025193, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6527077555931929896, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -44437,6 +45057,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1173567430}
+        m_TargetAssemblyTypeName: StageBuilder, Assembly-CSharp
+        m_MethodName: ClearStageUI
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

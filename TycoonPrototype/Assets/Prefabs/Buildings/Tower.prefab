@@ -144,8 +144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Placed: 0
-  properties: {fileID: 11400000, guid: 1ca5d6b4bfade9b458afd1b8d862a678, type: 2}
+  properties: {fileID: 11400000, guid: a405ffda25d7fb144880e69b43687a55, type: 2}
   image: {fileID: 5113700797749537037}
+  mouseFollowOffset: {x: 0, y: 0}
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
