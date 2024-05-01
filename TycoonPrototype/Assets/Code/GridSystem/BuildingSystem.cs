@@ -27,8 +27,8 @@ public class BuildingSystem : MonoBehaviour
 
     //Mouse
     public Vector3 mousePosOnGrid;
-    Ray rayCast;
-    RaycastHit hit;
+    public Ray rayCast;
+    public RaycastHit hit;
 
     //Building Lists
     public List<Building> foodStands;
