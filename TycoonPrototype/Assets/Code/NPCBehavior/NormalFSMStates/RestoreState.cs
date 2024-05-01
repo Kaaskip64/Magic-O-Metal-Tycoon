@@ -11,20 +11,8 @@ public class RestoreState : BaseState
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
-        var buildType = guest.destinationTransform.gameObject.GetComponentInParent<Building>().properties.type;
-
-        if (buildType == BuildingProperties.BuildingType.Food)
-        {
-            guest.StartCoroutine(EatBurger());
-        }
-        else if(buildType == BuildingProperties.BuildingType.Beer)
-        {
-            guest.StartCoroutine(DrinkBeer());
-        }
-        else if(buildType == BuildingProperties.BuildingType.Bathroom)
-        {
-            guest.StartCoroutine(Peeing());
-        }
+        
+        CheckBuilding();
     }
     public override void ExitState()
     {
@@ -35,6 +23,31 @@ public class RestoreState : BaseState
     {
         
     }
+
+    public override void OnFixedUpdate()
+    {
+        
+    }
+
+    private void CheckBuilding()
+    {
+        var buildType = guest.destinationTransform.gameObject.GetComponentInParent<Building>().properties.type;
+
+        if (buildType == BuildingProperties.BuildingType.Food)
+        {
+            guest.StartCoroutine(EatBurger());
+        }
+        else if (buildType == BuildingProperties.BuildingType.Beer)
+        {
+            guest.StartCoroutine(DrinkBeer());
+        }
+        else if (buildType == BuildingProperties.BuildingType.Bathroom)
+        {
+            guest.StartCoroutine(Peeing());
+        }
+    }
+
+
     IEnumerator EatBurger()
     {
         PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.burgerPrice);

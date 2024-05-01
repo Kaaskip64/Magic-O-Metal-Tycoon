@@ -15,24 +15,29 @@ public class BreakState : BaseState
 
     public override void ExitState()
     {
-        // Nothing to do when exiting the break state
+        
     }
 
     public override void OnUpdate()
     {
+        
+    }
+
+    public override void OnFixedUpdate()
+    {
         UpdateMeters();
         CheckDestinationReached();
-        //SetDestination();
+        SetDestination();
     }
 
     private void SetDestination()
     {
         float minMeter = Mathf.Min(guest.hungryMeter, guest.thristMeter, guest.urgencyMeter);
-        if (guest.hungryMeter == minMeter)
+        if (guest.hungryMeter == minMeter&& guest.hungryMeter<NPCManager.Instance.hungryMeterThreshold)
             guest.GoToTarget(FindClosestBuilding(BuildingSystem.currentInstance.foodStands));
-        else if (guest.thristMeter == minMeter)
+        else if (guest.thristMeter == minMeter && guest.thristMeter < NPCManager.Instance.thristMeterThreshold)
             guest.GoToTarget(FindClosestBuilding(BuildingSystem.currentInstance.beerStands));
-        else if (guest.urgencyMeter == minMeter)
+        else if (guest.urgencyMeter == minMeter && guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold)
             guest.GoToTarget(FindClosestBuilding(BuildingSystem.currentInstance.bathroomStands));
     }
 
@@ -47,7 +52,9 @@ public class BreakState : BaseState
     private void CheckDestinationReached()
     {
         if (guest.aIPath.reachedDestination)
+        {
             guest.SwitchState(guest.restoreState);
+        }    
     }
 
     private Transform FindClosestBuilding(List<Building> buildingList)
@@ -65,8 +72,6 @@ public class BreakState : BaseState
             {
                 cloestOne = building.NPCTarget;
             }
-        
-
         }
         return cloestOne;
     }

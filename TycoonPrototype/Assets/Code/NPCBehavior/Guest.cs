@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Guest : NPC_FSM
 {
-    [Header("References")]
-    public AIDestinationSetter destinationSetter;
+    [HideInInspector]
     public AIPath aIPath;
+    private AIDestinationSetter destinationSetter;
     public IdleState idleState;
     public BreakState breakState;
     public CheerState cheerState;
     public RestoreState restoreState;
-    public TestState testState;
+
+    [Header("Movement Parameter")]
+    public float maxSpeed;
 
     [Header("NPC Stats")]
     public float hungryMeter;
@@ -19,7 +21,7 @@ public class Guest : NPC_FSM
     public float urgencyMeter;
     public float satisfaction;
 
-    [Header("Movement Parameters")]
+    [Header("Crowd Simulation Parameter")]
     public int numberOfRays = 5;
     public float rayLength = 2f;
     public float angleRange = 120f;
@@ -28,8 +30,6 @@ public class Guest : NPC_FSM
     public Transform destinationTransform { get; private set; }
     private Rigidbody2D rb;
     private Vector2 movingDirection;
-
-    public Transform audienceAreaTarget;
     private void Awake()
     {
         RefrencenInit();
@@ -51,20 +51,26 @@ public class Guest : NPC_FSM
         rb = GetComponent<Rigidbody2D>();
     }
 
-    protected override void Start()
+    private void InstanceInit()
     {
         //NPC value init
         hungryMeter = NPCManager.Instance.initialHungryMeter + Random.Range(-10, 10);
         thristMeter = NPCManager.Instance.initialThristMeter + Random.Range(-10, 10);
         urgencyMeter = NPCManager.Instance.initialUregencyMeter + Random.Range(-10, 10);
         satisfaction = NPCManager.Instance.initialSatisfaction + Random.Range(-10, 10);
+    }
 
+    protected override void Start()
+    {
+        InstanceInit();
+
+        StatesSetup();
+    }
+
+    private void StatesSetup()
+    {
         //Initialize state
         SwitchState(cheerState);
-    }
-    protected override void OnEnable()
-    {
-
     }
 
     protected override void Update()
@@ -75,6 +81,13 @@ public class Guest : NPC_FSM
         
     }
 
+    private void PathfindingSetting()
+    {
+        if(aIPath.maxSpeed!=maxSpeed)
+        {
+            aIPath.maxSpeed = maxSpeed;
+        }
+    }
     private void CalculateMovingDirection()
     {
         if(destinationTransform != null)
@@ -85,13 +98,18 @@ public class Guest : NPC_FSM
 
     private void FixedUpdate()
     {
-        CollisionAvoid();       
+        base.FixUpdate();
+        PathfindingSetting();
+        CollisionAvoid();   
     }
 
     public void GoToTarget(Transform destination)
     {
         if(destination == null)
+        {
             return;
+        }
+            
         destinationTransform = destination;
         destinationSetter.target = destinationTransform;
     }
