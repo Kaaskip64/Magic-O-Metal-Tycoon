@@ -21,7 +21,6 @@ public class StageBuilder : MonoBehaviour
 
     public Button eraseButton;
     public bool eraseMode = false;
-
     public bool editingStageTiles = false;
 
     public BoundsInt placementArea;

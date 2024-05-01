@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
+
 
 public class Stage : MonoBehaviour
 {
@@ -55,6 +57,11 @@ public class Stage : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if(EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null)
+        {
+            return;
+        }
+
         tilemap.color = new Color(0f, 1f, 0f, 1f);
     }
 
@@ -68,14 +75,18 @@ public class Stage : MonoBehaviour
     {
         //When stage is clicked, everything in this function gets executed
 
+        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null)
+        {
+            return;
+        }
+
         MainUI.SetActive(false);
         StageUI.SetActive(true);
 
         StageBuilder.currentInstance.currentActiveStageUI = this;
-
         //dataTransferScript.ResetListings();
 
-        if(currentStagePlaylist.Count == 0)
+        if (currentStagePlaylist.Count == 0)
         {
             dataTransferScript.StartNewLineUp();
         } else
