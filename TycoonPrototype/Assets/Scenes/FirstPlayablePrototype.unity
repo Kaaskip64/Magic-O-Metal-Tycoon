@@ -911,7 +911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes: []
   freshListItem: {fileID: 9177297677347279755, guid: 4f3c2fdfa5f844e4da3935fa7a7cccce, type: 3}
-  playHandeler: {fileID: 0}
+  playHandeler: {fileID: 7372326291937942480}
 --- !u!1 &1556982975 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5054248882516233568, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
@@ -42955,6 +42955,10 @@ PrefabInstance:
       propertyPath: StageUI
       value: 
       objectReference: {fileID: 7372326291305108863}
+    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: quitButton
+      value: 
+      objectReference: {fileID: 7372326292276527132}
     - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: stageBandData
       value: 
