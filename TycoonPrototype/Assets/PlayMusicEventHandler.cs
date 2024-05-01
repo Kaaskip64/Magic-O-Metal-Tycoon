@@ -8,7 +8,7 @@ public class PlayMusicEventHandler : MonoBehaviour
 {
     public delegate void PlayStarted();
     public PlayStarted playStarted;
-    [SerializeField] private BandDataTransferScript BandListingsList;
+    [SerializeField] private BandDataTransferScript bandListingsList;
     [SerializeField] private Button button;
     [SerializeField] private GameObject BandList;
     [SerializeField] private GameObject MusicList;
@@ -16,12 +16,12 @@ public class PlayMusicEventHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       button.onClick.AddListener(StartPlay); 
+       button.onClick.AddListener(StartPlay);
+       //bandListingsList.GetNodesList();
     }
     public void StartPlay()
     {
-        if (BandListingsList.GetNodesList()[0].GetComponent<NewBandData>().GetNewBandData() != null)
-        {
+        
             if (playStarted != null)
             {
                 playStarted(); 
@@ -29,17 +29,14 @@ public class PlayMusicEventHandler : MonoBehaviour
             BandList.SetActive(false);
             MusicList.SetActive(false);
             IsPlayingText.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("No data given");
-            return;
-        }
+            button.enabled = false;
+
     }
     public void EndPlay()
     {
         BandList.SetActive(true);
-        MusicList.SetActive(true);
+        //MusicList.SetActive(true);
         IsPlayingText.SetActive(false);
+        button.enabled = true;
     }
 }

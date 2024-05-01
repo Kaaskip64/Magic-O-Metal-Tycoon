@@ -1472,11 +1472,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5587928123873896405, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: m_ChunkCullingBounds.x
-      value: 4.6363635
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 5587928123873896405, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: m_ChunkCullingBounds.y
-      value: 4.7312503
+      value: 4.592367
       objectReference: {fileID: 0}
     - target: {fileID: 5587928123873896405, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: m_DetectChunkCullingBounds
@@ -43455,6 +43455,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8704790694566205632, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: m_ChunkCullingBounds.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704790694566205632, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: m_ChunkCullingBounds.y
+      value: 4.592367
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704790694566205632, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: m_DetectChunkCullingBounds
       value: 0
       objectReference: {fileID: 0}
@@ -46008,7 +46016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b82462bb640fae41a66e7260bfdc77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BandListingsList: {fileID: 7372326292260487413, guid: 21560e2a6b070a94cb1f1d9d392edb6c, type: 3}
+  BandListingsList: {fileID: 1493320641}
   button: {fileID: 7372326292812079323}
   BandList: {fileID: 7372326292279424009}
   MusicList: {fileID: 7372326291274306366}

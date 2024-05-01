@@ -18,7 +18,7 @@ public class Stage : MonoBehaviour
     private Vector3Int stageCenterTile;
 
     public BoundsInt audienceAreaSize;
-
+    public bool isPlaying = false;
     private void Start()
     {
         currentStagePlaylist = new List<BandListingData>();
@@ -66,6 +66,9 @@ public class Stage : MonoBehaviour
 
     private void OnMouseDown()
     {
+        MainUI.SetActive(false);
+        StageUI.SetActive(true);
+       
         //When stage is clicked, everything in this function gets executed
 
         MainUI.SetActive(false);
@@ -74,14 +77,18 @@ public class Stage : MonoBehaviour
         StageBuilder.currentInstance.currentActiveStageUI = this;
 
         //dataTransferScript.ResetListings();
-
-        if(currentStagePlaylist.Count == 0)
+        if (!isPlaying)
         {
-            dataTransferScript.StartNewLineUp();
-        } else
-        {
-            dataTransferScript.UploadLineUp(currentStagePlaylist);
-        }
+            if(currentStagePlaylist.Count == 0)
+            {
+                dataTransferScript.StartNewLineUp();
+            } else
+            {
+                dataTransferScript.UploadLineUp(currentStagePlaylist);
+            }
+            
+        }//else(dataTransferScript.)
+        
 
 
         Debug.Log(gameObject.name);

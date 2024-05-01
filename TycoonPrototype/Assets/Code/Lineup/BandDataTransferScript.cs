@@ -14,7 +14,7 @@ public class BandDataTransferScript : MonoBehaviour
     private List<GameObject> nodes;
 
     [SerializeField] private GameObject freshListItem;
-
+    public PlayMusicEventHandler playHandeler;
     public delegate void NewBandAdded();
 
     public NewBandAdded newbandAdded;
