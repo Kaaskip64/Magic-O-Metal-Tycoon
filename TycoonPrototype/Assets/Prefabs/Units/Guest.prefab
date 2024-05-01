@@ -192,9 +192,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
-  endReachedDistance: 0.2
+  slowdownDistance: 0
+  pickNextWaypointDist: 1
+  endReachedDistance: 1
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -225,10 +225,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317f031e020391f489bda3f39888483b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destinationSetter: {fileID: 0}
   aIPath: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  maxSpeed: 0
+  maxSpeed: 10
   hungryMeter: 0
   thristMeter: 0
   urgencyMeter: 0

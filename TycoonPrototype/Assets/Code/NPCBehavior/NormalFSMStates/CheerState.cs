@@ -6,6 +6,8 @@ using UnityEngine;
 public class CheerState : BaseState
 {
     Guest guest;
+
+    private GameObject stageTarget;
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
@@ -15,7 +17,8 @@ public class CheerState : BaseState
 
     public override void ExitState()
     {
-        
+        guest.destinationSetter.target = null;
+        GameObject.Destroy(stageTarget);
     }
 
     public override void OnUpdate()
@@ -25,7 +28,15 @@ public class CheerState : BaseState
 
     public override void OnFixedUpdate()
     {
-        CheerBehaviour();
+        if(guest.destinationSetter.target == null)
+        {
+            guest.GoToTarget(FindAudienceArea(BuildingSystem.currentInstance.audienceAreas));
+        }
+        else
+        {
+            CheerBehaviour();        
+        }
+        
     }
 
     private void CheerBehaviour()
@@ -53,6 +64,42 @@ public class CheerState : BaseState
 
         var targetStage = stageArea[Random.Range(0, stageArea.Count - 1)];
 
-        return targetStage.transform;
+        stageTarget = new GameObject("tempTarget");
+        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.GetComponent<CapsuleCollider2D>());
+        stageTarget.transform.SetParent(targetStage.transform);
+        
+        return stageTarget.transform;
+    }
+
+    Vector2 GetRandomPointInCapsule(CapsuleCollider2D collider)
+    {
+        Vector2 point = Vector2.zero;
+        if (collider != null)
+        {
+            // 获取Capsule的位置
+            Vector2 position = collider.transform.position;
+
+            // 获取Capsule的大小
+            float sizeX = collider.size.x * collider.transform.localScale.x / 2;
+            float sizeY = collider.size.y * collider.transform.localScale.y / 2;
+
+            // 确定方向
+            if (collider.direction == CapsuleDirection2D.Horizontal)
+            {
+                // 水平方向
+                float randomX = Random.Range(-sizeX, sizeX);
+                float randomY = Random.Range(-sizeY, sizeY);
+                point = new Vector2(position.x + randomX, position.y + randomY);
+            }
+            else
+            {
+                // 垂直方向
+                float randomX = Random.Range(-sizeY, sizeY);
+                float randomY = Random.Range(-sizeX, sizeX);
+                point = new Vector2(position.x + randomX, position.y + randomY);
+            }
+        }
+
+        return point;
     }
 }

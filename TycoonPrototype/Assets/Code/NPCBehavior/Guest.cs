@@ -5,7 +5,8 @@ using static UnityEngine.ParticleSystem;
 
 public class Guest : NPC_FSM
 {
-    private AIDestinationSetter destinationSetter;
+    [HideInInspector]
+    public AIDestinationSetter destinationSetter;
     public IdleState idleState;
     public BreakState breakState;
     public CheerState cheerState;
@@ -93,12 +94,10 @@ public class Guest : NPC_FSM
 
         if (destinationTransform == null || aIPath.reachedDestination)
         {
-            //Debug.Log("1");
             animator.SetBool("isStop", true);
         }
         else
         {
-           // Debug.Log("2");
             animator.SetBool("isStop", false);
         }
     }
@@ -139,11 +138,6 @@ public class Guest : NPC_FSM
 
     public void GoToTarget(Transform destination)
     {
-        if(destination == null)
-        {
-            return;
-        }
-            
         destinationTransform = destination;
         destinationSetter.target = destinationTransform;
     }

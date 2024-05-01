@@ -31,7 +31,7 @@ public class RestoreState : BaseState
 
     private void CheckBuilding()
     {
-        var buildType = guest.destinationTransform.gameObject.GetComponentInParent<Building>().properties.type;
+        var buildType = guest.destinationSetter.target.gameObject.GetComponentInParent<Building>().properties.type;
 
         if (buildType == BuildingProperties.BuildingType.Food)
         {
