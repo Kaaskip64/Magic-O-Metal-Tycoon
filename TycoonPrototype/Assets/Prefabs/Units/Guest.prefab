@@ -228,7 +228,7 @@ MonoBehaviour:
   aIPath: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  maxSpeed: 0
+  maxSpeed: 10
   hungryMeter: 0
   thristMeter: 0
   urgencyMeter: 0
