@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
+
 
 public class Stage : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class Stage : MonoBehaviour
     private Vector3Int stageCenterTile;
 
     public BoundsInt audienceAreaSize;
-    public bool isPlaying = false;
+
     private void Start()
     {
         currentStagePlaylist = new List<BandListingData>();
@@ -55,6 +57,11 @@ public class Stage : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if(EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null)
+        {
+            return;
+        }
+
         tilemap.color = new Color(0f, 1f, 0f, 1f);
     }
 
@@ -66,29 +73,26 @@ public class Stage : MonoBehaviour
 
     private void OnMouseDown()
     {
-        MainUI.SetActive(false);
-        StageUI.SetActive(true);
-       
         //When stage is clicked, everything in this function gets executed
+
+        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null)
+        {
+            return;
+        }
 
         MainUI.SetActive(false);
         StageUI.SetActive(true);
 
         StageBuilder.currentInstance.currentActiveStageUI = this;
-
         //dataTransferScript.ResetListings();
-        if (!isPlaying)
+
+        if (currentStagePlaylist.Count == 0)
         {
-            if(currentStagePlaylist.Count == 0)
-            {
-                dataTransferScript.StartNewLineUp();
-            } else
-            {
-                dataTransferScript.UploadLineUp(currentStagePlaylist);
-            }
-            
-        }//else(dataTransferScript.)
-        
+            dataTransferScript.StartNewLineUp();
+        } else
+        {
+            dataTransferScript.UploadLineUp(currentStagePlaylist);
+        }
 
 
         Debug.Log(gameObject.name);
