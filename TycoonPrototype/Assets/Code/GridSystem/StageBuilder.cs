@@ -119,6 +119,8 @@ public class StageBuilder : MonoBehaviour
         CompositeCollider2D tempComposite = stageObject.AddComponent<CompositeCollider2D>();
         TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
         Stage tempStage = stageObject.AddComponent<Stage>();
+        AudioSource tempAudioSource = stageObject.AddComponent<AudioSource>();
+        AudioHandler tempAudioHandler = stageObject.AddComponent<AudioHandler>();
 
         tempTileCol.usedByComposite = true;
 

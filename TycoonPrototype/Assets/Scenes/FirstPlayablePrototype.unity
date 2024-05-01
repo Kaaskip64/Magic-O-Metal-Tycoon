@@ -442,6 +442,42 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &507746759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 507746760}
+  m_Layer: 0
+  m_Name: SpawnerPosition (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &507746760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507746759}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -59.3, y: -28.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 599260341}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &599260341 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 741936732963213409, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
+  m_PrefabInstance: {fileID: 741936734465508110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &632524331
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,6 +946,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodes: []
+  BandList: {fileID: 7372326292279424009}
+  MusicList: {fileID: 7372326291274306366}
+  IsPlayingText: {fileID: 7372326291983963094}
+  button: {fileID: 7372326292812079323}
   freshListItem: {fileID: 9177297677347279755, guid: 4f3c2fdfa5f844e4da3935fa7a7cccce, type: 3}
   playHandeler: {fileID: 7372326291937942480}
 --- !u!1 &1556982975 stripped
@@ -43595,12 +43635,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: spawnPositions.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: spawnPositions.Array.data[0]
       value: 
       objectReference: {fileID: 1690970139}
+    - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
+      propertyPath: spawnPositions.Array.data[1]
+      value: 
+      objectReference: {fileID: 507746760}
     - target: {fileID: 741936732963213409, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -43648,6 +43692,14 @@ PrefabInstance:
     - target: {fileID: 741936732963213411, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: m_Name
       value: NPCManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 895135108066882767, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -95.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 895135108066882767, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}

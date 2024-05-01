@@ -14,6 +14,8 @@ public class Stage : MonoBehaviour
     public GameObject StageUI;
     public BandDataTransferScript dataTransferScript;
 
+    public AudioHandler audioHandler;
+
     public Button quitButton;
 
     public bool isPlaying;
@@ -31,6 +33,7 @@ public class Stage : MonoBehaviour
         currentStagePlaylist = new List<BandListingData>();
         tilemap = gameObject.GetComponent<Tilemap>();
         stageCollider = gameObject.GetComponent<CompositeCollider2D>();
+        audioHandler = gameObject.GetComponent<AudioHandler>();
 
         quitButton.onClick.AddListener(ClearStageUI);
 
@@ -95,14 +98,19 @@ public class Stage : MonoBehaviour
             if (currentStagePlaylist.Count == 0)
             {
                 dataTransferScript.StartNewLineUp();
+                dataTransferScript.ActivateListingUI();
             }
             else
             {
+                dataTransferScript.ActivatePlayingUI();
                 dataTransferScript.UploadLineUp(currentStagePlaylist);
             }
-            isPlaying = true;
             dataTransferScript.playHandeler.playStarted += DownloadSongs;
+            dataTransferScript.playHandeler.playStarted += PlayStageLineup;
 
+        } else
+        {
+            dataTransferScript.ActivatePlayingUI();
         }
 
         StageBuilder.currentInstance.currentActiveStageUI = this;
@@ -135,6 +143,10 @@ public class Stage : MonoBehaviour
             currentStagePlaylist.Clear();
         }
 
+        //dataTransferScript.playHandeler.playStarted -= StartCoroutine(DownloadSongs());
+
+        dataTransferScript.playHandeler.playStarted -= PlayStageLineup;
+
         DownloadSongs();
 
         dataTransferScript.ResetListings();
@@ -144,17 +156,20 @@ public class Stage : MonoBehaviour
 
     public void PlayStageLineup()
     {
-        DownloadSongs();
-
+        audioHandler.LoadMusicFiles();
+        audioHandler.Play();
+        Debug.Log("hit");
 
     }
 
-    private void DownloadSongs()
+    private IEnumerator DownloadSongs()
     {
         foreach (BandListingData data in dataTransferScript.GetNodesList())
         {
             Debug.Log(data);
             currentStagePlaylist.Add(data);
         }
+
+        yield return new WaitForSeconds(0.05f);
     }
 }
