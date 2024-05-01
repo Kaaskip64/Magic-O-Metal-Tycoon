@@ -13,6 +13,8 @@ public class BandAdder : MonoBehaviour
     
     [SerializeField]
     private RectTransform ParentObject;
+
+    public float price = 50f;
     
     public async Task AddNewBandAddressable()
     {
@@ -42,7 +44,12 @@ public class BandAdder : MonoBehaviour
     }
     public void AddNewBand()
     {
-        AddNewBandAddressable();
+        if (PlayerProperties.Instance.MoneyCheck(price))
+        {
+            AddNewBandAddressable();
+
+        }
+
     }
     public void SetParent(RectTransform newParent)
   {

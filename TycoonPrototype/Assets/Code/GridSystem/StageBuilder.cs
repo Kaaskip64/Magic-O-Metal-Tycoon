@@ -18,12 +18,15 @@ public class StageBuilder : MonoBehaviour
     public GameObject StageUI;
     public BandDataTransferScript stageBandData;
     public Stage currentActiveStageUI;
+    public Button quitButton;
 
     public Button eraseButton;
     public bool eraseMode = false;
     public bool editingStageTiles = false;
 
     public BoundsInt placementArea;
+
+    public float stagePrice;
 
     private GameObject stageObject;
     private Tilemap stageMap;
@@ -77,6 +80,7 @@ public class StageBuilder : MonoBehaviour
         if(!editingStageTiles)
         {
             CreateNewStageObject();
+            PlayerProperties.Instance.ChangeMoney(-stagePrice);
 
 
         } else
@@ -94,22 +98,7 @@ public class StageBuilder : MonoBehaviour
         eraseMode = !eraseMode;
     }
 
-    public void ClearStageUI() //Function for the playlistUI exit button to call
-    {
-        if (currentActiveStageUI.currentStagePlaylist != null)
-        {
-            currentActiveStageUI.currentStagePlaylist.Clear();
-        }
 
-        foreach (BandListingData data in stageBandData.GetNodesList())
-        {
-            Debug.Log(data);
-            currentActiveStageUI.currentStagePlaylist.Add(data);
-        }
-        stageBandData.ResetListings();
-
-        currentActiveStageUI = null;
-    }
 
     public void SwapCurrentStageTile(TileBase newTile)
     {
@@ -136,9 +125,12 @@ public class StageBuilder : MonoBehaviour
         tempComposite.isTrigger = true;
         tempComposite.attachedRigidbody.isKinematic = true;
         tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+
         tempStage.MainUI = MainUI;
         tempStage.StageUI = StageUI;
         tempStage.dataTransferScript = stageBandData;
+        tempStage.quitButton = quitButton;
+
         BuildingSystem.currentInstance.stages.Add(tempStage);
 
         BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);

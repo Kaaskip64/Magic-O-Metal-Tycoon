@@ -49,4 +49,9 @@ public class PlayerProperties : MonoBehaviour
     {
         return (money - product.Price) >= 0;
     }
+
+    public bool MoneyCheck(float price)
+    {
+        return (money - price) >= 0;
+    }
 }

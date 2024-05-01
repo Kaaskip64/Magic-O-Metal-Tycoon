@@ -607,7 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes: []
   freshListItem: {fileID: 9177297677347279755, guid: 4f3c2fdfa5f844e4da3935fa7a7cccce, type: 3}
-  playHandeler: {fileID: 0}
+  playHandeler: {fileID: 7372326291937942480}
 --- !u!1001 &1872500449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42500,6 +42500,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7372326291305108863}
     - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: quitButton
+      value: 
+      objectReference: {fileID: 7372326292276527132}
+    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: stagePrice
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: stageBandData
       value: 
       objectReference: {fileID: 1493320641}
@@ -44429,18 +44437,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1173567430}
-        m_TargetAssemblyTypeName: StageBuilder, Assembly-CSharp
-        m_MethodName: ClearStageUI
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

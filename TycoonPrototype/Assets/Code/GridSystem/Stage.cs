@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 public class Stage : MonoBehaviour
@@ -12,6 +13,10 @@ public class Stage : MonoBehaviour
     public GameObject MainUI;
     public GameObject StageUI;
     public BandDataTransferScript dataTransferScript;
+
+    public Button quitButton;
+
+    public bool isPlaying;
 
     private Tilemap tilemap;
     private CompositeCollider2D stageCollider;
@@ -26,6 +31,8 @@ public class Stage : MonoBehaviour
         currentStagePlaylist = new List<BandListingData>();
         tilemap = gameObject.GetComponent<Tilemap>();
         stageCollider = gameObject.GetComponent<CompositeCollider2D>();
+
+        quitButton.onClick.AddListener(ClearStageUI);
 
         stageCenter = stageCollider.bounds.center;
 
@@ -83,19 +90,23 @@ public class Stage : MonoBehaviour
         MainUI.SetActive(false);
         StageUI.SetActive(true);
 
-        StageBuilder.currentInstance.currentActiveStageUI = this;
-        //dataTransferScript.ResetListings();
+        if (!isPlaying)
+        {
+            if (currentStagePlaylist.Count == 0)
+            {
+                dataTransferScript.StartNewLineUp();
+            }
+            else
+            {
+                dataTransferScript.UploadLineUp(currentStagePlaylist);
+            }
+            isPlaying = true;
+            dataTransferScript.playHandeler.playStarted += DownloadSongs;
 
-        if (currentStagePlaylist.Count == 0)
-        {
-            dataTransferScript.StartNewLineUp();
-        } else
-        {
-            dataTransferScript.UploadLineUp(currentStagePlaylist);
         }
 
+        StageBuilder.currentInstance.currentActiveStageUI = this;
 
-        Debug.Log(gameObject.name);
         //Debug.Log(tilemap.CellToWorld(stageCenterTile));
 
 
@@ -113,6 +124,36 @@ public class Stage : MonoBehaviour
         currentStagePlaylist.Clear();
         foreach (BandListingData data in dataTransferScript.GetNodesList())
         {
+            currentStagePlaylist.Add(data);
+        }
+    }
+
+    public void ClearStageUI() //Function for the playlistUI exit button to call
+    {
+        if (currentStagePlaylist != null)
+        {
+            currentStagePlaylist.Clear();
+        }
+
+        DownloadSongs();
+
+        dataTransferScript.ResetListings();
+
+        StageBuilder.currentInstance.currentActiveStageUI = null;
+    }
+
+    public void PlayStageLineup()
+    {
+        DownloadSongs();
+
+
+    }
+
+    private void DownloadSongs()
+    {
+        foreach (BandListingData data in dataTransferScript.GetNodesList())
+        {
+            Debug.Log(data);
             currentStagePlaylist.Add(data);
         }
     }
