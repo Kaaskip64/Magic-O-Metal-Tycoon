@@ -10,7 +10,7 @@ public class CheerState : BaseState
     {
         guest = obj as Guest;
         
-        guest.GoToTarget(FindStage(BuildingSystem.currentInstance.audienceAreas));
+        guest.GoToTarget(FindAudienceArea(BuildingSystem.currentInstance.audienceAreas));
     }
 
     public override void ExitState()
@@ -19,6 +19,16 @@ public class CheerState : BaseState
     }
 
     public override void OnUpdate()
+    {
+
+    }
+
+    public override void OnFixedUpdate()
+    {
+        CheerBehaviour();
+    }
+
+    private void CheerBehaviour()
     {
         guest.hungryMeter -= NPCManager.Instance.hungryChangeRate * Time.deltaTime;
         guest.thristMeter -= NPCManager.Instance.thirstChangeRate * Time.deltaTime;
@@ -32,11 +42,9 @@ public class CheerState : BaseState
         {
             guest.SwitchState(guest.breakState);
         }
-
-
     }
 
-    private Transform FindStage(List<Building> stageArea)
+    private Transform FindAudienceArea(List<Building> stageArea)
     {
         if (stageArea.Count == 0)
         {

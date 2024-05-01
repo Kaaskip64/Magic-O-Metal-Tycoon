@@ -45,7 +45,7 @@ public class PlayerProperties : MonoBehaviour
         credit += value;
     }
 
-    private bool MoneyCheck(ShopProduct product)
+    public bool MoneyCheck(ShopProduct product)
     {
         return (money - product.Price) >= 0;
     }

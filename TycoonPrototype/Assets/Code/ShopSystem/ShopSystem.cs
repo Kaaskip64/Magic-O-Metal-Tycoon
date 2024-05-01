@@ -24,7 +24,7 @@ public class ShopSystem : MonoBehaviour
         {
             ShopProduct product = productDict[productName]; // Get the product
 
-            if (MoneyCheck != null && MoneyCheck(product)) // Check if player has enough money
+            if (PlayerProperties.Instance.MoneyCheck(product)) // Check if player has enough money
             {
                 BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
                 Debug.Log("Purchase product: " + productName);
@@ -33,7 +33,6 @@ public class ShopSystem : MonoBehaviour
             {
                 Debug.Log("Insufficient money");
             }
-
         }
         else
         {
@@ -45,17 +44,5 @@ public class ShopSystem : MonoBehaviour
     public void AddProduct(ShopProduct product)
     {
         productDict.Add(product.ProductName, product);
-    }
-
-    // Method to confirm the purchase
-    public void ConfirmPurchase()
-    {
-        // Implement logic to confirm the purchase
-    }
-
-    // Method to adjust the amount of a product
-    public void AdjustProductAmount()
-    {
-        // Implement logic to adjust product amount
     }
 }

@@ -224,9 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317f031e020391f489bda3f39888483b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinationSetter: {fileID: 0}
   aIPath: {fileID: 0}
-  testState: {fileID: 11400000, guid: 8a65631f3d24aad409444ab0d9ea6933, type: 2}
   hungryMeter: 0
   thristMeter: 0
   urgencyMeter: 0
@@ -235,7 +233,6 @@ MonoBehaviour:
   rayLength: 1.2
   angleRange: 60
   offsetRatio: 5
-  audienceAreaTarget: {fileID: 0}
 --- !u!114 &5599477398651336223
 MonoBehaviour:
   m_ObjectHideFlags: 0

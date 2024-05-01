@@ -6,5 +6,6 @@ public abstract class BaseState
 {
     public abstract void EnterState(object obj);
     public abstract void OnUpdate();
+    public abstract void OnFixedUpdate();
     public abstract void ExitState();
 }

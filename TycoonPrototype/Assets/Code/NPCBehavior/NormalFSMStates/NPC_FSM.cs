@@ -4,13 +4,16 @@ public abstract class NPC_FSM : MonoBehaviour
 {
     protected BaseState currentState;
 
-    protected abstract void OnEnable();
-
     protected abstract void Start();
 
     protected virtual void Update()
     {
         currentState.OnUpdate();
+    }
+
+    protected virtual void FixUpdate()
+    {
+        currentState.OnFixedUpdate();
     }
 
     public virtual void SwitchState(BaseState state)
