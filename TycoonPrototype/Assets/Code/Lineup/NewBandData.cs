@@ -14,8 +14,11 @@ public class NewBandData : MonoBehaviour
         
     public void setNewBandData(BandListingData newData)
     {
-        data = newData;
-        text.text = data.BandName + " " + data.SongName;
+        if (newData != null)
+        {
+            data = newData;
+            text.text = data.BandName + " " + data.SongName;
+        }
     }
 
     public BandListingData GetNewBandData()
