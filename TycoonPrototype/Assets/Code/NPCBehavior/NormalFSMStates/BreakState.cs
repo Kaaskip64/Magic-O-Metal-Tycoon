@@ -42,6 +42,7 @@ public class BreakState : BaseState
     private void SetDestination()
     {
         float minMeter = Mathf.Min(guest.hungryMeter, guest.thristMeter, guest.urgencyMeter);
+
         if (guest.hungryMeter == minMeter&& guest.hungryMeter<NPCManager.Instance.hungryMeterThreshold)
             guest.GoToTarget(FindClosestBuilding(BuildingSystem.currentInstance.foodStands));
         else if (guest.thristMeter == minMeter && guest.thristMeter < NPCManager.Instance.thristMeterThreshold)
@@ -52,17 +53,16 @@ public class BreakState : BaseState
 
     private void UpdateMeters()
     {
-        float deltaTime = Time.deltaTime;
-        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 10 * deltaTime;
-        guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 10 * deltaTime;
-        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 10 * deltaTime;
+        float deltaTime = Time.fixedDeltaTime;
+        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 20 * deltaTime;
+        guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 20 * deltaTime;
+        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 20 * deltaTime;
     }
 
     private void CheckDestinationReached()
     {
         if (guest.destinationSetter.target!=null && Vector2.Distance(guest.transform.position,guest.destinationSetter.target.position)<4f && guest.aIPath.reachedDestination)
         {
-            Debug.Log(guest.destinationSetter.target + " " + guest.aIPath.reachedDestination);
             guest.SwitchState(guest.restoreState);
         }    
     }

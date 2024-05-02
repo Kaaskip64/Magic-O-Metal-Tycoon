@@ -11,8 +11,11 @@ public class RestoreState : BaseState
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
-        guest.spriteRenderer.enabled = false;
+        
+        
         CheckBuilding();
+        guest.spriteRenderer.enabled = false;
+        guest.GoToTarget(null);
     }
     public override void ExitState()
     {

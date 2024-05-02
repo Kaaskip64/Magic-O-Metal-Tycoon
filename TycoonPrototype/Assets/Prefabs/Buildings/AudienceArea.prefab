@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3252653055164921988}
   - component: {fileID: -5613956631962417502}
   - component: {fileID: 2772496861286334485}
-  - component: {fileID: 3106327407690445937}
   m_Layer: 0
   m_Name: AudienceArea
   m_TagString: Untagged
@@ -71,20 +70,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.8, y: 0.35}
   m_Direction: 1
---- !u!114 &3106327407690445937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2725574035368734288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9692159c781e97b49aaf81a308e49fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capsuleCollider: {fileID: 0}
-  testObj: {fileID: 0}
 --- !u!1 &7968305470534843221
 GameObject:
   m_ObjectHideFlags: 0

@@ -92,13 +92,13 @@ public class Guest : NPC_FSM
         CalculateMovingDirection();
         SpriteFlip();
 
-        if (destinationTransform == null || aIPath.reachedDestination)
+        if (destinationTransform != null && !aIPath.reachedDestination)
         {
-            animator.SetBool("isStop", true);
+            animator.SetBool("isMoving", true);
         }
         else
         {
-            animator.SetBool("isStop", false);
+            animator.SetBool("isMoving", false);
         }
     }
 

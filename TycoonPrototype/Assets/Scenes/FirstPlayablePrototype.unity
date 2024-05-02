@@ -43575,23 +43575,23 @@ PrefabInstance:
       objectReference: {fileID: 4931076014443140394, guid: 5cefd01e0550a6c4eb6665a79353a802, type: 3}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: maxNPCAmount
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: hungryChangeRate
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: npcSpawnInterval
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: thirstChangeRate
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: urgencyChangeRate
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: spawnPositions.Array.size
