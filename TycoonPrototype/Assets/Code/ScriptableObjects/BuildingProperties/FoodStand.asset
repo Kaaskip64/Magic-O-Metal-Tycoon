@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   placementArea:
     m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 3, y: 3, z: 1}
+    m_Size: {x: 5, y: 5, z: 1}
   queue: 2
   stock: 3
   capacity: 0

@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76454966890299654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.45, y: 4.22, z: 0}
+  m_LocalPosition: {x: -16.8, y: 5.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793931978229755698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -89,12 +89,12 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -0.021568298, y: 11.253238}
-      - {x: -9.894549, y: 8.793051}
-      - {x: -3.8962646, y: 5.806476}
-      - {x: -1.6114564, y: 6.988576}
-      - {x: 0.15824509, y: 7.6796}
-      - {x: 6.663353, y: 4.9334636}
-      - {x: 12.175292, y: 7.8453474}
+      - {x: -12.866342, y: 7.0099745}
+      - {x: -5.9170833, y: 3.3101702}
+      - {x: -2.0869434, y: 5.2054996}
+      - {x: 0.6337319, y: 6.490883}
+      - {x: 9.872889, y: 1.9616709}
+      - {x: 16.692417, y: 5.705655}
 --- !u!1 &2616206265886582281
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 6520299596572170745}
   - component: {fileID: 6232076909645298068}
   m_Layer: 6
-  m_Name: FoodStand2
+  m_Name: FoodStand
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   Placed: 0
   properties: {fileID: 11400000, guid: fe1c8927b431e194c8c4f58fd7e8cfac, type: 2}
   image: {fileID: 5113700797749537037}
-  mouseFollowOffset: {x: 0, y: -14.98}
+  mouseFollowOffset: {x: 0, y: -10.15}
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
@@ -164,7 +164,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 15.5}
+  m_Offset: {x: 0.5366516, y: 16.028076}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -175,7 +175,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 26, y: 26}
+  m_Size: {x: 37.193054, y: 37.51687}
   m_EdgeRadius: 0
 --- !u!1 &5113700797749537036
 GameObject:
@@ -202,8 +202,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5113700797749537036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 14, z: 0}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
+  m_LocalPosition: {x: 0, y: 19.1, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5014062777941128202}
