@@ -15,4 +15,4 @@ MonoBehaviour:
   BandImage: {fileID: 21300000, guid: c6565b030c45b9543a5e83b7b8876f55, type: 3}
   BandName: Amon Amarth
   SongName: Twighlight of the thundergod
-  MusicFile: {fileID: 0}
+  MusicFile: {fileID: 8300000, guid: 417cd0bdf4cd54e4989e5f52e5f0ddc8, type: 3}

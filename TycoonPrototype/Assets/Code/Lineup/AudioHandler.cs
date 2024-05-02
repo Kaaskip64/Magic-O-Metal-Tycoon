@@ -12,6 +12,7 @@ public class AudioHandler : MonoBehaviour
     {
         stage = gameObject.GetComponent<Stage>();
         stageAudio = gameObject.GetComponent<AudioSource>();
+        audioClips = new List<AudioClip>();
     }
 
 
@@ -19,6 +20,7 @@ public class AudioHandler : MonoBehaviour
     {
         foreach (BandListingData data in stage.currentStagePlaylist)
         {
+            Debug.Log(data.MusicFile);
             audioClips.Add(data.MusicFile);
         }
     }
@@ -28,14 +30,14 @@ public class AudioHandler : MonoBehaviour
 
         if(audioClips.Count == 0)
         {
-            stageAudio.clip = audioClips[0];
-            stageAudio.Play();
+            Play();
 
         }
     }
 
     public void Play()
     {
+        stageAudio.clip = audioClips[0];
         stageAudio.Play();
     }
 }

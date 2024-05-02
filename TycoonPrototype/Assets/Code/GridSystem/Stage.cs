@@ -105,7 +105,7 @@ public class Stage : MonoBehaviour
                 dataTransferScript.ActivatePlayingUI();
                 dataTransferScript.UploadLineUp(currentStagePlaylist);
             }
-            dataTransferScript.playHandeler.playStarted += DownloadSongs;
+            dataTransferScript.playHandeler.playStarted += ActivateCouritine;
             dataTransferScript.playHandeler.playStarted += PlayStageLineup;
 
         } else
@@ -143,7 +143,7 @@ public class Stage : MonoBehaviour
             currentStagePlaylist.Clear();
         }
 
-        //dataTransferScript.playHandeler.playStarted -= StartCoroutine(DownloadSongs());
+        dataTransferScript.playHandeler.playStarted -= ActivateCouritine;
 
         dataTransferScript.playHandeler.playStarted -= PlayStageLineup;
 
@@ -171,5 +171,11 @@ public class Stage : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.05f);
+    }
+
+
+    public void ActivateCouritine()
+    {
+        StartCoroutine(DownloadSongs());
     }
 }
