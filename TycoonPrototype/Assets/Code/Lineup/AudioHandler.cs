@@ -34,6 +34,8 @@ public class AudioHandler : MonoBehaviour
                 {
                     indexIndicator = 0;
                     listStartPlaying = false;
+                    stage.isPlaying = false;
+                    stage.currentStagePlaylist.Clear();
                 }
             }
 
