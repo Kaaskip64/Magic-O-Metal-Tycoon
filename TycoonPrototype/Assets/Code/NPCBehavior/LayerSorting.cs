@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LayerSorting : MonoBehaviour
 {
-    public LayerMask buildingLayerMask; // Layer where buildings are located
+    public LayerMask buildingLayerMask; // Layer where availableBuildings are located
     public float distanceThreshold = 1.0f; // Detection distance threshold
     public float yOffset = 1.00f; // Vertical distance offset
     public float radius = 1.0f;

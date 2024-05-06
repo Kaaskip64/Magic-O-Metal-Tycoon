@@ -47,6 +47,9 @@ public class NPCManager : MonoBehaviour
     public float npcSpawnInterval;
     public Transform[] spawnPositions;
 
+    [Header("LeaveProperties")]
+    public float NPCHesitateTime;
+
     private int currentNPCAmount;
     private float intervalCount;
     private void Awake()
@@ -86,6 +89,11 @@ public class NPCManager : MonoBehaviour
             intervalCount -= Time.fixedDeltaTime;
         }
         
+    }
+
+    public void ReduceNPC()
+    {
+        currentNPCAmount--;
     }
 
 }

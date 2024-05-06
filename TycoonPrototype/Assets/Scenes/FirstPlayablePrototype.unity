@@ -350,7 +350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4687124840566533267, guid: f2d13c0e04390a845acb8078c4e8c9a0, type: 3}
       propertyPath: cameraActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4687124840566533267, guid: f2d13c0e04390a845acb8078c4e8c9a0, type: 3}
       propertyPath: zoomSensitivity
@@ -43679,7 +43679,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: maxNPCAmount
-      value: 100
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
+      propertyPath: NPCHesitateTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: hungryChangeRate
@@ -43687,7 +43691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: npcSpawnInterval
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: thirstChangeRate

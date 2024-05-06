@@ -79,7 +79,7 @@ public class StageBuilder : MonoBehaviour
 
         if(!editingStageTiles)
         {
-            if(PlayerProperties.Instance.MoneyCheck(stagePrice))
+            if(PlayerProperties.Instance.MoneyCheckThenChange(stagePrice))
             {
                 CreateNewStageObject();
                 PlayerProperties.Instance.ChangeMoney(-stagePrice);
