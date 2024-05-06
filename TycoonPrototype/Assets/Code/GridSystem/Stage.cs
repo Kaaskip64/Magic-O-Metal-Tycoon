@@ -158,7 +158,7 @@ public class Stage : MonoBehaviour
     {
         audioHandler.LoadMusicFiles();
         audioHandler.Play();
-
+        isPlaying = true;
 
     }
 
