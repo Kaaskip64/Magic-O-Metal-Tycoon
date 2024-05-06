@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   productName: BeerStand
-  price: 5
+  price: 50
   itemPrefab: {fileID: 2616206265886582281, guid: 4785139f9884be340925aaa859f3eed2, type: 3}
   category: 2
 --- !u!114 &39801825
@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   productName: Bathroom
-  price: 5
+  price: 25
   itemPrefab: {fileID: 2616206265886582281, guid: f620db2653120c44d98d4083b6e9fd86, type: 3}
   category: 2
 --- !u!114 &1251130371
@@ -865,7 +865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   productName: MerchStand
-  price: 5
+  price: 75
   itemPrefab: {fileID: 2616206265886582281, guid: 0b64b8144ae95954b89c500691ad0e8a, type: 3}
   category: 2
 --- !u!1001 &1463864081
@@ -43658,9 +43658,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
+      propertyPath: beerPrice
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: npcPrefab
       value: 
       objectReference: {fileID: 4931076014443140394, guid: 5cefd01e0550a6c4eb6665a79353a802, type: 3}
+    - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
+      propertyPath: burgerPrice
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
+      propertyPath: toiletPrice
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: maxNPCAmount
       value: 100
@@ -43671,7 +43683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: npcSpawnInterval
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 741936732963213408, guid: 9cc9b0b9d22c0a34d9a781bdc9842a47, type: 3}
       propertyPath: thirstChangeRate
@@ -43872,6 +43884,10 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5054248883371619046, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: price
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 5054248883411804631, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -44040,6 +44056,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1173567430}
+    - target: {fileID: 6527077556496917891, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: money
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 6527077556548226045, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -44194,8 +44214,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BandsAmount: []
   BandData:
-  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
   - {fileID: 11400000, guid: 24b171f0c856e5949b3c240029f52f28, type: 2}
+  - {fileID: 11400000, guid: be11806cfc537f74c91627ff702571b1, type: 2}
+  - {fileID: 11400000, guid: d8de3a9154f49c944aef86a59ab6d3a0, type: 2}
+  - {fileID: 11400000, guid: 95daabe2a14305b4b8c1749ba8e23cfc, type: 2}
+  - {fileID: 11400000, guid: 2cc2d7c027d9c8f42a97a8b66c39b1e1, type: 2}
+  - {fileID: 11400000, guid: 3af572e5ca34c7a479199c615b5be963, type: 2}
+  - {fileID: 11400000, guid: 75e61c522a6f74c42a5e244f44ffb77c, type: 2}
+  - {fileID: 11400000, guid: 2395a6952171b6e45aba77cd45fe9b90, type: 2}
+  - {fileID: 11400000, guid: 859e8253673dc8949930d1f337db3364, type: 2}
+  - {fileID: 11400000, guid: ebe53b57e087e5546ad3adf9a6aa39cf, type: 2}
+  - {fileID: 11400000, guid: c2eb5e5d295ec0148a4e2e413bd8bf43, type: 2}
+  - {fileID: 11400000, guid: 58b0646f4d887d3429ef46c791638211, type: 2}
+  - {fileID: 11400000, guid: 58e05df7c8f170a4998959631e848dab, type: 2}
+  - {fileID: 11400000, guid: 2834b27d489205742828327b41221c2a, type: 2}
+  - {fileID: 11400000, guid: 1f9d5751a9834754b935e778b0df31ce, type: 2}
+  - {fileID: 11400000, guid: 8e1d5cdc6d32d6a4584bd86ce19d1a36, type: 2}
 --- !u!114 &7372326290959906912
 MonoBehaviour:
   m_ObjectHideFlags: 0

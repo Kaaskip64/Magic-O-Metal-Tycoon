@@ -45,8 +45,15 @@ public class AudioHandler : MonoBehaviour
     {
         foreach (BandListingData data in stage.currentStagePlaylist)
         {
-            Debug.Log(data.MusicFile);
-            audioClips.Add(data.MusicFile);
+            if (data == null)
+            {
+                return;
+            }
+            else
+            {
+                Debug.Log(data.MusicFile);
+                audioClips.Add(data.MusicFile);
+            }
         }
     }
 
