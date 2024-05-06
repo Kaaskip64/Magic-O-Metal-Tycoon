@@ -66,7 +66,7 @@ public class StageBuilder : MonoBehaviour
             //-Economy
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.Escape))
         {
             InitialiseBuiltStageComponents();
             editingStageTiles = false;
@@ -79,8 +79,12 @@ public class StageBuilder : MonoBehaviour
 
         if(!editingStageTiles)
         {
-            CreateNewStageObject();
-            PlayerProperties.Instance.ChangeMoney(-stagePrice);
+            if(PlayerProperties.Instance.MoneyCheck(stagePrice))
+            {
+                CreateNewStageObject();
+                PlayerProperties.Instance.ChangeMoney(-stagePrice);
+            }
+            
 
 
         } else

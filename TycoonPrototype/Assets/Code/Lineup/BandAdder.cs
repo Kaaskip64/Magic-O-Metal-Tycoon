@@ -47,7 +47,7 @@ public class BandAdder : MonoBehaviour
         if (PlayerProperties.Instance.MoneyCheck(price))
         {
             AddNewBandAddressable();
-
+            PlayerProperties.Instance.ChangeMoney(-price);
         }
 
     }

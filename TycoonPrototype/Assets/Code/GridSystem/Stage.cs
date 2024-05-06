@@ -158,7 +158,7 @@ public class Stage : MonoBehaviour
     {
         audioHandler.LoadMusicFiles();
         audioHandler.Play();
-        Debug.Log("hit");
+        isPlaying = true;
 
     }
 
@@ -166,7 +166,6 @@ public class Stage : MonoBehaviour
     {
         foreach (BandListingData data in dataTransferScript.GetNodesList())
         {
-            Debug.Log(data);
             currentStagePlaylist.Add(data);
         }
 

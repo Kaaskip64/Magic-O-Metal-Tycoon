@@ -34,6 +34,8 @@ public class AudioHandler : MonoBehaviour
                 {
                     indexIndicator = 0;
                     listStartPlaying = false;
+                    stage.isPlaying = false;
+                    stage.currentStagePlaylist.Clear();
                 }
             }
 
@@ -45,8 +47,15 @@ public class AudioHandler : MonoBehaviour
     {
         foreach (BandListingData data in stage.currentStagePlaylist)
         {
-            Debug.Log(data.MusicFile);
-            audioClips.Add(data.MusicFile);
+            if (data == null)
+            {
+                return;
+            }
+            else
+            {
+                Debug.Log(data.MusicFile);
+                audioClips.Add(data.MusicFile);
+            }
         }
     }
 
