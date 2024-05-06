@@ -43005,6 +43005,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7372326292276527132}
     - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: stagePrice
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: stageBandData
       value: 
       objectReference: {fileID: 1493320641}
@@ -44046,7 +44050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6527077555931929896, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6527077555931929896, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
