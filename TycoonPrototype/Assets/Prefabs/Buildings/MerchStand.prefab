@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76454966890299654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.8, y: 6.4, z: 0}
+  m_LocalPosition: {x: 23.96, y: 11.109999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793931978229755698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6, y: 14.3, z: 0}
+  m_LocalPosition: {x: 9.869999, y: 8.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -88,17 +88,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -4.575657, y: 7.729906}
-      - {x: -9.63473, y: 7.14548}
-      - {x: -21.001902, y: -2.0979424}
-      - {x: -18.98755, y: -5.7635727}
-      - {x: -8.711647, y: -7.484817}
-      - {x: -3.1255379, y: -4.497543}
-      - {x: 8.2383995, y: 2.0143862}
-      - {x: 17.069988, y: -2.9110863}
-      - {x: 20.084297, y: -1.864383}
-      - {x: 20.195051, y: 0.67073584}
-      - {x: 2.699397, y: 9.051575}
+    - - {x: -3.2073097, y: 3.1782522}
+      - {x: -10.533694, y: 0.4868021}
+      - {x: -20.902987, y: -1.024806}
+      - {x: -15.9195385, y: -4.9513626}
+      - {x: -3.6202278, y: -3.8551726}
+      - {x: 23.872211, y: 8.74016}
+      - {x: 13.136771, y: 13.747957}
 --- !u!1 &2616206265886582281
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +107,7 @@ GameObject:
   - component: {fileID: 6520299596572170745}
   - component: {fileID: 6232076909645298068}
   m_Layer: 6
-  m_Name: BeerStand
+  m_Name: MerchStand
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,9 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Placed: 0
-  properties: {fileID: 11400000, guid: 046099105e07af3489a4b0babced4719, type: 2}
+  properties: {fileID: 11400000, guid: bdefc608a2a5aee44b6770222947be51, type: 2}
   image: {fileID: 5113700797749537037}
-  mouseFollowOffset: {x: 0, y: 0}
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
@@ -168,7 +163,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.7691574, y: 18.856018}
+  m_Offset: {x: 9.810542, y: 22.457}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -179,7 +174,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 40.837975, y: 43.493355}
+  m_Size: {x: 41.45334, y: 38.135437}
   m_EdgeRadius: 0
 --- !u!1 &5113700797749537036
 GameObject:
@@ -206,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5113700797749537036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.9, y: 28.5, z: 0}
+  m_LocalPosition: {x: 9.87, y: 22.5, z: 0}
   m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -254,7 +249,7 @@ SpriteRenderer:
   m_SortingLayerID: -1624857237
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e904e1fee326e0a43a054d27536fd282, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d84922a0887bf242bc16f2e72aa4212, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

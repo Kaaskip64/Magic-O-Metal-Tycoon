@@ -7,11 +7,17 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class BandDataTransferScript : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> nodes;
+
+    [SerializeField] private GameObject BandList;
+    [SerializeField] private GameObject MusicList;
+    [SerializeField] private GameObject IsPlayingText;
+    [SerializeField] private Button button;
 
     [SerializeField] private GameObject freshListItem;
     public PlayMusicEventHandler playHandeler;
@@ -93,5 +99,21 @@ public class BandDataTransferScript : MonoBehaviour
                 Debug.LogError($"Exception: {goHandle.OperationException}");
             }
         }
+    }
+
+    public void ActivatePlayingUI()
+    {
+        BandList.SetActive(false);
+        MusicList.SetActive(false);
+        IsPlayingText.SetActive(true);
+        button.enabled = false;
+
+    }
+    public void ActivateListingUI()
+    {
+        BandList.SetActive(true);
+        //MusicList.SetActive(true);
+        IsPlayingText.SetActive(false);
+        button.enabled = true;
     }
 }

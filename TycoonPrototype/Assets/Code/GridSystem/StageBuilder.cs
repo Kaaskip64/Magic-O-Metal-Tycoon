@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class StageBuilder : MonoBehaviour
 {
@@ -16,13 +18,15 @@ public class StageBuilder : MonoBehaviour
     public GameObject StageUI;
     public BandDataTransferScript stageBandData;
     public Stage currentActiveStageUI;
+    public Button quitButton;
 
     public Button eraseButton;
     public bool eraseMode = false;
-
     public bool editingStageTiles = false;
 
     public BoundsInt placementArea;
+
+    public float stagePrice;
 
     private GameObject stageObject;
     private Tilemap stageMap;
@@ -51,15 +55,21 @@ public class StageBuilder : MonoBehaviour
         placementArea.x = currentTilePos.x - (placementArea.size.x / 2);
         placementArea.y = currentTilePos.y - (placementArea.size.y / 2);
 
-        //BuildingSystem.current.FollowBuilding(placementArea);
-        
-
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             stageMap.SetTile(currentTilePos, currentStageTile);
             BuildingSystem.SetTilesBlock(placementArea, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+
+
+
             //TODO
             //-Economy
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            InitialiseBuiltStageComponents();
+            editingStageTiles = false;
         }
 
     }
@@ -67,32 +77,16 @@ public class StageBuilder : MonoBehaviour
     public void EditingStage()
     {
 
-        if(editingStageTiles)
+        if(!editingStageTiles)
         {
-            //initialisation new built stage
-            CompositeCollider2D tempComposite =  stageObject.AddComponent<CompositeCollider2D>();
-            TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
-            Stage tempStage = stageObject.AddComponent<Stage>();
-
-            tempTileCol.usedByComposite = true;
-
-            tempComposite.isTrigger = true;
-            tempComposite.attachedRigidbody.isKinematic = true;
-            tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
-            tempStage.MainUI = MainUI;
-            tempStage.StageUI = StageUI;
-            tempStage.dataTransferScript = stageBandData;
-            BuildingSystem.currentInstance.stages.Add(tempStage);
+            CreateNewStageObject();
+            PlayerProperties.Instance.ChangeMoney(-stagePrice);
 
 
-            BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);
         } else
         {
-            stageObject = Instantiate(blankTileMap);
-            stageObject.transform.SetParent(BuildingSystem.currentInstance.gridLayout.gameObject.transform);
-            stageMap = stageObject.GetComponent<Tilemap>();
+            InitialiseBuiltStageComponents();
         }
-
 
         editingStageTiles = !editingStageTiles;
 
@@ -104,21 +98,45 @@ public class StageBuilder : MonoBehaviour
         eraseMode = !eraseMode;
     }
 
-    public void ClearStageUI() //Function for the playlistUI exit button to call
+
+
+    public void SwapCurrentStageTile(TileBase newTile)
     {
-        if (currentActiveStageUI.currentStagePlaylist != null)
-        {
-            currentActiveStageUI.currentStagePlaylist.Clear();
-        }
+        currentStageTile = newTile;
+    }
 
-        foreach (BandListingData data in stageBandData.GetNodesList())
-        {
-            Debug.Log(data);
-            currentActiveStageUI.currentStagePlaylist.Add(data);
-        }
-        stageBandData.ResetListings();
+    private void CreateNewStageObject()
+    {
+        stageObject = Instantiate(blankTileMap);
+        stageObject.transform.SetParent(BuildingSystem.currentInstance.gridLayout.gameObject.transform);
+        stageMap = stageObject.GetComponent<Tilemap>();
 
-        currentActiveStageUI = null;
+    }
+
+    private void InitialiseBuiltStageComponents()
+    {
+        //initialisation new built stage
+        CompositeCollider2D tempComposite = stageObject.AddComponent<CompositeCollider2D>();
+        TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
+        Stage tempStage = stageObject.AddComponent<Stage>();
+        AudioSource tempAudioSource = stageObject.AddComponent<AudioSource>();
+        AudioHandler tempAudioHandler = stageObject.AddComponent<AudioHandler>();
+
+        tempTileCol.usedByComposite = true;
+
+        tempComposite.isTrigger = true;
+        tempComposite.attachedRigidbody.isKinematic = true;
+        tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+
+        tempStage.MainUI = MainUI;
+        tempStage.StageUI = StageUI;
+        tempStage.dataTransferScript = stageBandData;
+        tempStage.quitButton = quitButton;
+
+        BuildingSystem.currentInstance.stages.Add(tempStage);
+
+        BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);
+
     }
 }
 

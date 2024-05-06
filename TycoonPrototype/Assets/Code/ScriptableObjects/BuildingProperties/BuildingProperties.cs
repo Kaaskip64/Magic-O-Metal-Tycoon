@@ -14,7 +14,9 @@ public class BuildingProperties : ScriptableObject
         Merch,
         Bathroom,
         Stage,
-        Audience
+        Audience,
+        Deco,
+        SpawnPoint
     };
 
     public BuildingType type;

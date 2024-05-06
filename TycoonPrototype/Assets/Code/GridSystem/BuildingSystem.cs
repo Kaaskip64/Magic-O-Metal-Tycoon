@@ -27,8 +27,8 @@ public class BuildingSystem : MonoBehaviour
 
     //Mouse
     public Vector3 mousePosOnGrid;
-    Ray rayCast;
-    RaycastHit hit;
+    public Ray rayCast;
+    public RaycastHit hit;
 
     //Building Lists
     public List<Building> foodStands;
@@ -67,18 +67,19 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
 
+        if (EventSystem.current.IsPointerOverGameObject(0))
+        {
+            return;
+        }
+
         //Mouse Position translated to grid position
-        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
+        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + currentSelectedBuilding.mouseFollowOffset.x, 
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).y + currentSelectedBuilding.mouseFollowOffset.y, 
             0);
         //raycast
         rayCast = Camera.main.ScreenPointToRay(Input.mousePosition);
         
         
-        if (EventSystem.current.IsPointerOverGameObject(0))
-        {
-            return;
-        }
         
 
         if (!currentSelectedBuilding.Placed) //Selected building follows mouse as long as not placed

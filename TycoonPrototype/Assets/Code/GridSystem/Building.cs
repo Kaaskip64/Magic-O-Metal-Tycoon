@@ -10,6 +10,7 @@ public class Building : MonoBehaviour
     public BuildingProperties properties; //slot for scriptable object which holds properties
     public SpriteRenderer image;
 
+    public Vector2 mouseFollowOffset;
     public BoundsInt area; //size of the placement area. ALWAYS keep the z value 1, or else it messes up the calculation
 
     public Transform NPCTarget;
@@ -23,7 +24,7 @@ public class Building : MonoBehaviour
     {
         Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
-        areaTemp.position = positionInt;
+        areaTemp.position = positionInt + area.position;
 
         if (BuildingSystem.currentInstance.CanTakeArea(areaTemp))
         {
@@ -41,5 +42,10 @@ public class Building : MonoBehaviour
         Placed = true;
         BuildingSystem.currentInstance.TakeArea(areaTemp);
         
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(-mouseFollowOffset, 1);
     }
 }

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
 
 public class Stage : MonoBehaviour
 {
@@ -11,6 +14,12 @@ public class Stage : MonoBehaviour
     public GameObject StageUI;
     public BandDataTransferScript dataTransferScript;
 
+    public AudioHandler audioHandler;
+
+    public Button quitButton;
+
+    public bool isPlaying;
+
     private Tilemap tilemap;
     private CompositeCollider2D stageCollider;
 
@@ -18,12 +27,15 @@ public class Stage : MonoBehaviour
     private Vector3Int stageCenterTile;
 
     public BoundsInt audienceAreaSize;
-    public bool isPlaying = false;
+
     private void Start()
     {
         currentStagePlaylist = new List<BandListingData>();
         tilemap = gameObject.GetComponent<Tilemap>();
         stageCollider = gameObject.GetComponent<CompositeCollider2D>();
+        audioHandler = gameObject.GetComponent<AudioHandler>();
+
+        quitButton.onClick.AddListener(ClearStageUI);
 
         stageCenter = stageCollider.bounds.center;
 
@@ -55,6 +67,11 @@ public class Stage : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if(EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null)
+        {
+            return;
+        }
+
         tilemap.color = new Color(0f, 1f, 0f, 1f);
     }
 
@@ -66,32 +83,38 @@ public class Stage : MonoBehaviour
 
     private void OnMouseDown()
     {
-        MainUI.SetActive(false);
-        StageUI.SetActive(true);
-       
         //When stage is clicked, everything in this function gets executed
+
+        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null)
+        {
+            return;
+        }
 
         MainUI.SetActive(false);
         StageUI.SetActive(true);
+
+        if (!isPlaying)
+        {
+            if (currentStagePlaylist.Count == 0)
+            {
+                dataTransferScript.StartNewLineUp();
+                dataTransferScript.ActivateListingUI();
+            }
+            else
+            {
+                dataTransferScript.ActivatePlayingUI();
+                dataTransferScript.UploadLineUp(currentStagePlaylist);
+            }
+            dataTransferScript.playHandeler.playStarted += ActivateCouritine;
+            dataTransferScript.playHandeler.playStarted += PlayStageLineup;
+
+        } else
+        {
+            dataTransferScript.ActivatePlayingUI();
+        }
 
         StageBuilder.currentInstance.currentActiveStageUI = this;
 
-        //dataTransferScript.ResetListings();
-        if (!isPlaying)
-        {
-            if(currentStagePlaylist.Count == 0)
-            {
-                dataTransferScript.StartNewLineUp();
-            } else
-            {
-                dataTransferScript.UploadLineUp(currentStagePlaylist);
-            }
-            
-        }//else(dataTransferScript.)
-        
-
-
-        Debug.Log(gameObject.name);
         //Debug.Log(tilemap.CellToWorld(stageCenterTile));
 
 
@@ -111,5 +134,48 @@ public class Stage : MonoBehaviour
         {
             currentStagePlaylist.Add(data);
         }
+    }
+
+    public void ClearStageUI() //Function for the playlistUI exit button to call
+    {
+        if (currentStagePlaylist != null)
+        {
+            currentStagePlaylist.Clear();
+        }
+
+        dataTransferScript.playHandeler.playStarted -= ActivateCouritine;
+
+        dataTransferScript.playHandeler.playStarted -= PlayStageLineup;
+
+        DownloadSongs();
+
+        dataTransferScript.ResetListings();
+
+        StageBuilder.currentInstance.currentActiveStageUI = null;
+    }
+
+    public void PlayStageLineup()
+    {
+        audioHandler.LoadMusicFiles();
+        audioHandler.Play();
+        Debug.Log("hit");
+
+    }
+
+    private IEnumerator DownloadSongs()
+    {
+        foreach (BandListingData data in dataTransferScript.GetNodesList())
+        {
+            Debug.Log(data);
+            currentStagePlaylist.Add(data);
+        }
+
+        yield return new WaitForSeconds(0.05f);
+    }
+
+
+    public void ActivateCouritine()
+    {
+        StartCoroutine(DownloadSongs());
     }
 }
