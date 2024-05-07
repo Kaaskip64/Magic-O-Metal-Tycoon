@@ -16,7 +16,7 @@ public class BreakState : BaseState
 
     private bool prepareToLeave;
 
-    private List<Building> availableBuildings;
+    private List<Building> availableBuildings = new();
 
     private float hesitateCount;
     public override void EnterState(object obj)
@@ -24,8 +24,6 @@ public class BreakState : BaseState
         guest = obj as Guest;
         SetDestination();
         isStateEntered = true;
-
-        availableBuildings = new();
     }
 
     public override void ExitState()
@@ -155,7 +153,7 @@ public class BreakState : BaseState
                 cloestOne = building.NPCTarget;
             }
         }
-        
+        availableBuildings.Clear();
         return cloestOne;
     }
 
