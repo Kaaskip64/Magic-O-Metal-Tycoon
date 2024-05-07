@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 //Handles the placement and management of availableBuildings on grid(s)
 
@@ -38,6 +39,8 @@ public class BuildingSystem : MonoBehaviour
     public List<Building> bathroomStands;
     public List<Building> audienceAreas;
     public List<Stage> stages;
+
+    public UnityAction ExitBuildingFollowing; // handling problem that building placement mouse click can interact with UI elements
 
 
     private void Awake()
@@ -128,6 +131,7 @@ public class BuildingSystem : MonoBehaviour
             Destroy(currentSelectedBuilding.gameObject);
             MainTileMap.gameObject.SetActive(false);
             upperBackground.SetActive(true);
+            ExitBuildingFollowing();
         }
 
 

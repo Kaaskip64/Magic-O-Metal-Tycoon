@@ -17,6 +17,7 @@ public class ShopSystem : MonoBehaviour
     private void Start()
     {
         shopUI = GetComponent<ShopUI>(); // Get reference to ShopUI component
+        BuildingSystem.currentInstance.ExitBuildingFollowing += shopUI.EnableCategoryButton; // forwarding Enable button function from shopUI to BuildingSystem
     }
 
     // Method to handle purchasing a product
@@ -31,6 +32,7 @@ public class ShopSystem : MonoBehaviour
                 BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
                 Debug.Log("Purchase product: " + productName);
                 upperBackground.SetActive(false);
+                shopUI.DisableCategoryButton();
             }
             else
             {
