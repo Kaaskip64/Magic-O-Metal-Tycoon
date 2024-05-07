@@ -20,7 +20,7 @@ public class Stage : MonoBehaviour
 
     public bool isPlaying;
 
-    private Tilemap tilemap;
+    public Tilemap tilemap;
     private CompositeCollider2D stageCollider;
 
     private Vector3 stageCenter;

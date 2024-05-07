@@ -25,14 +25,14 @@ public class StageBuilder : MonoBehaviour
 
     [Header("Buttons")]
     public Button quitButton;
-    //public Button eraseButton;
+    public Button eraseButton;
 
     [Header("Active references")]
     public Stage currentActiveStageUI;
     public TileBase currentStageTile;
 
     [Header("Bools")]
-    //public bool eraseMode = false;
+    public bool eraseMode = false;
     public bool editingStageTiles = false;
 
     [Header("Price per placed stage")]
@@ -40,10 +40,13 @@ public class StageBuilder : MonoBehaviour
 
     private GameObject stageObject;
     private Tilemap stageMap;
+    private List<Vector3> currentStageTiles;
 
     private void Awake()
     {
         currentInstance = this; //init
+        currentStageTiles = new List<Vector3>();
+
     }
 
     private void Update()
@@ -65,16 +68,58 @@ public class StageBuilder : MonoBehaviour
         placementAreaSize.x = currentTilePos.x - (placementAreaSize.size.x / 2);
         placementAreaSize.y = currentTilePos.y - (placementAreaSize.size.y / 2);
 
+        
+        
+
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            stageMap.SetTile(currentTilePos, currentStageTile);
-            BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+            
+            if(!eraseMode)
+            {
+                stageMap.SetTile(currentTilePos, currentStageTile);
+                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
 
+            } else
+            {
+                stageMap.SetTile(currentTilePos, null);
 
+                foreach (Stage stage in BuildingSystem.currentInstance.stages)
+                {
+                    Tilemap tempMap = stage.tilemap;
+                    for (int n = tempMap.cellBounds.xMin; n < tempMap.cellBounds.xMax; n++)
+                    {
+                        for (int p = tempMap.cellBounds.yMin; p < tempMap.cellBounds.yMax; p++)
+                        {
+                            Vector3Int localPlace = (new Vector3Int(n, p, (int)tempMap.transform.position.y));
+                            Vector3 place = tempMap.CellToWorld(localPlace);
+                            if (tempMap.HasTile(localPlace) && localPlace != currentTilePos)
+                            {
+                                currentStageTiles.Add(place);
+                            }
+                            else if (localPlace == currentTilePos)
+                            {
+                                placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).x - 2;
+                                placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).y - 2;
 
-            //TODO
-            //-Economy
+                                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, BuildingSystem.currentInstance.MainTileMap);
+                            }
+                        }
+                    }
+
+                    foreach (Vector3 tilePos in currentStageTiles)
+                    {
+                        placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).x - 2;
+                        placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).y - 2;
+
+                        Debug.Log(placementAreaSize.x);
+
+                        BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+
+                    }
+                }
+            }
         }
+        currentStageTiles.Clear();
 
         if (Input.GetKey(KeyCode.Escape))
         {
@@ -93,12 +138,14 @@ public class StageBuilder : MonoBehaviour
                 CreateNewStageObject();
                 PlayerProperties.Instance.ChangeMoney(-stagePrice);
                 editingStageTiles = true;
+                eraseButton.gameObject.SetActive(true);
             }
 
         } else
         {
             InitialiseBuiltStageComponents();
             editingStageTiles = false;
+            eraseButton.gameObject.SetActive(false);
         }
 
     }
@@ -106,7 +153,7 @@ public class StageBuilder : MonoBehaviour
     public void EraseMode()
     {
 
-        //eraseMode = !eraseMode;
+        eraseMode = !eraseMode;
     }
 
 
@@ -122,6 +169,14 @@ public class StageBuilder : MonoBehaviour
         stageObject.transform.SetParent(BuildingSystem.currentInstance.gridLayout.gameObject.transform);
         stageMap = stageObject.GetComponent<Tilemap>();
 
+        Stage tempStage = stageObject.AddComponent<Stage>();
+        tempStage.MainUI = MainUI;
+        tempStage.StageUI = StageUI;
+        tempStage.dataTransferScript = stageBandData;
+        tempStage.quitButton = quitButton;
+
+        BuildingSystem.currentInstance.stages.Add(tempStage);
+
     }
 
     private void InitialiseBuiltStageComponents()
@@ -129,7 +184,6 @@ public class StageBuilder : MonoBehaviour
         //initialisation new built stage
         CompositeCollider2D tempComposite = stageObject.AddComponent<CompositeCollider2D>();
         TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
-        Stage tempStage = stageObject.AddComponent<Stage>();
         AudioSource tempAudioSource = stageObject.AddComponent<AudioSource>();
         AudioHandler tempAudioHandler = stageObject.AddComponent<AudioHandler>();
 
@@ -139,12 +193,6 @@ public class StageBuilder : MonoBehaviour
         tempComposite.attachedRigidbody.isKinematic = true;
         tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
 
-        tempStage.MainUI = MainUI;
-        tempStage.StageUI = StageUI;
-        tempStage.dataTransferScript = stageBandData;
-        tempStage.quitButton = quitButton;
-
-        BuildingSystem.currentInstance.stages.Add(tempStage);
 
         BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);
 

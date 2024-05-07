@@ -1137,6 +1137,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4780670326645666301, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5587928123873896405, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: m_Mode
       value: 1
@@ -43030,6 +43034,10 @@ PrefabInstance:
       value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: eraseButton
+      value: 
+      objectReference: {fileID: 1888233320}
+    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: stageBandData
       value: 
       objectReference: {fileID: 1493320641}
@@ -43040,6 +43048,18 @@ PrefabInstance:
     - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: shopStageButton
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: placementAreaSize.m_Size.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: placementAreaSize.m_Size.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: placementAreaSize.m_Size.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8704790693828444442, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: m_Mode
@@ -43683,6 +43703,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+--- !u!114 &1888233320 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2207326820249183969, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+  m_PrefabInstance: {fileID: 6527077556690291208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2055267902 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5054248883611137838, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
@@ -43822,6 +43853,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 828380400}
     m_Modifications:
+    - target: {fileID: 2207326820249183969, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1173567430}
+    - target: {fileID: 2207326820249183969, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EraseMode
+      objectReference: {fileID: 0}
     - target: {fileID: 5054248882516233570, guid: 0b039fd095e5efd439939b387e40fcc5, type: 3}
       propertyPath: m_Sprite
       value: 
