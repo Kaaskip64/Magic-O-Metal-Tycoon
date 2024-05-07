@@ -13,11 +13,11 @@ public class Stage : MonoBehaviour
     public GameObject MainUI;
     public GameObject StageUI;
     public BandDataTransferScript dataTransferScript;
-
+    public LocalAudioHandler LocalAudio;
     public AudioHandler audioHandler;
 
     public Button quitButton;
-
+    public Button audioButton;
     public bool isPlaying;
 
     private Tilemap tilemap;
@@ -36,7 +36,7 @@ public class Stage : MonoBehaviour
         audioHandler = gameObject.GetComponent<AudioHandler>();
 
         quitButton.onClick.AddListener(ClearStageUI);
-
+        LocalAudio = audioButton.GetComponent<LocalAudioHandler>();
         stageCenter = stageCollider.bounds.center;
 
         stageCenterTile = tilemap.WorldToCell(stageCenter);
@@ -92,6 +92,8 @@ public class Stage : MonoBehaviour
 
         MainUI.SetActive(false);
         StageUI.SetActive(true);
+        LocalAudio.ChangeAudio(audioHandler.stageAudio.mute);
+        LocalAudio.SoundChange += audioHandler.Mute;
 
         if (!isPlaying)
         {
@@ -107,11 +109,14 @@ public class Stage : MonoBehaviour
             }
             dataTransferScript.playHandeler.playStarted += ActivateCouritine;
             dataTransferScript.playHandeler.playStarted += PlayStageLineup;
+            
+            
 
         } else
         {
             dataTransferScript.ActivatePlayingUI();
         }
+        
 
         StageBuilder.currentInstance.currentActiveStageUI = this;
 
@@ -146,6 +151,8 @@ public class Stage : MonoBehaviour
         dataTransferScript.playHandeler.playStarted -= ActivateCouritine;
 
         dataTransferScript.playHandeler.playStarted -= PlayStageLineup;
+        
+        LocalAudio.SoundChange -= audioHandler.Mute;
 
         DownloadSongs();
 

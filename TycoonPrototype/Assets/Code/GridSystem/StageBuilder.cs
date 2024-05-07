@@ -19,7 +19,8 @@ public class StageBuilder : MonoBehaviour
     public BandDataTransferScript stageBandData;
     public Stage currentActiveStageUI;
     public Button quitButton;
-
+    public Button SoundButton;
+    
     public Button eraseButton;
     public bool eraseMode = false;
     public bool editingStageTiles = false;
@@ -136,7 +137,7 @@ public class StageBuilder : MonoBehaviour
         tempStage.StageUI = StageUI;
         tempStage.dataTransferScript = stageBandData;
         tempStage.quitButton = quitButton;
-
+        tempStage.audioButton = SoundButton;
         BuildingSystem.currentInstance.stages.Add(tempStage);
 
         BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);

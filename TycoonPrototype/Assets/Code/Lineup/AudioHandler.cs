@@ -53,13 +53,15 @@ public class AudioHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log(data.MusicFile);
                 audioClips.Add(data.MusicFile);
             }
         }
     }
 
-
+    public void Mute(bool shouldMute)
+    {
+        stageAudio.mute = shouldMute;
+    }
 
     public void Play()
     {
