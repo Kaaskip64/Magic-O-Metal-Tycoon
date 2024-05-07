@@ -76,23 +76,20 @@ public class StageBuilder : MonoBehaviour
 
     public void EditingStage()
     {
-
-        if(!editingStageTiles)
+        if (!editingStageTiles)
         {
-            if(PlayerProperties.Instance.MoneyCheckThenChange(stagePrice))
+            if (PlayerProperties.Instance.MoneyCheckThenChange(stagePrice))
             {
                 CreateNewStageObject();
                 PlayerProperties.Instance.ChangeMoney(-stagePrice);
+                editingStageTiles = true;
             }
-            
-
 
         } else
         {
             InitialiseBuiltStageComponents();
+            editingStageTiles = false;
         }
-
-        editingStageTiles = !editingStageTiles;
 
     }
 
