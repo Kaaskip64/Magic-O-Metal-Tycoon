@@ -90,6 +90,8 @@ public class Stage : MonoBehaviour
             return;
         }
 
+        tilemap.color = new Color(1f, 1f, 1f, 1f);
+
         MainUI.SetActive(false);
         StageUI.SetActive(true);
 
