@@ -18,5 +18,5 @@ MonoBehaviour:
     m_Size: {x: 3, y: 3, z: 1}
   queue: 0
   stock: 0
-  capacity: 0
+  capacity: 10
   condition: 0

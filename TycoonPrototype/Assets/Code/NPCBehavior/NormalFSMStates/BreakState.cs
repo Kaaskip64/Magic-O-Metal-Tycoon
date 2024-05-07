@@ -100,7 +100,7 @@ public class BreakState : BaseState
 
         }
 
-        if(lowMeterCount >=2&&guest.destinationSetter.target == null)
+        if (lowMeterCount >= 2 && guest.destinationSetter.target == null)
         {
             CheckIfShouldLeave();
         }

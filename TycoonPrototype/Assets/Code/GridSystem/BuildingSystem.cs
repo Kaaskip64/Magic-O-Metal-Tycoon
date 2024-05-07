@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem currentInstance;
+    public GameObject upperBackground;
 
     //Grids and Tilemaps to use
     public GridLayout gridLayout;
@@ -126,6 +127,7 @@ public class BuildingSystem : MonoBehaviour
             ClearArea();
             Destroy(currentSelectedBuilding.gameObject);
             MainTileMap.gameObject.SetActive(false);
+            upperBackground.SetActive(true);
         }
 
 

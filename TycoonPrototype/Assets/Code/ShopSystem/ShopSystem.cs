@@ -8,6 +8,8 @@ public class ShopSystem : MonoBehaviour
 {
     public static Func<ShopProduct, bool> MoneyCheck; // Function to check if player has enough money
 
+    public GameObject upperBackground;
+
     private Dictionary<string, ShopProduct> productDict = new Dictionary<string, ShopProduct>(); // Dictionary to store products
 
     private ShopUI shopUI; // Reference to the ShopUI script
@@ -28,6 +30,7 @@ public class ShopSystem : MonoBehaviour
             {
                 BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
                 Debug.Log("Purchase product: " + productName);
+                upperBackground.SetActive(false);
             }
             else
             {
