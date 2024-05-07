@@ -20,7 +20,7 @@ public class Stage : MonoBehaviour
     public Button audioButton;
     public bool isPlaying;
 
-    private Tilemap tilemap;
+    public Tilemap tilemap;
     private CompositeCollider2D stageCollider;
 
     private Vector3 stageCenter;
@@ -89,6 +89,8 @@ public class Stage : MonoBehaviour
         {
             return;
         }
+
+        tilemap.color = new Color(1f, 1f, 1f, 1f);
 
         MainUI.SetActive(false);
         StageUI.SetActive(true);

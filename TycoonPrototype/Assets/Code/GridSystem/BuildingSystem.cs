@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
 
 //Handles the placement and management of availableBuildings on grid(s)
 
 public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem currentInstance;
-    public GameObject upperBackground;
 
     //Grids and Tilemaps to use
+    [Header("Grids and Tilemaps")]
     public GridLayout gridLayout;
     public Tilemap MainTileMap; //tilemap to show edit mode/building availability
     public Tilemap TempTileMap; //tilemap where the availableBuildings are hovering
@@ -28,11 +27,13 @@ public class BuildingSystem : MonoBehaviour
     private BoundsInt prevArea;
 
     //Mouse
+    [Header("Mouse")]
     public Vector3 mousePosOnGrid;
     public Ray rayCast;
     public RaycastHit hit;
 
     //Building Lists
+    [Header("Placed building lists")]
     public List<Building> foodStands;
     public List<Building> merchStands;
     public List<Building> beerStands;
@@ -40,8 +41,9 @@ public class BuildingSystem : MonoBehaviour
     public List<Building> audienceAreas;
     public List<Stage> stages;
 
-    public UnityAction ExitBuildingFollowing; // handling problem that building placement mouse click can interact with UI elements
-
+    //Misc variables
+    [Header("Misc variables")]
+    public GameObject upperBackgroundShop;
 
     private void Awake()
     {
@@ -75,6 +77,7 @@ public class BuildingSystem : MonoBehaviour
         {
             return;
         }
+
 
         //Mouse Position translated to grid position
         mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + currentSelectedBuilding.mouseFollowOffset.x, 
@@ -129,9 +132,8 @@ public class BuildingSystem : MonoBehaviour
         {
             ClearArea();
             Destroy(currentSelectedBuilding.gameObject);
+            upperBackgroundShop.SetActive(true);
             MainTileMap.gameObject.SetActive(false);
-            upperBackground.SetActive(true);
-            ExitBuildingFollowing();
         }
 
 
@@ -143,6 +145,7 @@ public class BuildingSystem : MonoBehaviour
         currentSelectedBuilding = Instantiate(building.itemPrefab, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
         currentSelectedBuilding.gameObject.name = building.ProductName;
         FollowBuilding(currentSelectedBuilding.area);
+        upperBackgroundShop.SetActive(false);
         MainTileMap.gameObject.SetActive(true);
 
         currentBuildingColor = currentSelectedBuilding.image.color;
@@ -209,6 +212,7 @@ public class BuildingSystem : MonoBehaviour
     public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
     {
         currentSelectedBuilding.Place();
+        MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
         PlayerProperties.Instance.ChangeMoney(-currentSelectedProduct.Price);
         currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 1f);
 
