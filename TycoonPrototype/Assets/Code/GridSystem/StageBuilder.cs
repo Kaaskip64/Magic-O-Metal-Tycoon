@@ -204,9 +204,3 @@ public class StageBuilder : MonoBehaviour
 
     }
 }
-
-public enum TileEditMode
-{
-    Place,
-    Erase
-}
