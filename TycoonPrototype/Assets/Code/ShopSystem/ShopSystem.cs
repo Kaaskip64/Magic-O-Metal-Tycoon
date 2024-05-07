@@ -24,7 +24,7 @@ public class ShopSystem : MonoBehaviour
         {
             ShopProduct product = productDict[productName]; // Get the product
 
-            if (PlayerProperties.Instance.MoneyCheck(product)) // Check if player has enough money
+            if (PlayerProperties.Instance.MoneyCheckThenChange(product)) // Check if player has enough money
             {
                 BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
                 Debug.Log("Purchase product: " + productName);

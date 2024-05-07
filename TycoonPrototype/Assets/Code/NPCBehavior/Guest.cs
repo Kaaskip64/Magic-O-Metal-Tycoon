@@ -11,6 +11,7 @@ public class Guest : NPC_FSM
     public BreakState breakState;
     public CheerState cheerState;
     public RestoreState restoreState;
+    public LeaveParkState leaveParkState;
     [HideInInspector]
     public AIPath aIPath;
     [HideInInspector]
@@ -52,6 +53,7 @@ public class Guest : NPC_FSM
         cheerState = new CheerState();
         breakState = new BreakState();
         restoreState = new RestoreState();
+        leaveParkState = new();
 
         //Physics
         rb = GetComponent<Rigidbody2D>();

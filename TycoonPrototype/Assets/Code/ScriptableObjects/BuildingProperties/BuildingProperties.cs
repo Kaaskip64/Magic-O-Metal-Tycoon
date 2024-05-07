@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//General scriptable object to store custom variables for different types of buildings
+//General scriptable object to store custom variables for different types of availableBuildings
 
 [CreateAssetMenu(fileName = "Properties", menuName = "ScriptableObjects/Building/BuildingProperties", order = 1)]
 public class BuildingProperties : ScriptableObject

@@ -15,6 +15,9 @@ public class Building : MonoBehaviour
 
     public Transform NPCTarget;
 
+    public int capacityCount;
+    public int queueCount;
+
     private void Start()
     {
         area = properties.placementArea;

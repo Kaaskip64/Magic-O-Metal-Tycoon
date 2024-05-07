@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
 
-//Handles the placement and management of buildings on grid(s)
+//Handles the placement and management of availableBuildings on grid(s)
 
 public class BuildingSystem : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class BuildingSystem : MonoBehaviour
     //Grids and Tilemaps to use
     public GridLayout gridLayout;
     public Tilemap MainTileMap; //tilemap to show edit mode/building availability
-    public Tilemap TempTileMap; //tilemap where the buildings are hovering
+    public Tilemap TempTileMap; //tilemap where the availableBuildings are hovering
 
     //Stores basic tiles for visual clarity regarding placement
     public static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
