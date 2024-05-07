@@ -26,6 +26,7 @@ public class StageBuilder : MonoBehaviour
     [Header("Buttons")]
     public Button quitButton;
     public Button eraseButton;
+    public Button soundButton;
 
     [Header("Active references")]
     public Stage currentActiveStageUI;
@@ -41,6 +42,7 @@ public class StageBuilder : MonoBehaviour
     private GameObject stageObject;
     private Tilemap stageMap;
     private List<Vector3> currentStageTiles;
+    public Stage tempStage;
 
     private void Awake()
     {
@@ -169,11 +171,12 @@ public class StageBuilder : MonoBehaviour
         stageObject.transform.SetParent(BuildingSystem.currentInstance.gridLayout.gameObject.transform);
         stageMap = stageObject.GetComponent<Tilemap>();
 
-        Stage tempStage = stageObject.AddComponent<Stage>();
+        tempStage = stageObject.AddComponent<Stage>();
         tempStage.MainUI = MainUI;
         tempStage.StageUI = StageUI;
         tempStage.dataTransferScript = stageBandData;
         tempStage.quitButton = quitButton;
+        tempStage.audioButton = soundButton;
 
         BuildingSystem.currentInstance.stages.Add(tempStage);
 
@@ -186,6 +189,7 @@ public class StageBuilder : MonoBehaviour
         TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
         AudioSource tempAudioSource = stageObject.AddComponent<AudioSource>();
         AudioHandler tempAudioHandler = stageObject.AddComponent<AudioHandler>();
+        
 
         tempTileCol.usedByComposite = true;
 
@@ -193,7 +197,9 @@ public class StageBuilder : MonoBehaviour
         tempComposite.attachedRigidbody.isKinematic = true;
         tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
 
+        tempStage.audioHandler = tempAudioHandler;
 
+        tempStage = null;
         BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);
 
     }

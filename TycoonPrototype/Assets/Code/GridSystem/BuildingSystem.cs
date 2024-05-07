@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 //Handles the placement and management of availableBuildings on grid(s)
 
@@ -44,6 +45,8 @@ public class BuildingSystem : MonoBehaviour
     //Misc variables
     [Header("Misc variables")]
     public GameObject upperBackgroundShop;
+
+    public UnityAction ExitBuildingFollowing; // handling problem that building placement mouse click can interact with UI elements
 
     private void Awake()
     {
@@ -134,6 +137,7 @@ public class BuildingSystem : MonoBehaviour
             Destroy(currentSelectedBuilding.gameObject);
             upperBackgroundShop.SetActive(true);
             MainTileMap.gameObject.SetActive(false);
+            ExitBuildingFollowing();
         }
 
 
