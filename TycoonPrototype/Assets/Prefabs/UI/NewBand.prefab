@@ -212,7 +212,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'No band Selected
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e34749adaf6400a469b9128b3f2c1ea9, type: 2}
   m_sharedMaterial: {fileID: 7105741477386507249, guid: e34749adaf6400a469b9128b3f2c1ea9, type: 2}
@@ -615,6 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 9177297677347279755}
   ParentObject: {fileID: 0}
+  price: 50
 --- !u!114 &1622291222028630575
 MonoBehaviour:
   m_ObjectHideFlags: 0
