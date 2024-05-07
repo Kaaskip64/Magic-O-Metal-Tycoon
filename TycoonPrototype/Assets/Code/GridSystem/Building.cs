@@ -15,6 +15,8 @@ public class Building : MonoBehaviour
 
     public Transform NPCTarget;
 
+    public float maintenanceCost = 5f;
+
     public int capacityCount;
     public int queueCount;
 
@@ -45,6 +47,11 @@ public class Building : MonoBehaviour
         Placed = true;
         BuildingSystem.currentInstance.TakeArea(areaTemp);
         
+    }
+
+    public void MaintenanceTick()
+    {
+        PlayerProperties.Instance.ChangeMoney(-maintenanceCost);
     }
 
     private void OnDrawGizmos()

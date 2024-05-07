@@ -710,7 +710,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8704790693616473705, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
   m_PrefabInstance: {fileID: 1872500449}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1813049931}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6553e7a1d614264999f8017bf26ca84, type: 3}
@@ -1107,6 +1107,27 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1764447676}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &1813049931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8704790694108108979, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+  m_PrefabInstance: {fileID: 1872500449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1813049935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813049931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35460e0610c4cd4a93eefedade9d4df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maintenanceTimer: 2
+  Tick:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &1872500449
@@ -43654,6 +43675,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8704790695395570165, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
       propertyPath: m_DetectChunkCullingBounds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704790695395570167, guid: 2cf93639d739b554488e760e178abc0a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

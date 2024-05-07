@@ -212,6 +212,7 @@ public class BuildingSystem : MonoBehaviour
     public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
     {
         currentSelectedBuilding.Place();
+        MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
         PlayerProperties.Instance.ChangeMoney(-currentSelectedProduct.Price);
         currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 1f);
 
