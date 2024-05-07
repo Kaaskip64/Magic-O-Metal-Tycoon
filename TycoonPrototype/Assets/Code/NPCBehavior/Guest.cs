@@ -102,6 +102,8 @@ public class Guest : NPC_FSM
         {
             animator.SetBool("isMoving", false);
         }
+
+        print(currentState.GetType());
     }
 
     private void SpriteFlip()
