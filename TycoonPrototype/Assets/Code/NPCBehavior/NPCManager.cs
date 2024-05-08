@@ -41,6 +41,7 @@ public class NPCManager : MonoBehaviour
 
     [Header("NPC Object")]
     public GameObject npcPrefab;
+    public float admissionPrice = 50f;
 
     [Header("SpawnProperties")]
     public int maxNPCAmount;
@@ -82,7 +83,7 @@ public class NPCManager : MonoBehaviour
             Instantiate(npcPrefab, spawnPositions[Random.Range(0, spawnPositions.Length - 1)].position, Quaternion.identity);
             currentNPCAmount++;
             intervalCount = npcSpawnInterval;
-
+            PlayerProperties.Instance.ChangeMoney(+admissionPrice);
         }
         else
         {
