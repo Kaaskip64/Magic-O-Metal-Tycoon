@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76454966890299654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.86, y: 6.039999, z: 0}
+  m_LocalPosition: {x: -0.13999987, y: 6.039999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793931978229755698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -8, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2616206265886582281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -49.62, y: 0, z: -28.41}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -144,13 +144,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Placed: 0
-  properties: {fileID: 11400000, guid: 1ca5d6b4bfade9b458afd1b8d862a678, type: 2}
+  properties: {fileID: 11400000, guid: f7b5b4c2c7b5523468e898fd5dcdd92d, type: 2}
   image: {fileID: 5113700797749537037}
   mouseFollowOffset: {x: 0, y: 0}
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
   NPCTarget: {fileID: 5991479129788793028}
+  maintenanceCost: 5
+  capacityCount: 0
+  queueCount: 0
 --- !u!61 &6232076909645298068
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -202,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5113700797749537036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.6, z: 0}
+  m_LocalPosition: {x: -8, y: 10, z: 0}
   m_LocalScale: {x: 5.77, y: 5.77, z: 5.77}
   m_ConstrainProportionsScale: 1
   m_Children: []
