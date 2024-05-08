@@ -73,7 +73,7 @@ public class StageBuilder : MonoBehaviour
         
         
 
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && BuildingSystem.currentInstance.currentSelectedBuilding == null)
         {
             
             if(!eraseMode)

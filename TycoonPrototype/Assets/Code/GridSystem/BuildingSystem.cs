@@ -22,7 +22,7 @@ public class BuildingSystem : MonoBehaviour
 
     //Variables for currently selected building
     private ShopProduct currentSelectedProduct;
-    private Building currentSelectedBuilding;
+    public Building currentSelectedBuilding;
     private Color currentBuildingColor;
     private Vector3 prevPos;
     private BoundsInt prevArea;
