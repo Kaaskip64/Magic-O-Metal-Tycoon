@@ -44,10 +44,10 @@ public class BandAdder : MonoBehaviour
     }
     public void AddNewBand()
     {
-        if (PlayerProperties.Instance.MoneyCheckThenChange(price))
+        if (PlayerProperties.Instance.MoneyCheck(price))
         {
             AddNewBandAddressable();
-            PlayerProperties.Instance.ChangeMoney(-price);
+            PlayerProperties.Instance.MoneyChange(-price);
         }
 
     }
