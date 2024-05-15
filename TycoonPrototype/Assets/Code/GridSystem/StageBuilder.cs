@@ -123,7 +123,7 @@ public class StageBuilder : MonoBehaviour
         }
         currentStageTiles.Clear();
 
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1))
         {
             InitialiseBuiltStageComponents();
             editingStageTiles = false;

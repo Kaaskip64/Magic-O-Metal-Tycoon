@@ -32,7 +32,6 @@ public class Stage : MonoBehaviour
     {
         currentStagePlaylist = new List<BandListingData>();
         tilemap = gameObject.GetComponent<Tilemap>();
-        Debug.Log("Hit");
         stageCollider = gameObject.GetComponent<CompositeCollider2D>();
 
         quitButton.onClick.AddListener(ClearStageUI);
@@ -98,6 +97,7 @@ public class Stage : MonoBehaviour
         StageUI.SetActive(true);
 
         LocalAudio.ChangeAudio(audioHandler.stageAudio.mute);
+        
         LocalAudio.SoundChange += audioHandler.Mute;
 
         if (!isPlaying)
@@ -106,11 +106,13 @@ public class Stage : MonoBehaviour
             {
                 dataTransferScript.StartNewLineUp();
                 dataTransferScript.ActivateListingUI();
+                Debug.Log("hit");
             }
             else
             {
-                dataTransferScript.ActivatePlayingUI();
+                dataTransferScript.ActivateListingUI();
                 dataTransferScript.UploadLineUp(currentStagePlaylist);
+                Debug.Log("hit");
             }
             dataTransferScript.playHandeler.playStarted += ActivateCouritine;
             dataTransferScript.playHandeler.playStarted += PlayStageLineup;
@@ -148,26 +150,27 @@ public class Stage : MonoBehaviour
 
     public void ClearStageUI() //Function for the playlistUI exit button to call
     {
+        
         if (currentStagePlaylist != null)
         {
             currentStagePlaylist.Clear();
         }
 
+        StartCoroutine(DownloadSongs());
+        dataTransferScript.ResetListings();
+        
         dataTransferScript.playHandeler.playStarted -= ActivateCouritine;
 
         dataTransferScript.playHandeler.playStarted -= PlayStageLineup;
         
         LocalAudio.SoundChange -= audioHandler.Mute;
-
-        DownloadSongs();
-
-        dataTransferScript.ResetListings();
-
+        
         StageBuilder.currentInstance.currentActiveStageUI = null;
     }
 
     public void PlayStageLineup()
     {
+
         audioHandler.LoadMusicFiles();
         audioHandler.Play();
         isPlaying = true;
@@ -178,12 +181,13 @@ public class Stage : MonoBehaviour
     {
         foreach (BandListingData data in dataTransferScript.GetNodesList())
         {
+            
             currentStagePlaylist.Add(data);
+            Debug.Log(data);
         }
 
         yield return new WaitForSeconds(0.05f);
     }
-
 
     public void ActivateCouritine()
     {
