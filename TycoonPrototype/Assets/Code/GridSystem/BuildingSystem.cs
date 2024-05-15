@@ -108,7 +108,7 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) //Left Mouse Click and checks if temp building can be placed
         {
-            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
+            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced()&&PlayerProperties.Instance.MoneyCheck(currentSelectedProduct.Price))
             {
                 TruePlaceBuilding(); //Places building
                 InitializeWithBuilding(currentSelectedProduct);
@@ -131,7 +131,7 @@ public class BuildingSystem : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) //Removes selected building without placing it
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1)) //Removes selected building without placing it
         {
             ClearArea();
             Destroy(currentSelectedBuilding.gameObject);
@@ -217,7 +217,7 @@ public class BuildingSystem : MonoBehaviour
     {
         currentSelectedBuilding.Place();
         MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
-        PlayerProperties.Instance.ChangeMoney(-currentSelectedProduct.Price);
+        PlayerProperties.Instance.MoneyChange(-currentSelectedProduct.Price);
         currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 1f);
 
         AstarPath.active.data.gridGraph.Scan();

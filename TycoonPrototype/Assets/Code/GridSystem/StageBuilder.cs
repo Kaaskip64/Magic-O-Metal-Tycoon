@@ -123,7 +123,7 @@ public class StageBuilder : MonoBehaviour
         }
         currentStageTiles.Clear();
 
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1))
         {
             InitialiseBuiltStageComponents();
             editingStageTiles = false;
@@ -135,10 +135,10 @@ public class StageBuilder : MonoBehaviour
     {
         if (!editingStageTiles)
         {
-            if (PlayerProperties.Instance.MoneyCheckThenChange(stagePrice))
+            if (PlayerProperties.Instance.MoneyCheck(stagePrice))
             {
                 CreateNewStageObject();
-                PlayerProperties.Instance.ChangeMoney(-stagePrice);
+                PlayerProperties.Instance.MoneyChange(-stagePrice);
                 editingStageTiles = true;
                 eraseButton.gameObject.SetActive(true);
             }

@@ -36,14 +36,14 @@ public class ShopProduct : MonoBehaviour, IHoverPanel
     private void Start()
     {
         shopSystem.AddProduct(this); // Add this product to the ShopSystem
-        GetComponent<Button>().onClick.AddListener(Purchase); // Add listener to the button click event
+        GetComponent<Button>().onClick.AddListener(SelectProduct); // Add listener to the button click event
     }
 
-    private void Purchase()
+    private void SelectProduct()
     {
         if (shopSystem != null)
         {
-            shopSystem.PurchaseProduct(ProductName); // Start purchase process for this product
+            shopSystem.SelectProduct(ProductName); // Start purchase process for this product
         }
     }
 

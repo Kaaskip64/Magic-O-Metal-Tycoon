@@ -6,8 +6,6 @@ using UnityEngine.Events;
 
 public class ShopSystem : MonoBehaviour
 {
-    public static Func<ShopProduct, bool> MoneyCheck; // Function to check if player has enough money
-
     public GameObject upperBackground;
 
     private Dictionary<string, ShopProduct> productDict = new Dictionary<string, ShopProduct>(); // Dictionary to store products
@@ -21,24 +19,14 @@ public class ShopSystem : MonoBehaviour
     }
 
     // Method to handle purchasing a product
-    public void PurchaseProduct(string productName)
+    public void SelectProduct(string productName)
     {
         if (productDict.ContainsKey(productName)) // Check if the product exists
         {
             ShopProduct product = productDict[productName]; // Get the product
-
-            if (PlayerProperties.Instance.MoneyCheckThenChange(product)) // Check if player has enough money
-            {
-                HideHoverPanel();
-                BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
-                Debug.Log("Purchase product: " + productName);
-                upperBackground.SetActive(false);
-                shopUI.DisableCategoryButton();
-            }
-            else
-            {
-                Debug.Log("Insufficient money");
-            }
+            BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
+            upperBackground.SetActive(false);
+            shopUI.DisableCategoryButton();
         }
         else
         {
@@ -50,15 +38,5 @@ public class ShopSystem : MonoBehaviour
     public void AddProduct(ShopProduct product)
     {
         productDict.Add(product.ProductName, product);
-    }
-
-    public void ShowHoverPanel(ShopProduct product)
-    {
-        shopUI.ShowHoverPanel();
-    }
-
-    public void HideHoverPanel()
-    {
-        shopUI.HideHoverPanel();
     }
 }

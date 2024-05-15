@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 99, y: -17}
+  m_AnchoredPosition: {x: 99, y: -25}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &924148151372988324
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy New Band
+  m_text: Buy Extra Band
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e34749adaf6400a469b9128b3f2c1ea9, type: 2}
   m_sharedMaterial: {fileID: 7105741477386507249, guid: e34749adaf6400a469b9128b3f2c1ea9, type: 2}

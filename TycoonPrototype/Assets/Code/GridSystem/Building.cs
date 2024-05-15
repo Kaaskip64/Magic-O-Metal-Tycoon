@@ -52,7 +52,7 @@ public class Building : MonoBehaviour, IHoverPanel
 
     public void MaintenanceTick()
     {
-        PlayerProperties.Instance.ChangeMoney(-maintenanceCost);
+        PlayerProperties.Instance.MoneyChange(-maintenanceCost);
     }
 
     private void OnDrawGizmos()
