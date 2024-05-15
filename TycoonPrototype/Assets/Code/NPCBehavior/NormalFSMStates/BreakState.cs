@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEditor.Build.Pipeline.Utilities;
+//using UnityEditor.Build.Pipeline.Utilities;
 
 public class BreakState : BaseState
 {
@@ -16,7 +16,7 @@ public class BreakState : BaseState
 
     private bool prepareToLeave;
 
-    private List<Building> availableBuildings;
+    private List<Building> availableBuildings = new();
 
     private float hesitateCount;
     public override void EnterState(object obj)
@@ -24,8 +24,6 @@ public class BreakState : BaseState
         guest = obj as Guest;
         SetDestination();
         isStateEntered = true;
-
-        availableBuildings = new();
     }
 
     public override void ExitState()
@@ -100,7 +98,7 @@ public class BreakState : BaseState
 
         }
 
-        if(lowMeterCount >=2)
+        if (lowMeterCount >= 2 && guest.destinationSetter.target == null)
         {
             CheckIfShouldLeave();
         }
@@ -155,7 +153,7 @@ public class BreakState : BaseState
                 cloestOne = building.NPCTarget;
             }
         }
-        
+        availableBuildings.Clear();
         return cloestOne;
     }
 

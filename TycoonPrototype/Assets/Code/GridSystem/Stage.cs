@@ -20,7 +20,7 @@ public class Stage : MonoBehaviour
     public Button audioButton;
     public bool isPlaying;
 
-    private Tilemap tilemap;
+    public Tilemap tilemap;
     private CompositeCollider2D stageCollider;
 
     private Vector3 stageCenter;
@@ -32,14 +32,15 @@ public class Stage : MonoBehaviour
     {
         currentStagePlaylist = new List<BandListingData>();
         tilemap = gameObject.GetComponent<Tilemap>();
+        Debug.Log("Hit");
         stageCollider = gameObject.GetComponent<CompositeCollider2D>();
-        audioHandler = gameObject.GetComponent<AudioHandler>();
 
         quitButton.onClick.AddListener(ClearStageUI);
         LocalAudio = audioButton.GetComponent<LocalAudioHandler>();
-        stageCenter = stageCollider.bounds.center;
+        //audioHandler = gameObject.GetComponent<AudioHandler>();
+        //stageCenter = stageCollider.bounds.center;
 
-        stageCenterTile = tilemap.WorldToCell(stageCenter);
+        //stageCenterTile = tilemap.WorldToCell(stageCenter);
 
         if (currentStagePlaylist != null)
         {
@@ -81,6 +82,7 @@ public class Stage : MonoBehaviour
 
     }
 
+
     private void OnMouseDown()
     {
         //When stage is clicked, everything in this function gets executed
@@ -90,8 +92,11 @@ public class Stage : MonoBehaviour
             return;
         }
 
+        tilemap.color = new Color(1f, 1f, 1f, 1f);
+
         MainUI.SetActive(false);
         StageUI.SetActive(true);
+
         LocalAudio.ChangeAudio(audioHandler.stageAudio.mute);
         LocalAudio.SoundChange += audioHandler.Mute;
 

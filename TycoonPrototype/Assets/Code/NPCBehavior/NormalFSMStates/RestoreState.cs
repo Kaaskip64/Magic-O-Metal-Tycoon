@@ -8,6 +8,8 @@ public class RestoreState : BaseState
 {
     Guest guest;
 
+    private Building currentBuilding;
+
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
@@ -34,7 +36,10 @@ public class RestoreState : BaseState
 
     private void CheckBuilding()
     {
-        var buildType = guest.destinationSetter.target.gameObject.GetComponentInParent<Building>().properties.type;
+
+        currentBuilding = guest.destinationSetter.target.gameObject.GetComponentInParent<Building>();
+        currentBuilding.capacityCount++;
+        var buildType = currentBuilding.properties.type;
 
         if (buildType == BuildingProperties.BuildingType.Food)
         {
@@ -56,6 +61,7 @@ public class RestoreState : BaseState
         PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.burgerPrice);
         guest.hungryMeter = NPCManager.Instance.initialHungryMeter;
         yield return new WaitForSeconds(NPCManager.Instance.eatTime);
+        currentBuilding.capacityCount--;
         Debug.Log(1);
         guest.SwitchState(guest.cheerState);
         
@@ -66,6 +72,7 @@ public class RestoreState : BaseState
         PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.beerPrice);
         guest.thristMeter = NPCManager.Instance.initialThristMeter;
         yield return new WaitForSeconds(NPCManager.Instance.drinkTime);
+        currentBuilding.capacityCount--;
         guest.SwitchState(guest.cheerState);
         
     }
@@ -75,6 +82,7 @@ public class RestoreState : BaseState
         PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.toiletPrice);
         guest.urgencyMeter = NPCManager.Instance.initialUregencyMeter;
         yield return new WaitForSeconds(NPCManager.Instance.peeTime);
+        currentBuilding.capacityCount--;
         guest.SwitchState(guest.cheerState);
         
     }
