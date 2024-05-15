@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
 
         if(minZoom > maxZoom)
         {
-            Debug.LogError("Zoom min is bigger than max. Now face my 1000 year mind prison attack");
+            Debug.LogError("Camera zoom min is bigger than max. Now face my 1000 year mind prison attack");
         }
     }
 

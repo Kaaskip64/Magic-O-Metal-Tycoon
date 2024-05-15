@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 685951277588033542}
   - component: {fileID: 6735083938132214069}
   m_Layer: 0
-  m_Name: PlaceholderEntrance
+  m_Name: PlaceholderEntranceDONOTDELETE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
