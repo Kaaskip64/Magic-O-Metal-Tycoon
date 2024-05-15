@@ -23,6 +23,7 @@ public class ShopSystem : MonoBehaviour
     {
         if (productDict.ContainsKey(productName)) // Check if the product exists
         {
+            HideHoverPanel();
             ShopProduct product = productDict[productName]; // Get the product
             BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
             upperBackground.SetActive(false);
@@ -38,5 +39,15 @@ public class ShopSystem : MonoBehaviour
     public void AddProduct(ShopProduct product)
     {
         productDict.Add(product.ProductName, product);
+    }
+
+    public void ShowHoverPanel(ShopProduct product)
+    {
+        shopUI.ShowHoverPanel();
+    }
+
+    public void HideHoverPanel()
+    {
+        shopUI.HideHoverPanel();
     }
 }
