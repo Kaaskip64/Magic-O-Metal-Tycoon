@@ -151,7 +151,7 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
   NPCTarget: {fileID: 5991479129788793028}
-  maintenanceCost: 5
+  maintenanceCost: 50
   capacityCount: 0
   queueCount: 0
 --- !u!61 &6232076909645298068

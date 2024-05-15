@@ -107,7 +107,7 @@ public class BandDataTransferScript : MonoBehaviour
         MusicList.SetActive(false);
         IsPlayingText.SetActive(true);
         button.enabled = false;
-
+        Debug.Log("hitster");
     }
     public void ActivateListingUI()
     {
@@ -115,5 +115,6 @@ public class BandDataTransferScript : MonoBehaviour
         //MusicList.SetActive(true);
         IsPlayingText.SetActive(false);
         button.enabled = true;
+        Debug.Log("hitter");
     }
 }
