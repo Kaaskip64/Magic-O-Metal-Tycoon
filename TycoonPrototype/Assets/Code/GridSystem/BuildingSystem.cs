@@ -108,7 +108,7 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) //Left Mouse Click and checks if temp building can be placed
         {
-            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced()&&PlayerProperties.Instance.MoneyCheck(currentSelectedProduct.Price))
+            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced()&&PlayerProperties.Instance.MoneyCheck(currentSelectedProduct))
             {
                 TruePlaceBuilding(); //Places building
                 InitializeWithBuilding(currentSelectedProduct);

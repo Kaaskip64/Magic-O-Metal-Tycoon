@@ -35,13 +35,18 @@ public class PlayerProperties : MonoBehaviour
     {
         if(value>=0)
         {
+            Debug.Log("add");
             money += value;
             MoneyAction?.Invoke(money);
         }
-        else if((money + value)<0)
+        if(value<0)
         {
-            money += value;
-            MoneyAction?.Invoke(money);
+            if((money+value)>=0)
+            {
+                Debug.Log("sub");
+                money += value;
+                MoneyAction?.Invoke(money);
+            }
         }
     }
 
