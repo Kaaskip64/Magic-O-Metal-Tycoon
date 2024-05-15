@@ -83,7 +83,7 @@ public class NPCManager : MonoBehaviour
             Instantiate(npcPrefab, spawnPositions[Random.Range(0, spawnPositions.Length - 1)].position, Quaternion.identity);
             currentNPCAmount++;
             intervalCount = npcSpawnInterval;
-            PlayerProperties.Instance.ChangeMoney(+admissionPrice);
+            PlayerProperties.Instance.MoneyChange(+admissionPrice);
         }
         else
         {

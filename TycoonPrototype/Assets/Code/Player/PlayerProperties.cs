@@ -22,7 +22,7 @@ public class PlayerProperties : MonoBehaviour
     }
     void Start()
     {
-        ShopSystem.MoneyCheck += MoneyCheckThenChange;
+        
     }
 
     // Update is called once per frame
@@ -31,9 +31,14 @@ public class PlayerProperties : MonoBehaviour
         
     }
 
-    public void ChangeMoney(float value)
+    public void MoneyChange(float value)
     {
-        if (value <= money)
+        if(value>=0)
+        {
+            money += value;
+            MoneyAction?.Invoke(money);
+        }
+        else if((money + value)<0)
         {
             money += value;
             MoneyAction?.Invoke(money);
@@ -45,12 +50,13 @@ public class PlayerProperties : MonoBehaviour
         credit += value;
     }
 
-    public bool MoneyCheckThenChange(ShopProduct product)
+    public bool MoneyCheck(ShopProduct product)
     {
+        print((money - product.Price) >= 0);
         return (money - product.Price) >= 0;
     }
 
-    public bool MoneyCheckThenChange(float price)
+    public bool MoneyCheck(float price)
     {
         return (money - price) >= 0;
     }

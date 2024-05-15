@@ -135,10 +135,10 @@ public class StageBuilder : MonoBehaviour
     {
         if (!editingStageTiles)
         {
-            if (PlayerProperties.Instance.MoneyCheckThenChange(stagePrice))
+            if (PlayerProperties.Instance.MoneyCheck(stagePrice))
             {
                 CreateNewStageObject();
-                PlayerProperties.Instance.ChangeMoney(-stagePrice);
+                PlayerProperties.Instance.MoneyChange(-stagePrice);
                 editingStageTiles = true;
                 eraseButton.gameObject.SetActive(true);
             }
