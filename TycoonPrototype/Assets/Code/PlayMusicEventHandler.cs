@@ -17,11 +17,11 @@ public class PlayMusicEventHandler : MonoBehaviour
     void Start()
     {
        button.onClick.AddListener(StartPlay);
-       //bandListingsList.GetNodesList();
     }
     public void StartPlay()
     {
-        
+        if (bandListingsList.GetNodesList()[0] != null) 
+        {
             if (playStarted != null)
             {
                 playStarted(); 
@@ -30,7 +30,9 @@ public class PlayMusicEventHandler : MonoBehaviour
             MusicList.SetActive(false);
             IsPlayingText.SetActive(true);
             button.enabled = false;
-
+            Debug.Log("hitter");
+        }
+        
     }
     public void EndPlay()
     {

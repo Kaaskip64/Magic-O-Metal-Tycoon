@@ -131,7 +131,7 @@ public class BuildingSystem : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) //Removes selected building without placing it
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1)) //Removes selected building without placing it
         {
             ClearArea();
             Destroy(currentSelectedBuilding.gameObject);
