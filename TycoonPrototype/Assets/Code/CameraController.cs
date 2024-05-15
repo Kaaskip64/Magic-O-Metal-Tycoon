@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class CameraController : MonoBehaviour
 
     public bool cameraActive;
 
+    public GameObject ShopUiUpper;
+    public GameObject ShopUiLower;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -28,6 +32,7 @@ public class CameraController : MonoBehaviour
         if(cameraActive)
         {
             CameraMove();
+            HandleCameraZoom();
         }
 
     }
@@ -53,11 +58,52 @@ public class CameraController : MonoBehaviour
         }
         transform.position = pos;
 
-        zoomTarget -= Input.mouseScrollDelta.y * zoomSensitivity;
-        zoomTarget = Mathf.Clamp(zoomTarget, minZoom, maxZoom);
-        float newSize = Mathf.MoveTowards(Camera.main.orthographicSize, zoomTarget, zoomSpeed * Time.deltaTime);
-        Camera.main.orthographicSize = newSize;
+
     }
 
-    
+    private void HandleCameraZoom()
+    {
+        // Check if the mouse scroll wheel is being used
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (scroll != 0)
+        {
+            // Check if the pointer is over a UI element
+            if (!IsPointerOverUIElement())
+            {
+                // Zoom the camera
+                zoomTarget -= Input.mouseScrollDelta.y * zoomSensitivity;
+                zoomTarget = Mathf.Clamp(zoomTarget, minZoom, maxZoom);
+                float newSize = Mathf.MoveTowards(Camera.main.orthographicSize, zoomTarget, zoomSpeed * Time.deltaTime);
+                Camera.main.orthographicSize = newSize;
+            }
+        }
+    }
+/*
+    private bool IsPointerOverUIElement()
+    {
+        // Check if the pointer is over any UI element
+        return EventSystem.current.IsPointerOverGameObject();
+    }*/
+
+    private bool IsPointerOverUIElement()
+    {
+        // Check if the pointer is over any UI element
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+            eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+            foreach (RaycastResult result in results)
+            {
+                if (result.gameObject == ShopUiUpper || result.gameObject == ShopUiLower)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

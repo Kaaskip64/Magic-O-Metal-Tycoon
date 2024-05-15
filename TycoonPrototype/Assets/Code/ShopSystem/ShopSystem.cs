@@ -43,7 +43,7 @@ public class ShopSystem : MonoBehaviour
 
     public void ShowHoverPanel(ShopProduct product)
     {
-        shopUI.ShowHoverPanel();
+        shopUI.ShowHoverPanel(product);
     }
 
     public void HideHoverPanel()
