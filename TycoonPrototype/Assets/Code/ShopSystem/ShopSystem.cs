@@ -29,6 +29,7 @@ public class ShopSystem : MonoBehaviour
 
             if (PlayerProperties.Instance.MoneyCheckThenChange(product)) // Check if player has enough money
             {
+                HideHoverPanel();
                 BuildingSystem.currentInstance.InitializeWithBuilding(product); // Initialize with building
                 Debug.Log("Purchase product: " + productName);
                 upperBackground.SetActive(false);
@@ -49,5 +50,15 @@ public class ShopSystem : MonoBehaviour
     public void AddProduct(ShopProduct product)
     {
         productDict.Add(product.ProductName, product);
+    }
+
+    public void ShowHoverPanel(ShopProduct product)
+    {
+        shopUI.ShowHoverPanel();
+    }
+
+    public void HideHoverPanel()
+    {
+        shopUI.HideHoverPanel();
     }
 }
