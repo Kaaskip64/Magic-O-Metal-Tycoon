@@ -51,7 +51,7 @@ public class Building : MonoBehaviour
 
     public void MaintenanceTick()
     {
-        PlayerProperties.Instance.ChangeMoney(-maintenanceCost);
+        PlayerProperties.Instance.MoneyChange(-maintenanceCost);
     }
 
     private void OnDrawGizmos()

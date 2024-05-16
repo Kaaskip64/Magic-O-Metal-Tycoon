@@ -39,7 +39,7 @@ public class S_RestoreState : S_BaseState
     }
     IEnumerator EatBurger()
     {
-        PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.burgerPrice);
+        PlayerProperties.Instance.MoneyChange(NPCManager.Instance.burgerPrice);
         guest.hungryMeter = NPCManager.Instance.initialHungryMeter;
         yield return new WaitForSeconds(NPCManager.Instance.eatTime);
         guest.SwitchState(guest.cheerState);
@@ -48,7 +48,7 @@ public class S_RestoreState : S_BaseState
 
     IEnumerator DrinkBeer()
     {
-        PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.beerPrice);
+        PlayerProperties.Instance.MoneyChange(NPCManager.Instance.beerPrice);
         guest.thristMeter = NPCManager.Instance.initialThristMeter;
         yield return new WaitForSeconds(NPCManager.Instance.drinkTime);
         guest.SwitchState(guest.cheerState);
@@ -57,7 +57,7 @@ public class S_RestoreState : S_BaseState
 
     IEnumerator Peeing()
     {
-        PlayerProperties.Instance.ChangeMoney(NPCManager.Instance.toiletPrice);
+        PlayerProperties.Instance.MoneyChange(NPCManager.Instance.toiletPrice);
         guest.urgencyMeter = NPCManager.Instance.initialUregencyMeter;
         yield return new WaitForSeconds(NPCManager.Instance.peeTime);
         guest.SwitchState(guest.cheerState);
