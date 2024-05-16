@@ -222,26 +222,26 @@ public class BuildingSystem : MonoBehaviour
 
         AstarPath.active.data.gridGraph.Scan();
 
-        switch (currentSelectedBuilding.properties.type)
+        switch (currentSelectedBuilding.buildingType)
         {
             //switch case to funnel placed building in the corresponding list
-            case BuildingProperties.BuildingType.Food:
+            case BuildingType.Food:
                 foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
-            case BuildingProperties.BuildingType.Beer:
+            case BuildingType.Beer:
                 beerStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
-            case BuildingProperties.BuildingType.Merch:
+            case BuildingType.Merch:
                 merchStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
-            case BuildingProperties.BuildingType.Bathroom:
+            case BuildingType.Bathroom:
                 bathroomStands.Add(currentSelectedBuilding.GetComponent<Building>());
                 break;
 
-            case BuildingProperties.BuildingType.Audience:
+            case BuildingType.Audience:
                 audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
                 currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
 
@@ -294,3 +294,15 @@ public enum TileType
     Green,
     Red
 }
+
+public enum BuildingType
+{
+    Food,
+    Beer,
+    Merch,
+    Bathroom,
+    Stage,
+    Audience,
+    Deco,
+    SpawnPoint
+};

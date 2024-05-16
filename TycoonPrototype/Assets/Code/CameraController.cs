@@ -57,21 +57,21 @@ public class CameraController : MonoBehaviour
     void CameraMove()
     {
         Vector3 pos = Camera.main.transform.position;
-        if (Input.mousePosition.y >= Screen.height - panBorderThickness)
+        if (Input.mousePosition.y >= Screen.height - panBorderThickness || Input.GetKey(KeyCode.W)) //up
         {
             pos.y += panSpeed * Time.deltaTime;
         }
-        if (Input.mousePosition.y <= panBorderThickness)
+        if (Input.mousePosition.x <= panBorderThickness || Input.GetKey(KeyCode.A)) //left
+        {
+            pos.x -= panSpeed * Time.deltaTime;
+        }
+        if (Input.mousePosition.y <= panBorderThickness || Input.GetKey(KeyCode.S)) //down
         {
             pos.y -= panSpeed * Time.deltaTime;
         }
-        if (Input.mousePosition.x >= Screen.width - panBorderThickness)
+        if (Input.mousePosition.x >= Screen.width - panBorderThickness || Input.GetKey(KeyCode.D)) //right
         {
             pos.x += panSpeed * Time.deltaTime;
-        }
-        if (Input.mousePosition.x <= panBorderThickness)
-        {
-            pos.x -= panSpeed * Time.deltaTime;
         }
         vcam.transform.position = pos;
 
