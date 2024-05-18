@@ -62,7 +62,7 @@ public class Building : MonoBehaviour, IHoverPanel
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        InformationPanel.instance.ShowHoverPanel();
+        InformationPanel.instance.ShowHoverPanel(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
