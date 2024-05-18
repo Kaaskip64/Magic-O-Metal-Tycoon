@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class ShopSystem : MonoBehaviour
 {
     public GameObject upperBackground;
-    public AudioSource audioSource;     
+    public AudioSource audioSource;
+
+    [Header("Sound Effects")]
     public AudioClip clickSound;    
     public AudioClip hoverSound;
     public AudioClip scrollSound;
