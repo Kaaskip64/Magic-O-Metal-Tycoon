@@ -39,10 +39,14 @@ public class StageBuilder : MonoBehaviour
     [Header("Price per placed stage")]
     public float stagePrice;
 
+    public Stage tempStage;
     private GameObject stageObject;
     private Tilemap stageMap;
     private List<Vector3> currentStageTiles;
-    public Stage tempStage;
+
+    private Vector3Int startTilePos;
+    private Vector3Int endTilePos;
+    private bool isDragging;
 
     private void Awake()
     {
@@ -76,52 +80,34 @@ public class StageBuilder : MonoBehaviour
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && BuildingSystem.currentInstance.currentSelectedBuilding == null)
         {
             
-            if(!eraseMode)
+            if(!eraseMode && !isDragging)
             {
-                stageMap.SetTile(currentTilePos, currentStageTile);
+                startTilePos = currentTilePos;
                 BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+                isDragging = true;
 
             } else
             {
                 stageMap.SetTile(currentTilePos, null);
-
-                foreach (Stage stage in BuildingSystem.currentInstance.stages)
-                {
-                    Tilemap tempMap = stage.tilemap;
-                    for (int n = tempMap.cellBounds.xMin; n < tempMap.cellBounds.xMax; n++)
-                    {
-                        for (int p = tempMap.cellBounds.yMin; p < tempMap.cellBounds.yMax; p++)
-                        {
-                            Vector3Int localPlace = (new Vector3Int(n, p, (int)tempMap.transform.position.y));
-                            Vector3 place = tempMap.CellToWorld(localPlace);
-                            if (tempMap.HasTile(localPlace) && localPlace != currentTilePos)
-                            {
-                                currentStageTiles.Add(place);
-                            }
-                            else if (localPlace == currentTilePos)
-                            {
-                                placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).x - 2;
-                                placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).y - 2;
-
-                                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, BuildingSystem.currentInstance.MainTileMap);
-                            }
-                        }
-                    }
-
-                    foreach (Vector3 tilePos in currentStageTiles)
-                    {
-                        placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).x - 2;
-                        placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).y - 2;
-
-                        Debug.Log(placementAreaSize.x);
-
-                        BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
-
-                    }
-                }
+                //PlaceNoBuildZones(currentTilePos);
+                
             }
         }
         currentStageTiles.Clear();
+
+        if (Input.GetMouseButton(0) && isDragging)
+        {
+            endTilePos = currentTilePos;
+            FillTiles();
+        }
+
+        if (Input.GetMouseButtonUp(0) && isDragging)
+        {
+            endTilePos = currentTilePos;
+            FillTiles();
+            isDragging = false;
+        }
+
 
         if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1))
         {
@@ -199,8 +185,67 @@ public class StageBuilder : MonoBehaviour
 
         tempStage.audioHandler = tempAudioHandler;
 
+        tempStage.gameObject.transform.position = new Vector3(0, 0, -0.01f);
+
         tempStage = null;
         BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);
 
+    }
+
+    void PlaceNoBuildZones(Vector3Int currentTilePos)
+    {
+        foreach (Stage stage in BuildingSystem.currentInstance.stages)
+        {
+            Tilemap tempMap = stage.tilemap;
+            for (int n = tempMap.cellBounds.xMin; n < tempMap.cellBounds.xMax; n++)
+            {
+                for (int p = tempMap.cellBounds.yMin; p < tempMap.cellBounds.yMax; p++)
+                {
+                    Vector3Int localPlace = (new Vector3Int(n, p, (int)tempMap.transform.position.y));
+                    Vector3 place = tempMap.CellToWorld(localPlace);
+                    if (tempMap.HasTile(localPlace) && localPlace != currentTilePos)
+                    {
+                        currentStageTiles.Add(place);
+                    }
+                    else if (localPlace == currentTilePos)
+                    {
+                        placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).x - 2;
+                        placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).y - 2;
+
+                        BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, BuildingSystem.currentInstance.MainTileMap);
+                    }
+                }
+            }
+
+            foreach (Vector3 tilePos in currentStageTiles)
+            {
+                placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).x - 2;
+                placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).y - 2;
+
+                Debug.Log(placementAreaSize.x);
+
+                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+
+            }
+        }
+    }
+
+    void FillTiles()
+    {
+        // Determine the bounds of the rectangle
+        int xMin = Mathf.Min(startTilePos.x, endTilePos.x);
+        int xMax = Mathf.Max(startTilePos.x, endTilePos.x);
+        int yMin = Mathf.Min(startTilePos.y, endTilePos.y);
+        int yMax = Mathf.Max(startTilePos.y, endTilePos.y);
+
+        // Set the tiles within the rectangle
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = yMin; y <= yMax; y++)
+            {
+                Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
+                stageMap.SetTile(tilePos, currentStageTile);
+            }
+        }
     }
 }
