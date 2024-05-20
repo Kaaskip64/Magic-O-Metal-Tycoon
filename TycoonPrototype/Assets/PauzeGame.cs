@@ -9,7 +9,10 @@ public class PauzeGame : MonoBehaviour
     public List<Sprite> imageList;
     public Image image;
 
-
+    
+    
+    
+        
     public void Pauze()
     {
         isPauzed = !isPauzed;
