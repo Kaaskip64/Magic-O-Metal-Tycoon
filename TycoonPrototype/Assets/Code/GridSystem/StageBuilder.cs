@@ -13,6 +13,9 @@ public class StageBuilder : MonoBehaviour
     [Header("Blank tilemap prefab")]
     public GameObject blankTileMap;
 
+    [Header("Tilemap for highlighting box selection")]
+    public Tilemap highlightMap;
+
     [Header("BandDataTransferScript reference")]
     public BandDataTransferScript stageBandData;
 
@@ -42,8 +45,9 @@ public class StageBuilder : MonoBehaviour
     public Stage tempStage;
     private GameObject stageObject;
     private Tilemap stageMap;
-    private List<Vector3> currentStageTiles;
+    private List<Vector3> surroundingStageTiles;
 
+    private BoundsInt previousBounds;
     private Vector3Int startTilePos;
     private Vector3Int endTilePos;
     private bool isDragging;
@@ -51,7 +55,7 @@ public class StageBuilder : MonoBehaviour
     private void Awake()
     {
         currentInstance = this; //init
-        currentStageTiles = new List<Vector3>();
+        surroundingStageTiles = new List<Vector3>();
 
     }
 
@@ -83,28 +87,28 @@ public class StageBuilder : MonoBehaviour
             if(!eraseMode && !isDragging)
             {
                 startTilePos = currentTilePos;
-                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
                 isDragging = true;
 
             } else
             {
                 stageMap.SetTile(currentTilePos, null);
-                //PlaceNoBuildZones(currentTilePos);
-                
+                UpdateNoBuildZones(currentTilePos);
+
             }
+                surroundingStageTiles.Clear();
         }
-        currentStageTiles.Clear();
 
         if (Input.GetMouseButton(0) && isDragging)
         {
             endTilePos = currentTilePos;
-            FillTiles();
+            HighlightTiles();
         }
 
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             endTilePos = currentTilePos;
             FillTiles();
+            highlightMap.ClearAllTiles();
             isDragging = false;
         }
 
@@ -126,6 +130,7 @@ public class StageBuilder : MonoBehaviour
                 CreateNewStageObject();
                 PlayerProperties.Instance.MoneyChange(-stagePrice);
                 editingStageTiles = true;
+                eraseMode = false;
                 eraseButton.gameObject.SetActive(true);
             }
 
@@ -192,8 +197,9 @@ public class StageBuilder : MonoBehaviour
 
     }
 
-    void PlaceNoBuildZones(Vector3Int currentTilePos)
+    void UpdateNoBuildZones(Vector3Int currentTilePos)
     {
+
         foreach (Stage stage in BuildingSystem.currentInstance.stages)
         {
             Tilemap tempMap = stage.tilemap;
@@ -205,7 +211,7 @@ public class StageBuilder : MonoBehaviour
                     Vector3 place = tempMap.CellToWorld(localPlace);
                     if (tempMap.HasTile(localPlace) && localPlace != currentTilePos)
                     {
-                        currentStageTiles.Add(place);
+                        surroundingStageTiles.Add(place);
                     }
                     else if (localPlace == currentTilePos)
                     {
@@ -217,7 +223,7 @@ public class StageBuilder : MonoBehaviour
                 }
             }
 
-            foreach (Vector3 tilePos in currentStageTiles)
+            foreach (Vector3 tilePos in surroundingStageTiles)
             {
                 placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).x - 2;
                 placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).y - 2;
@@ -228,10 +234,46 @@ public class StageBuilder : MonoBehaviour
 
             }
         }
+        
     }
 
-    void FillTiles()
+    private void HighlightTiles()
     {
+        int xMin = Mathf.Min(startTilePos.x, endTilePos.x);
+        int xMax = Mathf.Max(startTilePos.x, endTilePos.x);
+        int yMin = Mathf.Min(startTilePos.y, endTilePos.y);
+        int yMax = Mathf.Max(startTilePos.y, endTilePos.y);
+
+        BoundsInt newBounds = new BoundsInt(new Vector3Int(xMin, yMin, startTilePos.z), new Vector3Int(xMax - xMin + 1, yMax - yMin + 1, 1));
+
+        ClearPreviousBoundsOutliers(previousBounds);
+
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = yMin; y <= yMax; y++)
+            {
+                Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
+                highlightMap.SetTile(tilePos, currentStageTile);
+            }
+        }
+        previousBounds = newBounds;
+
+    }
+    private void ClearPreviousBoundsOutliers(BoundsInt bounds)
+    {
+        for (int x = bounds.xMin; x <= bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y <= bounds.yMax; y++)
+            {
+                Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
+                highlightMap.SetTile(tilePos, null);
+            }
+        }
+    }
+
+    private void FillTiles()
+    {
+
         // Determine the bounds of the rectangle
         int xMin = Mathf.Min(startTilePos.x, endTilePos.x);
         int xMax = Mathf.Max(startTilePos.x, endTilePos.x);
@@ -245,7 +287,13 @@ public class StageBuilder : MonoBehaviour
             {
                 Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
                 stageMap.SetTile(tilePos, currentStageTile);
+
+                placementAreaSize.x = tilePos.x - 2;
+                placementAreaSize.y = tilePos.y - 2;
+
+                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
             }
         }
     }
+
 }
