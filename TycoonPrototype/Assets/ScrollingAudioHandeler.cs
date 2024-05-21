@@ -7,12 +7,31 @@ public class ScrollingAudioHandeler : MonoBehaviour
 {
     public List<AudioClip> clips;
     public AudioSource source;
+
     public void ChangeAudio(int eventNumber)
     {
-        if (!source.isPlaying)
+        switch (eventNumber)
         {
-            source.clip = clips[eventNumber];
-            source.Play();
+            case 0:
+                if (!source.isPlaying)
+                {
+                    source.clip = clips[eventNumber];
+                    source.Play();
+                }
+
+                break;
+            case 1:
+                if (!source.isPlaying)
+                {
+                    source.clip = clips[eventNumber];
+                    source.Play();
+                }
+
+                break;
+            case 2:
+                source.clip = clips[eventNumber];
+                source.Play();
+                break;
         }
     }
 }
