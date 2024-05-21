@@ -39,17 +39,17 @@ public class RestoreState : BaseState
 
         currentBuilding = guest.destinationSetter.target.gameObject.GetComponentInParent<Building>();
         currentBuilding.capacityCount++;
-        var buildType = currentBuilding.properties.type;
+        var buildType = currentBuilding.buildingType;
 
-        if (buildType == BuildingProperties.BuildingType.Food)
+        if (buildType == BuildingType.Food)
         {
             guest.StartCoroutine(EatBurger());
         }
-        else if (buildType == BuildingProperties.BuildingType.Beer)
+        else if (buildType == BuildingType.Beer)
         {
             guest.StartCoroutine(DrinkBeer());
         }
-        else if (buildType == BuildingProperties.BuildingType.Bathroom)
+        else if (buildType == BuildingType.Bathroom)
         {
             guest.StartCoroutine(Peeing());
         }

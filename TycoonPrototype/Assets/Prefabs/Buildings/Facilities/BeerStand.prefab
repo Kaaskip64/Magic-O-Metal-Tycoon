@@ -148,16 +148,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Placed: 0
-  properties: {fileID: 11400000, guid: 046099105e07af3489a4b0babced4719, type: 2}
-  image: {fileID: 5113700797749537037}
-  mouseFollowOffset: {x: 0, y: 0}
+  buildingType: 1
+  capacityMax: 10
+  queueCount: 0
   area:
     m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 0, y: 0, z: 0}
-  NPCTarget: {fileID: 5991479129788793028}
+    m_Size: {x: 5, y: 4, z: 1}
   maintenanceCost: 75
   capacityCount: 0
-  queueCount: 0
+  image: {fileID: 5113700797749537037}
+  mouseFollowOffset: {x: 0, y: 0}
+  NPCTarget: {fileID: 5991479129788793028}
 --- !u!61 &6232076909645298068
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -64,7 +64,7 @@ public class InformationPanel : MonoBehaviour
         hoverPanel.SetActive(true);
 
         nameText.text = hoveredBuilding.name;
-        capacityText.text = ("[" + hoveredBuilding.capacityCount + "/" + hoveredBuilding.properties.capacity.ToString() + "]");
+        capacityText.text = ("[" + hoveredBuilding.capacityCount + "/" + hoveredBuilding.capacityMax.ToString() + "]");
     }
 
     public void HideHoverPanel()

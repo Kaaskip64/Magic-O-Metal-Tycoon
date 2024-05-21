@@ -13,17 +13,17 @@ public class S_RestoreState : S_BaseState
     {
         guest = obj as S_Guest;
 
-        var buildType = guest.destinationSetter.target.gameObject.GetComponent<Building>().properties.type;
+        var buildType = guest.destinationSetter.target.gameObject.GetComponent<Building>().buildingType;
 
-        if (buildType == BuildingProperties.BuildingType.Food)
+        if (buildType == BuildingType.Food)
         {
             guest.StartCoroutine(EatBurger());
         }
-        else if (buildType == BuildingProperties.BuildingType.Beer)
+        else if (buildType == BuildingType.Beer)
         {
             guest.StartCoroutine(DrinkBeer());
         }
-        else if (buildType == BuildingProperties.BuildingType.Bathroom)
+        else if (buildType == BuildingType.Bathroom)
         {
             guest.StartCoroutine(Peeing());
         }
