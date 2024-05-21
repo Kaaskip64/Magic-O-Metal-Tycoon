@@ -244,7 +244,7 @@ public class StageBuilder : MonoBehaviour
             {
                 Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
                 stageMap.SetTile(tilePos, currentStageTile);
-                //BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
             }
         }
     }
