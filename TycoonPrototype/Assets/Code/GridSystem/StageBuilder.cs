@@ -130,6 +130,7 @@ public class StageBuilder : MonoBehaviour
                 CreateNewStageObject();
                 PlayerProperties.Instance.MoneyChange(-stagePrice);
                 editingStageTiles = true;
+                eraseMode = false;
                 eraseButton.gameObject.SetActive(true);
             }
 
@@ -273,6 +274,10 @@ public class StageBuilder : MonoBehaviour
             {
                 Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
                 stageMap.SetTile(tilePos, currentStageTile);
+
+                placementAreaSize.x = tilePos.x - 2;
+                placementAreaSize.y = tilePos.y - 2;
+
                 BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
             }
         }
@@ -285,8 +290,7 @@ public class StageBuilder : MonoBehaviour
             for (int y = bounds.yMin; y <= bounds.yMax; y++)
             {
                 Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
-                stageMap.SetTile(tilePos, null);
-                //BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, BuildingSystem.currentInstance.MainTileMap);
+                highlightMap.SetTile(tilePos, null);
             }
         }
     }
