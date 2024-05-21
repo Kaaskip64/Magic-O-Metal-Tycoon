@@ -93,9 +93,9 @@ public class StageBuilder : MonoBehaviour
             {
                 stageMap.SetTile(currentTilePos, null);
                 UpdateNoBuildZones(currentTilePos);
+                surroundingStageTiles.Clear();
 
             }
-                surroundingStageTiles.Clear();
         }
 
         if (Input.GetMouseButton(0) && isDragging)
