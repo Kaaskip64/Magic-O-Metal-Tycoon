@@ -83,13 +83,12 @@ public class StageBuilder : MonoBehaviour
             if(!eraseMode && !isDragging)
             {
                 startTilePos = currentTilePos;
-                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
                 isDragging = true;
 
             } else
             {
                 stageMap.SetTile(currentTilePos, null);
-                //PlaceNoBuildZones(currentTilePos);
+                UpdateNoBuildZones(currentTilePos);
                 
             }
         }
@@ -192,7 +191,7 @@ public class StageBuilder : MonoBehaviour
 
     }
 
-    void PlaceNoBuildZones(Vector3Int currentTilePos)
+    void UpdateNoBuildZones(Vector3Int currentTilePos)
     {
         foreach (Stage stage in BuildingSystem.currentInstance.stages)
         {
@@ -245,6 +244,7 @@ public class StageBuilder : MonoBehaviour
             {
                 Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
                 stageMap.SetTile(tilePos, currentStageTile);
+                //BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
             }
         }
     }
