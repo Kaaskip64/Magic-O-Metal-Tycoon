@@ -13,6 +13,9 @@ public class StageBuilder : MonoBehaviour
     [Header("Blank tilemap prefab")]
     public GameObject blankTileMap;
 
+    [Header("Tilemap for highlighting box selection")]
+    public Tilemap highlightMap;
+
     [Header("BandDataTransferScript reference")]
     public BandDataTransferScript stageBandData;
 
@@ -44,6 +47,7 @@ public class StageBuilder : MonoBehaviour
     private Tilemap stageMap;
     private List<Vector3> currentStageTiles;
 
+    private BoundsInt previousBounds;
     private Vector3Int startTilePos;
     private Vector3Int endTilePos;
     private bool isDragging;
@@ -97,13 +101,14 @@ public class StageBuilder : MonoBehaviour
         if (Input.GetMouseButton(0) && isDragging)
         {
             endTilePos = currentTilePos;
-            FillTiles();
+            HighlightTiles();
         }
 
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             endTilePos = currentTilePos;
             FillTiles();
+            highlightMap.ClearAllTiles();
             isDragging = false;
         }
 
@@ -229,8 +234,32 @@ public class StageBuilder : MonoBehaviour
         }
     }
 
+    void HighlightTiles()
+    {
+        int xMin = Mathf.Min(startTilePos.x, endTilePos.x);
+        int xMax = Mathf.Max(startTilePos.x, endTilePos.x);
+        int yMin = Mathf.Min(startTilePos.y, endTilePos.y);
+        int yMax = Mathf.Max(startTilePos.y, endTilePos.y);
+
+        BoundsInt newBounds = new BoundsInt(new Vector3Int(xMin, yMin, startTilePos.z), new Vector3Int(xMax - xMin + 1, yMax - yMin + 1, 1));
+
+        ClearPreviousBoundsOutliers(previousBounds);
+
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int y = yMin; y <= yMax; y++)
+            {
+                Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
+                highlightMap.SetTile(tilePos, currentStageTile);
+            }
+        }
+        previousBounds = newBounds;
+
+    }
+
     void FillTiles()
     {
+
         // Determine the bounds of the rectangle
         int xMin = Mathf.Min(startTilePos.x, endTilePos.x);
         int xMax = Mathf.Max(startTilePos.x, endTilePos.x);
@@ -245,6 +274,19 @@ public class StageBuilder : MonoBehaviour
                 Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
                 stageMap.SetTile(tilePos, currentStageTile);
                 BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+            }
+        }
+    }
+
+    void ClearPreviousBoundsOutliers(BoundsInt bounds)
+    {
+        for (int x = bounds.xMin; x <= bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y <= bounds.yMax; y++)
+            {
+                Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
+                stageMap.SetTile(tilePos, null);
+                //BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, BuildingSystem.currentInstance.MainTileMap);
             }
         }
     }
