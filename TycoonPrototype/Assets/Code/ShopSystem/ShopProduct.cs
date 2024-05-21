@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShopProduct : MonoBehaviour
+public class ShopProduct : MonoBehaviour, IHoverPanel
 {
     private ShopSystem shopSystem; // Reference to the ShopSystem script
 
@@ -64,4 +65,13 @@ public class ShopProduct : MonoBehaviour
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        shopSystem.ShowHoverPanel(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        shopSystem.HideHoverPanel();
+    }
 }

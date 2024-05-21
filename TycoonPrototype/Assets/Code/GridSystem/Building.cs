@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 //Class that has to be attached to each building prefab
-public class Building : MonoBehaviour
+public class Building : MonoBehaviour, IHoverPanel
 {
     public bool Placed; //bool for other scripts to check if building has been placed
 
@@ -57,5 +58,15 @@ public class Building : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(-mouseFollowOffset, 1);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        InformationPanel.instance.ShowHoverPanel(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        InformationPanel.instance.HideHoverPanel();
     }
 }

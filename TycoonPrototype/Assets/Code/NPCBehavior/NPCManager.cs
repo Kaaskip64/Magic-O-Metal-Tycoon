@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class NPCManager : MonoBehaviour
 {
@@ -53,6 +54,9 @@ public class NPCManager : MonoBehaviour
 
     private int currentNPCAmount;
     private float intervalCount;
+    // List to store all NPCs
+    private List<Guest> npcList = new List<Guest>();
+
     private void Awake()
     {
 
@@ -97,4 +101,49 @@ public class NPCManager : MonoBehaviour
         currentNPCAmount--;
     }
 
+    // Method to add an NPC to the list
+    public void RegisterNPC(Guest npc)
+    {
+        npcList.Add(npc);
+    }
+
+    // Method to remove an NPC from the list
+    public void UnregisterNPC(Guest npc)
+    {
+        npcList.Remove(npc);
+    }
+
+    // Method to calculate average NPC status
+    public void CalculateAverageNPCStatus(out float averageHungry, out float averageThirst, out float averageUrgency, out float averageSatisfaction)
+    {
+        if (npcList.Count == 0)
+        {
+            // If no NPCs, set default values
+            averageHungry = 0f;
+            averageThirst = 0f;
+            averageUrgency = 0f;
+            averageSatisfaction = 0f;
+            return;
+        }
+
+        // Calculate averages
+        float totalHungry = 0f;
+        float totalThirst = 0f;
+        float totalUrgency = 0f;
+        float totalSatisfaction = 0f;
+
+        foreach (Guest npc in npcList)
+        {
+            totalHungry += npc.hungryMeter;
+            totalThirst += npc.thristMeter;
+            totalUrgency += npc.urgencyMeter;
+            totalSatisfaction += npc.satisfaction;
+        }
+
+        averageHungry = totalHungry / npcList.Count;
+        averageThirst = totalThirst / npcList.Count;
+        averageUrgency = totalUrgency / npcList.Count;
+        averageSatisfaction = totalSatisfaction / npcList.Count;
+    }
 }
+
