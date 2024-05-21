@@ -45,7 +45,7 @@ public class StageBuilder : MonoBehaviour
     public Stage tempStage;
     private GameObject stageObject;
     private Tilemap stageMap;
-    private List<Vector3> currentStageTiles;
+    private List<Vector3> surroundingStageTiles;
 
     private BoundsInt previousBounds;
     private Vector3Int startTilePos;
@@ -55,7 +55,7 @@ public class StageBuilder : MonoBehaviour
     private void Awake()
     {
         currentInstance = this; //init
-        currentStageTiles = new List<Vector3>();
+        surroundingStageTiles = new List<Vector3>();
 
     }
 
@@ -93,10 +93,10 @@ public class StageBuilder : MonoBehaviour
             {
                 stageMap.SetTile(currentTilePos, null);
                 UpdateNoBuildZones(currentTilePos);
-                
+
             }
+                surroundingStageTiles.Clear();
         }
-        currentStageTiles.Clear();
 
         if (Input.GetMouseButton(0) && isDragging)
         {
@@ -199,6 +199,7 @@ public class StageBuilder : MonoBehaviour
 
     void UpdateNoBuildZones(Vector3Int currentTilePos)
     {
+
         foreach (Stage stage in BuildingSystem.currentInstance.stages)
         {
             Tilemap tempMap = stage.tilemap;
@@ -210,7 +211,7 @@ public class StageBuilder : MonoBehaviour
                     Vector3 place = tempMap.CellToWorld(localPlace);
                     if (tempMap.HasTile(localPlace) && localPlace != currentTilePos)
                     {
-                        currentStageTiles.Add(place);
+                        surroundingStageTiles.Add(place);
                     }
                     else if (localPlace == currentTilePos)
                     {
@@ -222,7 +223,7 @@ public class StageBuilder : MonoBehaviour
                 }
             }
 
-            foreach (Vector3 tilePos in currentStageTiles)
+            foreach (Vector3 tilePos in surroundingStageTiles)
             {
                 placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).x - 2;
                 placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).y - 2;
@@ -233,9 +234,10 @@ public class StageBuilder : MonoBehaviour
 
             }
         }
+        
     }
 
-    void HighlightTiles()
+    private void HighlightTiles()
     {
         int xMin = Mathf.Min(startTilePos.x, endTilePos.x);
         int xMax = Mathf.Max(startTilePos.x, endTilePos.x);
@@ -257,8 +259,19 @@ public class StageBuilder : MonoBehaviour
         previousBounds = newBounds;
 
     }
+    private void ClearPreviousBoundsOutliers(BoundsInt bounds)
+    {
+        for (int x = bounds.xMin; x <= bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y <= bounds.yMax; y++)
+            {
+                Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
+                highlightMap.SetTile(tilePos, null);
+            }
+        }
+    }
 
-    void FillTiles()
+    private void FillTiles()
     {
 
         // Determine the bounds of the rectangle
@@ -283,15 +296,4 @@ public class StageBuilder : MonoBehaviour
         }
     }
 
-    void ClearPreviousBoundsOutliers(BoundsInt bounds)
-    {
-        for (int x = bounds.xMin; x <= bounds.xMax; x++)
-        {
-            for (int y = bounds.yMin; y <= bounds.yMax; y++)
-            {
-                Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
-                highlightMap.SetTile(tilePos, null);
-            }
-        }
-    }
 }
