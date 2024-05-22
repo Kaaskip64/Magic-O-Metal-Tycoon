@@ -18,7 +18,6 @@ public class ScrollingAudioHandeler : MonoBehaviour
                     source.clip = clips[eventNumber];
                     source.Play();
                 }
-
                 break;
             case 1:
                 if (!source.isPlaying)
@@ -26,7 +25,6 @@ public class ScrollingAudioHandeler : MonoBehaviour
                     source.clip = clips[eventNumber];
                     source.Play();
                 }
-
                 break;
             case 2:
                 source.clip = clips[eventNumber];
