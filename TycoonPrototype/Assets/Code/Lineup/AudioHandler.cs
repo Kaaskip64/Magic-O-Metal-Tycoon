@@ -10,14 +10,12 @@ public class AudioHandler : MonoBehaviour
 
     private int indexIndicator = 0;
     private bool listStartPlaying = false;
-
     private void Start()
     {
         stage = gameObject.GetComponent<Stage>();
         stageAudio = gameObject.GetComponent<AudioSource>();
         audioClips = new List<AudioClip>();
     }
-
     private void FixedUpdate()
     {
         if (audioClips.Count > 0 && listStartPlaying)
@@ -38,10 +36,7 @@ public class AudioHandler : MonoBehaviour
                     stage.currentStagePlaylist.Clear();
                 }
             }
-
-
         }
-
     }
     public void LoadMusicFiles()
     {
@@ -63,6 +58,10 @@ public class AudioHandler : MonoBehaviour
         stageAudio.mute = shouldMute;
     }
 
+    public void SetVolume(float newVolume)
+    {
+        stageAudio.volume = newVolume;
+    }
     public void Play()
     {
         if (audioClips.Count == 0)

@@ -97,8 +97,9 @@ public class Stage : MonoBehaviour
         StageUI.SetActive(true);
 
         LocalAudio.ChangeAudio(audioHandler.stageAudio.mute);
-        
+        LocalAudio.ChangeAudioScroll(audioHandler.stageAudio.volume);
         LocalAudio.SoundChange += audioHandler.Mute;
+        LocalAudio.volumeChange += audioHandler.SetVolume;
 
         if (!isPlaying)
         {
@@ -106,13 +107,11 @@ public class Stage : MonoBehaviour
             {
                 dataTransferScript.StartNewLineUp();
                 dataTransferScript.ActivateListingUI();
-                Debug.Log("hit");
             }
             else
             {
                 dataTransferScript.ActivateListingUI();
                 dataTransferScript.UploadLineUp(currentStagePlaylist);
-                Debug.Log("hit");
             }
             dataTransferScript.playHandeler.playStarted += ActivateCouritine;
             dataTransferScript.playHandeler.playStarted += PlayStageLineup;
@@ -162,8 +161,10 @@ public class Stage : MonoBehaviour
         dataTransferScript.playHandeler.playStarted -= ActivateCouritine;
 
         dataTransferScript.playHandeler.playStarted -= PlayStageLineup;
-        
+
         LocalAudio.SoundChange -= audioHandler.Mute;
+        
+        LocalAudio.volumeChange += audioHandler.SetVolume;
         
         StageBuilder.currentInstance.currentActiveStageUI = null;
     }
@@ -183,7 +184,6 @@ public class Stage : MonoBehaviour
         {
             
             currentStagePlaylist.Add(data);
-            Debug.Log(data);
         }
 
         yield return new WaitForSeconds(0.05f);
