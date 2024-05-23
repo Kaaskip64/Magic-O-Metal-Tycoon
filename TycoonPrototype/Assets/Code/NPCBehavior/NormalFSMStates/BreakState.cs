@@ -8,28 +8,25 @@ public class BreakState : BaseState
 {
     private Guest guest;
 
-    private bool isStateEntered = false;
-
     private float[] meters = new float[3];
 
     private int lowMeterCount;
 
     private List<Building> availableBuildings = new();
 
-    private float hesitateCount;
+    private float hesitateCount = 0;
 
     private bool foundFacility;
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
         SetDestination();
-        isStateEntered = true;
     }
 
     public override void ExitState()
     {
         lowMeterCount = 0;
-
+        hesitateCount = 0;
         foundFacility = false;
     }
 
@@ -40,16 +37,11 @@ public class BreakState : BaseState
 
     public override void OnFixedUpdate()
     {
-        if(!isStateEntered)
-        {
-            return;
-        }
-
         UpdateMeters();
         SetDestination();
 
         CheckDestinationReached();
-        
+       
     }
 
     private void SetDestination()
@@ -63,40 +55,38 @@ public class BreakState : BaseState
         for(int i = 0;i<meters.Length;i++)
         {
 
-            Transform currentOne = null;
-
             if (guest.hungryMeter == meters[i] && guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold)
             {
-                currentOne = FindClosestBuilding(BuildingSystem.currentInstance.foodStands);
-                if (currentOne != null)
+                if(SetterHelper(BuildingSystem.currentInstance.foodStands))
                 {
-                    guest.GoToTarget(currentOne);
-                    foundFacility = true;
                     break;
-                }lowMeterCount++;
-
+                }
+                else
+                {
+                    guest.StopPathFinding();
+                }
             }              
             else if (guest.thristMeter == meters[i] && guest.thristMeter < NPCManager.Instance.thristMeterThreshold)
             {
-                currentOne = FindClosestBuilding(BuildingSystem.currentInstance.beerStands);
-                if (currentOne != null)
+                if (SetterHelper(BuildingSystem.currentInstance.beerStands))
                 {
-                    guest.GoToTarget(currentOne);
-                    foundFacility = true;
                     break;
                 }
-                lowMeterCount++;
+                else
+                {
+                    guest.StopPathFinding();
+                }
             }
             else if (guest.urgencyMeter == meters[i] && guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold)
             {
-                currentOne = FindClosestBuilding(BuildingSystem.currentInstance.bathroomStands);
-                if (currentOne != null)
+                if (SetterHelper(BuildingSystem.currentInstance.bathroomStands))
                 {
-                    guest.GoToTarget(currentOne);
-                    foundFacility = true;
                     break;
                 }
-                lowMeterCount++;
+                else
+                {
+                    guest.StopPathFinding();
+                }
             }
 
 
@@ -108,6 +98,21 @@ public class BreakState : BaseState
             CheckIfShouldLeave();
         }
         lowMeterCount = 0;
+    }
+
+    private bool SetterHelper(List<Building> list)
+    {
+        var currentOne = FindClosestBuilding(list);
+        if (currentOne != null)
+        {
+            guest.GoToTarget(currentOne);
+            foundFacility = true;
+            return true;
+        }
+        foundFacility = false;
+        lowMeterCount++;
+
+        return false;
     }
 
 
@@ -145,24 +150,28 @@ public class BreakState : BaseState
             }
         }
 
-        if(availableBuildings.Count<=0)
+        //Debug.Log(availableBuildings.Count);
+
+        if (availableBuildings.Count<=0)
         {
             return null;
         }
 
-        Transform cloestOne;
-        cloestOne = availableBuildings[0].NPCTarget;
+        
+
+        Transform closestOne;
+        closestOne = availableBuildings[0].NPCTarget;
         foreach(Building building in availableBuildings)
         {
             if(Mathf.Abs(Vector3.Distance(guest.transform.position, building.transform.position))<
-                Mathf.Abs(Vector3.Distance(guest.transform.position, cloestOne.transform.position)))
+                Mathf.Abs(Vector3.Distance(guest.transform.position, closestOne.transform.position)))
             {
-                cloestOne = building.NPCTarget;
+                closestOne = building.NPCTarget;
             }
         }
         availableBuildings.Clear();
 
-        return cloestOne;
+        return closestOne;
     }
 
     private void CheckIfShouldLeave()
