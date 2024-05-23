@@ -91,16 +91,16 @@ public class ShopSystem : MonoBehaviour
             if (scrollbar != null)
             {
                 scrollbar.onValueChanged.AddListener(OnScrollbarValueChanged);
-                Debug.Log("Added listener to scrollbar: " + path);
+                //Debug.Log("Added listener to scrollbar: " + path);
             }
             else
             {
-                Debug.LogWarning("No Scrollbar component found at path: " + path);
+                //Debug.LogWarning("No Scrollbar component found at path: " + path);
             }
         }
         else
         {
-            Debug.LogWarning("No Transform found at path: " + path);
+            //Debug.LogWarning("No Transform found at path: " + path);
         }
     }
 

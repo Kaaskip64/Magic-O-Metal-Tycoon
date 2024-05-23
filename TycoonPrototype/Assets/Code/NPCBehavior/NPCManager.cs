@@ -6,12 +6,6 @@ public class NPCManager : MonoBehaviour
     
     public static NPCManager Instance { get; private set; }
 
-    [Header("Destinations")]
-    public Transform stage;
-    //public Transform toilet;
-    //public Transform buergerKing;
-    //public Transform beerStand;
-
     [Header("BaseMeter")]
     public float initialHungryMeter;
     public float initialThristMeter;

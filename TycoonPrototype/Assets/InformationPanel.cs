@@ -47,12 +47,12 @@ public class InformationPanel : MonoBehaviour
         // 检查是否击中了物体
         if (hit.collider != null && hit.collider.CompareTag("Building") && hit.collider.GetComponent<Building>().Placed)
         {
-            Debug.Log("hit");
+            //Debug.Log("hit");
             ShowHoverPanel(hit.collider.GetComponent<Building>());
         }
         else
         {
-            Debug.Log("not hit");
+            //Debug.Log("not hit");
             HideHoverPanel();
         }
     }

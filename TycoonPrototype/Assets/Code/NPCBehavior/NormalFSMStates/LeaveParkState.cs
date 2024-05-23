@@ -22,7 +22,7 @@ public class LeaveParkState : BaseState
     public override void OnFixedUpdate()
     {
         
-        if(guest.aIPath.reachedDestination && Vector2.Distance(guest.destinationTransform.position,guest.transform.position)<4)
+        if(guest.AIPath.reachedDestination && Vector2.Distance(guest.DestinationSetter.transform.position,guest.transform.position)<4)
         {
             GameObject.Destroy(guest.gameObject);
             NPCManager.Instance.ReduceNPC();

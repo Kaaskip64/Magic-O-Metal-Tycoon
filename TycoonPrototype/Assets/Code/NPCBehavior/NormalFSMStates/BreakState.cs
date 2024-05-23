@@ -14,11 +14,11 @@ public class BreakState : BaseState
 
     private int lowMeterCount;
 
-    private bool prepareToLeave;
-
     private List<Building> availableBuildings = new();
 
     private float hesitateCount;
+
+    private bool foundFacility;
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
@@ -29,6 +29,8 @@ public class BreakState : BaseState
     public override void ExitState()
     {
         lowMeterCount = 0;
+
+        foundFacility = false;
     }
 
     public override void OnUpdate()
@@ -69,6 +71,7 @@ public class BreakState : BaseState
                 if (currentOne != null)
                 {
                     guest.GoToTarget(currentOne);
+                    foundFacility = true;
                     break;
                 }lowMeterCount++;
 
@@ -79,6 +82,7 @@ public class BreakState : BaseState
                 if (currentOne != null)
                 {
                     guest.GoToTarget(currentOne);
+                    foundFacility = true;
                     break;
                 }
                 lowMeterCount++;
@@ -89,6 +93,7 @@ public class BreakState : BaseState
                 if (currentOne != null)
                 {
                     guest.GoToTarget(currentOne);
+                    foundFacility = true;
                     break;
                 }
                 lowMeterCount++;
@@ -98,24 +103,26 @@ public class BreakState : BaseState
 
         }
 
-        if (lowMeterCount >= 2 && guest.destinationSetter.target == null)
+        if (lowMeterCount >= 2 && guest.DestinationSetter.target == null)
         {
             CheckIfShouldLeave();
         }
         lowMeterCount = 0;
     }
 
+
+
     private void UpdateMeters()
     {
         float deltaTime = Time.fixedDeltaTime;
-        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 20 * deltaTime;
-        guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 20 * deltaTime;
-        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 20 * deltaTime;
+        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 10 * deltaTime;
+        guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 10 * deltaTime;
+        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 10 * deltaTime;
     }
 
     private void CheckDestinationReached()
     {
-        if (guest.destinationSetter.target!=null && Vector2.Distance(guest.transform.position,guest.destinationSetter.target.position)<4f && guest.aIPath.reachedDestination)
+        if (foundFacility && Vector2.Distance(guest.transform.position,guest.DestinationSetter.target.position)<4f && guest.AIPath.reachedDestination)
         {
             guest.SwitchState(guest.restoreState);
         }    
@@ -154,6 +161,7 @@ public class BreakState : BaseState
             }
         }
         availableBuildings.Clear();
+
         return cloestOne;
     }
 
