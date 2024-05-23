@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793931978229755698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.869999, y: 17, z: 0}
+  m_LocalPosition: {x: 2.17, y: 4.58, z: 0}
   m_LocalScale: {x: 0.36359, y: 0.36359, z: 0.36359}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -144,16 +144,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Placed: 0
-  properties: {fileID: 11400000, guid: bdefc608a2a5aee44b6770222947be51, type: 2}
-  image: {fileID: 5113700797749537037}
-  mouseFollowOffset: {x: 0, y: 0}
+  buildingType: 2
+  capacityMax: 10
+  queueCount: 0
   area:
     m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 0, y: 0, z: 0}
-  NPCTarget: {fileID: 5991479129788793028}
+    m_Size: {x: 3, y: 2, z: 1}
   maintenanceCost: 50
   capacityCount: 0
-  queueCount: 0
+  image: {fileID: 5113700797749537037}
+  mouseFollowOffset: {x: 0, y: 0}
+  NPCTarget: {fileID: 5991479129788793028}
 --- !u!61 &6232076909645298068
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 9.810542, y: 22.457}
+  m_Offset: {x: 3.039372, y: 10.109571}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -178,7 +179,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 41.45334, y: 38.135437}
+  m_Size: {x: 15.392863, y: 14.1233835}
   m_EdgeRadius: 0
 --- !u!1 &5113700797749537036
 GameObject:

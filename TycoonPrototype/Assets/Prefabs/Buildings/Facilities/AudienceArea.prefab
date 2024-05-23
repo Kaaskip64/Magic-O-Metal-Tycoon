@@ -47,12 +47,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Placed: 0
-  properties: {fileID: 11400000, guid: 417707d5f19ca7a4cb0d6fa01b423d1d, type: 2}
-  image: {fileID: 7111772333082776849}
-  mouseFollowOffset: {x: 0, y: 0}
+  buildingType: 5
+  capacityMax: 0
+  queueCount: 0
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 10, y: 10, z: 1}
+  maintenanceCost: 0
+  capacityCount: 0
+  image: {fileID: 7111772333082776849}
+  mouseFollowOffset: {x: 0, y: 0}
   NPCTarget: {fileID: 0}
 --- !u!70 &2772496861286334485
 CapsuleCollider2D:
@@ -95,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7968305470534843221}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

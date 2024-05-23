@@ -36,7 +36,7 @@ public class Stage : MonoBehaviour
 
         quitButton.onClick.AddListener(ClearStageUI);
         LocalAudio = audioButton.GetComponent<LocalAudioHandler>();
-        //audioHandler = gameObject.GetComponent<AudioHandler>();
+        audioHandler = gameObject.GetComponent<AudioHandler>();
         //stageCenter = stageCollider.bounds.center;
 
         //stageCenterTile = tilemap.WorldToCell(stageCenter);

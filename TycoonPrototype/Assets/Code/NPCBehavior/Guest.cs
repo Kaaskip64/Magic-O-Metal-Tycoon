@@ -79,6 +79,8 @@ public class Guest : NPC_FSM
         InstanceInit();
 
         StatesSetup();
+
+        NPCManager.Instance.RegisterNPC(this);
     }
 
     private void StatesSetup()
@@ -169,5 +171,10 @@ public class Guest : NPC_FSM
                 rb.AddForce(perpendicularDirection* offsetRatio);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        NPCManager.Instance.UnregisterNPC(this);
     }
 }

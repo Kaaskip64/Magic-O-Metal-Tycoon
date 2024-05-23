@@ -54,13 +54,20 @@ public class LocalAudioHandler : MonoBehaviour
     public void ChangeAudioScroll()
     {
         volume = scrollBar.value;
-        volumeChange(volume);
+        if (volumeChange != null)
+        {
+            volumeChange(volume);
+        }
     }
 
     public void ChangeAudioScroll(float audioVolume)
     {
         volume = audioVolume;
         scrollBar.value = volume;
-        volumeChange(volume);
+        if (volumeChange != null)
+        {
+            volumeChange(volume);
+        }
+        
     }
 }

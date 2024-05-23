@@ -1,29 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 //Class that has to be attached to each building prefab
-public class Building : MonoBehaviour
+public class Building : MonoBehaviour, IHoverPanel
 {
     public bool Placed; //bool for other scripts to check if building has been placed
 
-    public BuildingProperties properties; //slot for scriptable object which holds properties
+    [Space(20)]
+
+    [Header("Properties")]
+    public BuildingType buildingType; //slot for scriptable object which holds properties
+    public int capacityMax;
+    public int queueCount;
+    public BoundsInt area; //size of the placement area. ALWAYS keep the z value 1, or else it messes up the calculation
+    public float maintenanceCost = 5f;
+
+    [Space(20)]
+
+    public int capacityCount;
     public SpriteRenderer image;
 
     public Vector2 mouseFollowOffset;
-    public BoundsInt area; //size of the placement area. ALWAYS keep the z value 1, or else it messes up the calculation
 
     public Transform NPCTarget;
-
-    public float maintenanceCost = 5f;
-
-    public int capacityCount;
-    public int queueCount;
-
-    private void Start()
-    {
-        area = properties.placementArea;
-    }
 
     public bool CanBePlaced() //returns whether or not the building can be placed based on the current location on the grid
     {
@@ -57,5 +58,15 @@ public class Building : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(-mouseFollowOffset, 1);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        InformationPanel.instance.ShowHoverPanel(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        InformationPanel.instance.HideHoverPanel();
     }
 }

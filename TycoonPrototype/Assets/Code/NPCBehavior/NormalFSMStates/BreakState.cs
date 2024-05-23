@@ -132,7 +132,7 @@ public class BreakState : BaseState
         foreach(Building build in buildingList)
         {
             var buildingComponent = build.GetComponent<Building>();
-            if(buildingComponent.capacityCount<buildingComponent.properties.capacity)
+            if(buildingComponent.capacityCount<buildingComponent.capacityMax)
             {
                 availableBuildings.Add(buildingComponent);
             }
