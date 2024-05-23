@@ -150,7 +150,7 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 2, y: 2, z: 1}
-  maintenanceCost: 50
+  maintenanceCost: 100
   capacityCount: 0
   image: {fileID: 5113700797749537037}
   mouseFollowOffset: {x: 0, y: 0}

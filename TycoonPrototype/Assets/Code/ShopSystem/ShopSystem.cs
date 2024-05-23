@@ -91,7 +91,6 @@ public class ShopSystem : MonoBehaviour
             if (scrollbar != null)
             {
                 scrollbar.onValueChanged.AddListener(OnScrollbarValueChanged);
-                Debug.Log("Added listener to scrollbar: " + path);
             }
             else
             {

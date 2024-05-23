@@ -227,9 +227,6 @@ public class StageBuilder : MonoBehaviour
             {
                 placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).x - 2;
                 placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).y - 2;
-
-                Debug.Log(placementAreaSize.x);
-
                 BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
 
             }
