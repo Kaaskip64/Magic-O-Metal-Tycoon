@@ -40,6 +40,7 @@ public class CheerState : BaseState
         
     }
 
+    
 
     private void SearchForAudienceArea()
     {
@@ -76,8 +77,8 @@ public class CheerState : BaseState
         {
             return null;
         }
-
-        var targetStage = stageArea[Random.Range(0, stageArea.Count - 1)];
+        
+        var targetStage = stageArea[Random.Range(0, stageArea.Count)];
 
         if (stageTarget == null)
         {

@@ -194,7 +194,7 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 0
   pickNextWaypointDist: 1
-  endReachedDistance: 1
+  endReachedDistance: 2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -225,19 +225,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317f031e020391f489bda3f39888483b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinationSetter: {fileID: 0}
-  aIPath: {fileID: 0}
-  animator: {fileID: 0}
-  spriteRenderer: {fileID: 0}
   maxSpeed: 10
   hungryMeter: 0
   thristMeter: 0
   urgencyMeter: 0
   satisfaction: 0
-  numberOfRays: 10
-  rayLength: 1.2
-  angleRange: 60
-  offsetRatio: 5
 --- !u!114 &5599477398651336223
 MonoBehaviour:
   m_ObjectHideFlags: 0

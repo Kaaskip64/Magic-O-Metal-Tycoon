@@ -127,7 +127,7 @@ public class Guest : NPC_FSM
 
     private void SpriteFlip()
     {
-        if (destinationSetter.target != null && destinationSetter.target.position.x - transform.position.x < 0)
+        if (destinationSetter.target != null && destinationSetter.target.position.x - transform.position.x <= 0)
         {
             spriteRenderer.flipX = true;
         }
@@ -158,12 +158,19 @@ public class Guest : NPC_FSM
     #region Utilities
     public void GoToTarget(Transform destination)
     {
+        AIPath.isStopped = false;
         destinationSetter.target = destination;
     }
 
     private void OnDestroy()
     {
         NPCManager.Instance.UnregisterNPC(this);
+    }
+
+    public void StopPathFinding()
+    {
+        destinationSetter.target = null;
+        AIPath.isStopped = true;
     }
     #endregion
 }
