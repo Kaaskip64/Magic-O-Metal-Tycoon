@@ -153,6 +153,7 @@ MonoBehaviour:
   maintenanceCost: 75
   capacityCount: 0
   image: {fileID: 5113700797749537037}
+  AstarCollider: {fileID: 793931978229755698}
   mouseFollowOffset: {x: 0, y: -10.15}
   NPCTarget: {fileID: 5991479129788793028}
 --- !u!61 &6232076909645298068

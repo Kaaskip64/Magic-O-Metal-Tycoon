@@ -21,6 +21,7 @@ public class Building : MonoBehaviour, IHoverPanel
 
     public int capacityCount;
     public SpriteRenderer image;
+    public GameObject AstarCollider;
 
     public Vector2 mouseFollowOffset;
 

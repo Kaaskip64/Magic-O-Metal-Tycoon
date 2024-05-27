@@ -131,6 +131,11 @@ public class BuildingSystem : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            MirrorBuilding();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1)) //Removes selected building without placing it
         {
             ClearArea();
@@ -247,6 +252,44 @@ public class BuildingSystem : MonoBehaviour
 
                 break;
         }
+    }
+
+    private void MirrorBuilding()
+    {
+        currentSelectedBuilding.area = SwapBoundsValues(currentSelectedBuilding.area);
+        FollowBuilding(currentSelectedBuilding.area);
+
+        currentSelectedBuilding.image.flipX = !currentSelectedBuilding.image.flipX;
+
+        Vector2 pos = currentSelectedBuilding.image.gameObject.transform.localPosition;
+        pos.x *= -1;
+
+        currentSelectedBuilding.image.gameObject.transform.localPosition = pos;
+
+        Vector2 collScale = currentSelectedBuilding.AstarCollider.transform.localScale;
+        Vector2 collPos = currentSelectedBuilding.AstarCollider.transform.localPosition;
+        collScale.x *= -1;
+        collPos.x *= -1;
+
+        currentSelectedBuilding.AstarCollider.transform.localScale = collScale;
+        currentSelectedBuilding.AstarCollider.transform.localPosition = collPos;
+
+        Vector2 entranceScale = currentSelectedBuilding.NPCTarget.localScale;
+        Vector2 entrancePos = currentSelectedBuilding.NPCTarget.localPosition;
+        entranceScale.x *= -1;
+        entrancePos.x *= -1;
+
+        currentSelectedBuilding.NPCTarget.localScale = entranceScale;
+        currentSelectedBuilding.NPCTarget.localPosition = entrancePos;
+
+    }
+
+    BoundsInt SwapBoundsValues(BoundsInt bounds)
+    {
+        return new BoundsInt(
+            bounds.x, bounds.y, bounds.z,
+            bounds.size.y, bounds.size.x, bounds.size.z
+            );
     }
 
     //region for functions that handle tile filling. For some reason, base unity fill commands can crash the editor
