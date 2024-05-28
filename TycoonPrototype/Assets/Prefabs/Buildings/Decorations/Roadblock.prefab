@@ -150,6 +150,7 @@ MonoBehaviour:
   maintenanceCost: 0
   capacityCount: 0
   image: {fileID: 5113700797749537037}
+  AstarCollider: {fileID: 793931978229755698}
   mouseFollowOffset: {x: 0, y: 0}
   NPCTarget: {fileID: 5991479129788793028}
 --- !u!61 &6232076909645298068
@@ -203,8 +204,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5113700797749537036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.0900002, y: 5.3300004, z: 0}
-  m_LocalScale: {x: 3.0248404, y: 3.0248404, z: 3.0248404}
+  m_LocalPosition: {x: -3.09, y: 5.3300004, z: 0}
+  m_LocalScale: {x: 3.02484, y: 3.02484, z: 3.02484}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5014062777941128202}
