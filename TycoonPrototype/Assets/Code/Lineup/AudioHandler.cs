@@ -23,17 +23,20 @@ public class AudioHandler : MonoBehaviour
             if (!stageAudio.isPlaying)
             {
                 if ((indexIndicator + 1) < audioClips.Count)
-                {
+                { 
+                    Debug.Log(indexIndicator);
                     indexIndicator++;
                     stageAudio.clip = audioClips[indexIndicator];
                     stageAudio.Play();
                 }
                 else
                 {
+                    
                     indexIndicator = 0;
                     listStartPlaying = false;
                     stage.isPlaying = false;
                     stage.currentStagePlaylist.Clear();
+                    audioClips.Clear();
                 }
             }
         }

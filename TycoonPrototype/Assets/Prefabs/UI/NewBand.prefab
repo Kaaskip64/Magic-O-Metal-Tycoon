@@ -605,6 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 9177297677347279755}
   ParentObject: {fileID: 0}
+  objectToHide: {fileID: 1211989270165140285}
   price: 50
 --- !u!114 &1622291222028630575
 MonoBehaviour:

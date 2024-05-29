@@ -14,7 +14,9 @@ public class BandAdder : MonoBehaviour
     
     [SerializeField]
     private RectTransform ParentObject;
-
+    
+    [SerializeField]
+    private GameObject objectToHide;
     public float price = 50f;
     
     public async Task AddNewBandAddressable()
@@ -47,7 +49,7 @@ public class BandAdder : MonoBehaviour
     {
         if (PlayerProperties.Instance.MoneyCheck(price))
         {
-            gameObject.SetActive(false);
+            objectToHide.SetActive(false);
             AddNewBandAddressable();
             PlayerProperties.Instance.MoneyChange(-price);
         }

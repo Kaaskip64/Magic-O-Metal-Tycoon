@@ -148,7 +148,6 @@ public class Stage : MonoBehaviour
 
     public void ClearStageUI() //Function for the playlistUI exit button to call
     {
-        Debug.Log(this.gameObject);
         if (currentStagePlaylist != null)
         {
             currentStagePlaylist.Clear();
