@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -46,6 +47,7 @@ public class BandAdder : MonoBehaviour
     {
         if (PlayerProperties.Instance.MoneyCheck(price))
         {
+            gameObject.SetActive(false);
             AddNewBandAddressable();
             PlayerProperties.Instance.MoneyChange(-price);
         }

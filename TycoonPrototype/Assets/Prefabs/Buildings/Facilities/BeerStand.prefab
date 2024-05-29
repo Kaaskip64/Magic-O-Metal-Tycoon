@@ -155,7 +155,7 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 5, y: 4, z: 1}
-  maintenanceCost: 125
+  maintenanceCost: 75
   capacityCount: 0
   image: {fileID: 5113700797749537037}
   AstarCollider: {fileID: 793931978229755698}
