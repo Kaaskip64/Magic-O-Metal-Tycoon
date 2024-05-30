@@ -27,6 +27,45 @@ public class Building : MonoBehaviour, IHoverPanel
 
     public Transform NPCTarget;
 
+    private BoxCollider2D boxCollider;
+
+
+
+    private void Start()
+    {
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
+    }
+
+    private void Update()
+    {
+        if(Placed && InformationPanel.instance.currentHoveredBuilding == this)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                print("hit");
+                boxCollider.enabled = false;
+                BuildingSystem.currentInstance.pickingUpBuilding = true;
+                BuildingSystem.currentInstance.currentSelectedBuilding = this;
+                Placed = false;
+                BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
+
+                
+                area.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(gameObject.transform.position).x + 1;
+                area.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(gameObject.transform.position).y + 1;
+
+                BuildingSystem.SetTilesBlock(area, TileType.White, BuildingSystem.currentInstance.MainTileMap);
+
+                area.x = 0;
+                area.y = 0;
+
+                
+                BuildingSystem.currentInstance.FollowBuilding(area);
+
+                image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
+            }
+        }
+    }
+
     public bool CanBePlaced() //returns whether or not the building can be placed based on the current location on the grid
     {
         Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
@@ -46,23 +85,12 @@ public class Building : MonoBehaviour, IHoverPanel
         Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
+        boxCollider.enabled = true;
         Placed = true;
         BuildingSystem.currentInstance.TakeArea(areaTemp);
         
     }
 
-    private void OnMouseDown()
-    {
-        print("hit");
-        BuildingSystem.currentInstance.pickingUpBuilding = true;
-        BuildingSystem.currentInstance.currentSelectedBuilding = this;
-        Placed = false;
-        BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
-        BuildingSystem.currentInstance.FollowBuilding(area);
-        //BuildingSystem.currentInstance.SetTilesBlock(area, TileType.White, BuildingSystem.currentInstance.MainTileMap);
-        image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
-
-    }
 
     public void MaintenanceTick()
     {
@@ -77,6 +105,7 @@ public class Building : MonoBehaviour, IHoverPanel
     public void OnPointerEnter(PointerEventData eventData)
     {
         InformationPanel.instance.ShowHoverPanel(this);
+
     }
 
     public void OnPointerExit(PointerEventData eventData)

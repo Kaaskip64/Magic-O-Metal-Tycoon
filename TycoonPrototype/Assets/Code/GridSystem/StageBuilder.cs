@@ -50,6 +50,7 @@ public class StageBuilder : MonoBehaviour
     private BoundsInt previousBounds;
     private Vector3Int startTilePos;
     private Vector3Int endTilePos;
+    private Vector3Int currentTilePos;
     private bool isDragging;
 
     private void Awake()
@@ -68,12 +69,11 @@ public class StageBuilder : MonoBehaviour
         }
 
 
-        BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
 
         Vector3 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
             Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
             0);
-        Vector3Int currentTilePos = stageMap.WorldToCell(new Vector3(mousePos.x, mousePos.y));
+        currentTilePos = stageMap.WorldToCell(new Vector3(mousePos.x, mousePos.y));
 
         placementAreaSize.x = currentTilePos.x - (placementAreaSize.size.x / 2);
         placementAreaSize.y = currentTilePos.y - (placementAreaSize.size.y / 2);
@@ -81,7 +81,7 @@ public class StageBuilder : MonoBehaviour
         
         
 
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && BuildingSystem.currentInstance.currentSelectedBuilding == null)
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             
             if(!eraseMode && !isDragging)
@@ -89,11 +89,10 @@ public class StageBuilder : MonoBehaviour
                 startTilePos = currentTilePos;
                 isDragging = true;
 
-            } else
+            }
+            if(eraseMode)
             {
                 stageMap.SetTile(currentTilePos, null);
-                UpdateNoBuildZones(currentTilePos);
-                surroundingStageTiles.Clear();
 
             }
         }
@@ -128,6 +127,7 @@ public class StageBuilder : MonoBehaviour
             if (PlayerProperties.Instance.MoneyCheck(stagePrice))
             {
                 CreateNewStageObject();
+                BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
                 PlayerProperties.Instance.MoneyChange(-stagePrice);
                 editingStageTiles = true;
                 eraseMode = false;
@@ -145,6 +145,12 @@ public class StageBuilder : MonoBehaviour
 
     public void EraseMode()
     {
+        if(eraseMode)
+        {
+            UpdateNoBuildZones();
+            surroundingStageTiles.Clear();
+        }
+
 
         eraseMode = !eraseMode;
     }
@@ -197,9 +203,8 @@ public class StageBuilder : MonoBehaviour
 
     }
 
-    void UpdateNoBuildZones(Vector3Int currentTilePos)
+    void UpdateNoBuildZones()
     {
-
         foreach (Stage stage in BuildingSystem.currentInstance.stages)
         {
             Tilemap tempMap = stage.tilemap;
@@ -219,6 +224,7 @@ public class StageBuilder : MonoBehaviour
                         placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).y - 2;
 
                         BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, BuildingSystem.currentInstance.MainTileMap);
+                        Debug.Log("hit");
                     }
                 }
             }
@@ -227,8 +233,6 @@ public class StageBuilder : MonoBehaviour
             {
                 placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).x - 2;
                 placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).y - 2;
-
-                Debug.Log(placementAreaSize.x);
 
                 BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
 

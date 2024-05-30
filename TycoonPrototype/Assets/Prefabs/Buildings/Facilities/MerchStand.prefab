@@ -88,13 +88,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -3.2073097, y: 3.1782522}
-      - {x: -10.533694, y: 0.4868021}
-      - {x: -20.902987, y: -1.024806}
-      - {x: -15.9195385, y: -4.9513626}
-      - {x: -3.6202278, y: -3.8551726}
-      - {x: 23.872211, y: 8.74016}
-      - {x: 13.136771, y: 13.747957}
+    - - {x: 13.846227, y: 16.101337}
+      - {x: 16.403416, y: 14.508175}
+      - {x: -7.850415, y: 1.0127146}
+      - {x: -10.473979, y: 2.9451623}
 --- !u!1 &2616206265886582281
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +147,7 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 3, y: 2, z: 1}
-  maintenanceCost: 50
+  maintenanceCost: 125
   capacityCount: 0
   image: {fileID: 5113700797749537037}
   AstarCollider: {fileID: 793931978229755698}
@@ -163,7 +160,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2616206265886582281}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

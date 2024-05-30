@@ -89,7 +89,7 @@ public class BuildingSystem : MonoBehaviour
             0);
 
 
-        if (!currentSelectedBuilding.Placed) //Selected building follows mouse as long as not placed
+        if (!currentSelectedBuilding.Placed) //Selected building no build zone follows mouse as long as not placed
         {
             Vector3 touchPos = mousePosOnGrid;
             Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
@@ -258,9 +258,9 @@ public class BuildingSystem : MonoBehaviour
         if(!pickingUpBuilding)
         {
             Destroy(currentSelectedBuilding.gameObject);
+            upperBackgroundShop.SetActive(true);
         }
         currentSelectedBuilding = null;
-        upperBackgroundShop.SetActive(true);
         MainTileMap.gameObject.SetActive(false);
         ExitBuildingFollowing();
     }
