@@ -51,6 +51,19 @@ public class Building : MonoBehaviour, IHoverPanel
         
     }
 
+    private void OnMouseDown()
+    {
+        print("hit");
+        BuildingSystem.currentInstance.pickingUpBuilding = true;
+        BuildingSystem.currentInstance.currentSelectedBuilding = this;
+        Placed = false;
+        BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
+        BuildingSystem.currentInstance.FollowBuilding(area);
+        //BuildingSystem.currentInstance.SetTilesBlock(area, TileType.White, BuildingSystem.currentInstance.MainTileMap);
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
+
+    }
+
     public void MaintenanceTick()
     {
         PlayerProperties.Instance.MoneyChange(-maintenanceCost);

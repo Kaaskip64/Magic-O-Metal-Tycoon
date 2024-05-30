@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: -4739877679166691764}
   m_Layer: 0
   m_Name: Dark Tree
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,16 +79,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Placed: 0
-  properties: {fileID: 0}
-  image: {fileID: 0}
-  mouseFollowOffset: {x: 0, y: 0}
+  buildingType: 0
+  capacityMax: 0
+  queueCount: 0
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
-  NPCTarget: {fileID: 0}
   maintenanceCost: 5
   capacityCount: 0
-  queueCount: 0
+  image: {fileID: 0}
+  AstarCollider: {fileID: 0}
+  mouseFollowOffset: {x: 0, y: 0}
+  NPCTarget: {fileID: 0}
 --- !u!61 &-4739877679166691764
 BoxCollider2D:
   m_ObjectHideFlags: 0

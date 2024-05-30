@@ -30,8 +30,8 @@ public class BuildingSystem : MonoBehaviour
     //Mouse
     [Header("Mouse")]
     public Vector3 mousePosOnGrid;
-    public Ray rayCast;
-    public RaycastHit hit;
+    //public Ray rayCast;
+    public RaycastHit2D hit;
 
     //Building Lists
     [Header("Placed building lists")]
@@ -47,6 +47,7 @@ public class BuildingSystem : MonoBehaviour
     public GameObject upperBackgroundShop;
 
     public UnityAction ExitBuildingFollowing; // handling problem that building placement mouse click can interact with UI elements
+    public bool pickingUpBuilding = false;
 
     private void Awake()
     {
@@ -86,11 +87,7 @@ public class BuildingSystem : MonoBehaviour
         mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + currentSelectedBuilding.mouseFollowOffset.x, 
             Camera.main.ScreenToWorldPoint(Input.mousePosition).y + currentSelectedBuilding.mouseFollowOffset.y, 
             0);
-        //raycast
-        rayCast = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-        
-        
+
 
         if (!currentSelectedBuilding.Placed) //Selected building follows mouse as long as not placed
         {
@@ -111,22 +108,18 @@ public class BuildingSystem : MonoBehaviour
             if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced()&&PlayerProperties.Instance.MoneyCheck(currentSelectedProduct))
             {
                 TruePlaceBuilding(); //Places building
-                InitializeWithBuilding(currentSelectedProduct);
-                currentSelectedBuilding.Placed = false;
 
-
-            } else if (Physics.Raycast(rayCast, out hit)) //if on click there is no selected building, try to find a new one with raycast
-            {
-                if (hit.collider.CompareTag("Building"))
+                if (pickingUpBuilding)
                 {
-                    currentSelectedBuilding = hit.transform.gameObject.GetComponent<Building>();
-                    MainTileMap.gameObject.SetActive(true);
-                    SetTilesBlock(currentSelectedBuilding.area, TileType.White, MainTileMap);
-                    currentSelectedBuilding.Placed = false;
-                    currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
+                    ExitBuildMode();
+                    pickingUpBuilding = false;
 
+                    return;
                 }
-            }
+                    InitializeWithBuilding(currentSelectedProduct);
+                    currentSelectedBuilding.Placed = false;
+
+            } 
 
 
         }
@@ -138,11 +131,7 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1)) //Removes selected building without placing it
         {
-            ClearArea();
-            Destroy(currentSelectedBuilding.gameObject);
-            upperBackgroundShop.SetActive(true);
-            MainTileMap.gameObject.SetActive(false);
-            ExitBuildingFollowing();
+            ExitBuildMode();
         }
 
 
@@ -152,6 +141,8 @@ public class BuildingSystem : MonoBehaviour
     {
         currentSelectedProduct = building;
         currentSelectedBuilding = Instantiate(building.itemPrefab, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
+        currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 0.5f);
+
         currentSelectedBuilding.gameObject.name = building.ProductName;
         FollowBuilding(currentSelectedBuilding.area);
         upperBackgroundShop.SetActive(false);
@@ -221,37 +212,57 @@ public class BuildingSystem : MonoBehaviour
     public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
     {
         currentSelectedBuilding.Place();
-        MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
-        PlayerProperties.Instance.MoneyChange(-currentSelectedProduct.Price);
-        currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 1f);
+        print("placed");
+        currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 1f);
+
+
 
         AstarPath.active.data.gridGraph.Scan();
 
-        switch (currentSelectedBuilding.buildingType)
+        if (!pickingUpBuilding)
         {
-            //switch case to funnel placed building in the corresponding list
-            case BuildingType.Food:
-                foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
-                break;
+            MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
+            PlayerProperties.Instance.MoneyChange(-currentSelectedProduct.Price);
+            switch (currentSelectedBuilding.buildingType)
+            {
+                //switch case to funnel placed building in the corresponding list
+                case BuildingType.Food:
+                    foodStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                    break;
 
-            case BuildingType.Beer:
-                beerStands.Add(currentSelectedBuilding.GetComponent<Building>());
-                break;
+                case BuildingType.Beer:
+                    beerStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                    break;
 
-            case BuildingType.Merch:
-                merchStands.Add(currentSelectedBuilding.GetComponent<Building>());
-                break;
+                case BuildingType.Merch:
+                    merchStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                    break;
 
-            case BuildingType.Bathroom:
-                bathroomStands.Add(currentSelectedBuilding.GetComponent<Building>());
-                break;
+                case BuildingType.Bathroom:
+                    bathroomStands.Add(currentSelectedBuilding.GetComponent<Building>());
+                    break;
 
-            case BuildingType.Audience:
-                audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
-                currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
+                case BuildingType.Audience:
+                    audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
+                    currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
 
-                break;
+                    break;
+            }
         }
+    }
+
+    private void ExitBuildMode()
+    {
+        ClearArea();
+
+        if(!pickingUpBuilding)
+        {
+            Destroy(currentSelectedBuilding.gameObject);
+        }
+        currentSelectedBuilding = null;
+        upperBackgroundShop.SetActive(true);
+        MainTileMap.gameObject.SetActive(false);
+        ExitBuildingFollowing();
     }
 
     private void MirrorBuilding()
@@ -327,6 +338,7 @@ public class BuildingSystem : MonoBehaviour
     }
     #endregion
 
+    
 
 }
 
