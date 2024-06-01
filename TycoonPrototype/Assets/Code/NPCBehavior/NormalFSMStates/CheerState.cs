@@ -10,6 +10,8 @@ public class CheerState : BaseState
     private GameObject stageTarget = null;
 
     private bool foundAudienceArea = false;
+
+    private List<Building> activeStages = new List<Building>();
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
@@ -60,6 +62,7 @@ public class CheerState : BaseState
         guest.hungryMeter -= NPCManager.Instance.hungryChangeRate * Time.deltaTime;
         guest.thristMeter -= NPCManager.Instance.thirstChangeRate * Time.deltaTime;
         guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate * Time.deltaTime;
+        guest.satisfaction += NPCManager.Instance.satisfactionChangeRate * Time .deltaTime / 2;
 
         bool isHungryLow = guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold;
         bool isThirstLow = guest.thristMeter < NPCManager.Instance.thristMeterThreshold;
@@ -87,6 +90,34 @@ public class CheerState : BaseState
         stageTarget.transform.position = GetRandomPointInCapsule(targetStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
         stageTarget.transform.SetParent(targetStage.transform);
         
+        return stageTarget.transform;
+    }
+
+    private Transform FindActiveAudienceArea(List<Building> stageArea)
+    {
+        if (stageArea.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (var building in stageArea)
+        {
+            if(building.GetComponent<Stage>().isPlaying)
+            {
+                activeStages.Add(building);
+            }
+        }
+
+        var targetStage = activeStages[Random.Range(0, activeStages.Count)];
+        //var targetStage = activeStages[Random.Range(0, activeStages.Count)].AudienceAreasList[Random.Range(0, AudienceAreasList.Count)];
+
+        if (stageTarget == null)
+        {
+            stageTarget = new GameObject("tempTarget");
+        }
+        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
+        stageTarget.transform.SetParent(targetStage.transform);
+
         return stageTarget.transform;
     }
 

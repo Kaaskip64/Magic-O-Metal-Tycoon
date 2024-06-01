@@ -41,6 +41,7 @@ public class BreakState : BaseState
         SetDestination();
 
         CheckDestinationReached();
+        SatisfictionCheck();
        
     }
 
@@ -115,7 +116,13 @@ public class BreakState : BaseState
         return false;
     }
 
-
+    private void SatisfictionCheck()
+    {
+        if(guest.satisfaction < NPCManager.Instance.satisfactionThreshold)
+        {
+            guest.SwitchState(guest.leaveParkState);
+        }
+    }
 
     private void UpdateMeters()
     {
@@ -123,6 +130,7 @@ public class BreakState : BaseState
         guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 10 * deltaTime;
         guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 10 * deltaTime;
         guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 10 * deltaTime;
+        guest.satisfaction -= NPCManager.Instance.satisfactionChangeRate * deltaTime;
     }
 
     private void CheckDestinationReached()
@@ -173,6 +181,8 @@ public class BreakState : BaseState
 
         return closestOne;
     }
+
+
 
     private void CheckIfShouldLeave()
     {

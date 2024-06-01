@@ -48,6 +48,8 @@ public class NPCManager : MonoBehaviour
 
     private int currentNPCAmount;
     private float intervalCount;
+
+    [SerializeField]
     // List to store all NPCs
     private List<Guest> npcList = new List<Guest>();
 
@@ -63,6 +65,20 @@ public class NPCManager : MonoBehaviour
     {
         intervalCount = npcSpawnInterval;
     }
+
+
+    public void UpdateNPCLimit()
+    {
+        int tempAmount = 0;
+        foreach(var item in BuildingSystem.currentInstance.stages)
+        {
+            tempAmount += item.currentStagePlaylist.Count - 1;
+        }
+        maxNPCAmount = tempAmount * 10;
+
+
+    }
+
 
     private void FixedUpdate()
     {
