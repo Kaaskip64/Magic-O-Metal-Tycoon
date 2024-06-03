@@ -15,16 +15,19 @@ public class Stage : MonoBehaviour
     public BandDataTransferScript dataTransferScript;
     public LocalAudioHandler LocalAudio;
     public AudioHandler audioHandler;
+    public CompositeCollider2D stageCollider;
 
     public Button quitButton;
     public Button audioButton;
     public bool isPlaying;
+    public bool isMouseOverStage = false;
+
+    public GameObject alexObject;
+    public GameObject lexieObject;
+    public GameObject rockelleObject;
+    public GameObject picuObject;
 
     public Tilemap tilemap;
-    private CompositeCollider2D stageCollider;
-
-    private Vector3 stageCenter;
-    private Vector3Int stageCenterTile;
 
     public BoundsInt audienceAreaSize;
 
@@ -37,36 +40,18 @@ public class Stage : MonoBehaviour
 
         LocalAudio = audioButton.GetComponent<LocalAudioHandler>();
         audioHandler = gameObject.GetComponent<AudioHandler>();
-        //stageCenter = stageCollider.bounds.center;
-
-        //stageCenterTile = tilemap.WorldToCell(stageCenter);
 
         if (currentStagePlaylist != null)
         {
             dataTransferScript.newbandAdded += UpdateList;
         }
 
-        /*
-        audienceAreaSize.position = BuildingSystem.currentInstance.MainTileMap.WorldToCell(stageCenter);
-
-        audienceAreaSize.size.Set(Mathf.RoundToInt(collider.bounds.size.x) , /// BuildingSystem.currentInstance.gridLayout.cellSize.x),
-            Mathf.RoundToInt(collider.bounds.size.y) / Mathf.RoundToInt(BuildingSystem.currentInstance.gridLayout.cellSize.y),
-            1);
-
-        audienceAreaSize.xMax = Mathf.RoundToInt(collider.bounds.size.x) / Mathf.RoundToInt(BuildingSystem.currentInstance.gridLayout.cellSize.x);
-        */
-    }
-
-    private void Update()
-    {
-
-
-
     }
 
     private void OnMouseEnter()
     {
-        if(EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null)
+        isMouseOverStage = true;
+        if(EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null || PlaceBandMember.currentInstance.placingBandMember)
         {
             return;
         }
@@ -76,6 +61,8 @@ public class Stage : MonoBehaviour
 
     private void OnMouseExit()
     {
+        isMouseOverStage = false;
+        if(!PlaceBandMember.currentInstance.placingBandMember)
         tilemap.color = new Color(1f, 1f, 1f, 1f);
 
     }
@@ -85,10 +72,26 @@ public class Stage : MonoBehaviour
     {
         //When stage is clicked, everything in this function gets executed
 
-        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null)
+        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null || PlaceBandMember.currentInstance.placingBandMember)
         {
             return;
         }
+
+        FillStageUI();
+
+        //Debug.Log(tilemap.CellToWorld(stageCenterTile));
+
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Gizmos.DrawSphere(tilemap.CellToWorld(stageCenterTile), 3);
+
+    }
+
+    public void FillStageUI()
+    {
         quitButton.onClick.AddListener(ClearStageUI);
         tilemap.color = new Color(1f, 1f, 1f, 1f);
 
@@ -114,26 +117,17 @@ public class Stage : MonoBehaviour
             }
             dataTransferScript.playHandeler.playStarted += ActivateCouritine;
             dataTransferScript.playHandeler.playStarted += PlayStageLineup;
-            
-            
 
-        } else
+
+
+        }
+        else
         {
             dataTransferScript.ActivatePlayingUI();
         }
-        
+
 
         StageBuilder.currentInstance.currentActiveStageUI = this;
-
-        //Debug.Log(tilemap.CellToWorld(stageCenterTile));
-
-
-    }
-
-    private void OnDrawGizmos()
-    {
-        //Gizmos.DrawSphere(tilemap.CellToWorld(stageCenterTile), 3);
-
     }
 
     public void UpdateList()

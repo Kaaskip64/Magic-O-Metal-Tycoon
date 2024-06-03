@@ -30,6 +30,7 @@ public class BuildingSystem : MonoBehaviour
     //Mouse
     [Header("Mouse")]
     public Vector3 mousePosOnGrid;
+    public Vector3Int mouseCellPos;
     //public Ray rayCast;
     public RaycastHit2D hit;
 
@@ -71,6 +72,12 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update()
     {
+        //Mouse Position translated to grid position
+        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
+            0);
+        mouseCellPos = gridLayout.LocalToCell(mousePosOnGrid);
+
 
         if (!currentSelectedBuilding)
         {
@@ -83,21 +90,14 @@ public class BuildingSystem : MonoBehaviour
         }
 
 
-        //Mouse Position translated to grid position
-        mousePosOnGrid = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + currentSelectedBuilding.mouseFollowOffset.x, 
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).y + currentSelectedBuilding.mouseFollowOffset.y, 
-            0);
 
 
         if (!currentSelectedBuilding.Placed) //Selected building no build zone follows mouse as long as not placed
         {
-            Vector3 touchPos = mousePosOnGrid;
-            Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
-
-            if (prevPos != cellPos)
+            if (prevPos != mouseCellPos)
             {
-                currentSelectedBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
-                prevPos = cellPos;
+                currentSelectedBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(mouseCellPos);
+                prevPos = mouseCellPos;
                 FollowBuilding(currentSelectedBuilding.area);
             }
 
