@@ -34,7 +34,7 @@ public class Stage : MonoBehaviour
         tilemap = gameObject.GetComponent<Tilemap>();
         stageCollider = gameObject.GetComponent<CompositeCollider2D>();
 
-        quitButton.onClick.AddListener(ClearStageUI);
+
         LocalAudio = audioButton.GetComponent<LocalAudioHandler>();
         audioHandler = gameObject.GetComponent<AudioHandler>();
         //stageCenter = stageCollider.bounds.center;
@@ -44,7 +44,6 @@ public class Stage : MonoBehaviour
         if (currentStagePlaylist != null)
         {
             dataTransferScript.newbandAdded += UpdateList;
-
         }
 
         /*
@@ -90,7 +89,7 @@ public class Stage : MonoBehaviour
         {
             return;
         }
-
+        quitButton.onClick.AddListener(ClearStageUI);
         tilemap.color = new Color(1f, 1f, 1f, 1f);
 
         MainUI.SetActive(false);
@@ -149,24 +148,26 @@ public class Stage : MonoBehaviour
 
     public void ClearStageUI() //Function for the playlistUI exit button to call
     {
-        
         if (currentStagePlaylist != null)
         {
             currentStagePlaylist.Clear();
         }
-
         StartCoroutine(DownloadSongs());
+
         dataTransferScript.ResetListings();
         
+        StopCoroutine(DownloadSongs());
         dataTransferScript.playHandeler.playStarted -= ActivateCouritine;
 
         dataTransferScript.playHandeler.playStarted -= PlayStageLineup;
 
         LocalAudio.SoundChange -= audioHandler.Mute;
         
-        LocalAudio.volumeChange += audioHandler.SetVolume;
+        LocalAudio.volumeChange -= audioHandler.SetVolume;
         
         StageBuilder.currentInstance.currentActiveStageUI = null;
+        
+        quitButton.onClick.RemoveListener(ClearStageUI);
     }
 
     public void PlayStageLineup()
@@ -185,7 +186,6 @@ public class Stage : MonoBehaviour
             
             currentStagePlaylist.Add(data);
         }
-
         yield return new WaitForSeconds(0.05f);
     }
 

@@ -5,19 +5,12 @@ using static UnityEngine.ParticleSystem;
 
 public class Guest : NPC_FSM
 {
-    [HideInInspector]
-    public AIDestinationSetter destinationSetter;
-    public IdleState idleState;
-    public BreakState breakState;
+    #region Public Members
+    [Header("States")]
+    public BreakState BreakState;
     public CheerState cheerState;
     public RestoreState restoreState;
     public LeaveParkState leaveParkState;
-    [HideInInspector]
-    public AIPath aIPath;
-    [HideInInspector]
-    public Animator animator;
-    [HideInInspector]
-    public SpriteRenderer spriteRenderer;
 
     [Header("Movement Parameter")]
     public float maxSpeed;
@@ -27,16 +20,37 @@ public class Guest : NPC_FSM
     public float thristMeter;
     public float urgencyMeter;
     public float satisfaction;
+    #endregion
 
-    [Header("Crowd Simulation Parameter")]
-    public int numberOfRays = 5;
-    public float rayLength = 2f;
-    public float angleRange = 120f;
-    public float offsetRatio = 5;
+    #region Properties
+    private AIDestinationSetter destinationSetter;
+    public AIDestinationSetter DestinationSetter
+    {
+        get { return destinationSetter; }
+    }
 
-    public Transform destinationTransform { get; private set; }
+    private AIPath aIPath;
+    public AIPath AIPath
+    {
+        get { return aIPath; }
+    }
+
+    private Animator animator;
+    public Animator Animator
+    {
+        get { return animator; }
+    }
+
+    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer SpriteRenderer
+    {
+        get { return spriteRenderer; }
+    }
+
     private Rigidbody2D rb;
-    private Vector2 movingDirection;
+    #endregion
+
+    #region Awake
     private void Awake()
     {
         RefrencenInit();
@@ -49,9 +63,8 @@ public class Guest : NPC_FSM
         aIPath = GetComponent<AIPath>();
 
         //Init states
-        idleState = new IdleState();
         cheerState = new CheerState();
-        breakState = new BreakState();
+        BreakState = new BreakState();
         restoreState = new RestoreState();
         leaveParkState = new();
 
@@ -64,7 +77,9 @@ public class Guest : NPC_FSM
         //Sprite
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
+    #endregion
 
+    #region Start
     private void InstanceInit()
     {
         //NPC value init
@@ -72,6 +87,12 @@ public class Guest : NPC_FSM
         thristMeter = NPCManager.Instance.initialThristMeter + Random.Range(-10, 10);
         urgencyMeter = NPCManager.Instance.initialUregencyMeter + Random.Range(-10, 10);
         satisfaction = NPCManager.Instance.initialSatisfaction + Random.Range(-10, 10);
+    }
+
+    private void StatesSetup()
+    {
+        //Initialize state
+        SwitchState(cheerState);
     }
 
     protected override void Start()
@@ -82,20 +103,19 @@ public class Guest : NPC_FSM
 
         NPCManager.Instance.RegisterNPC(this);
     }
+    #endregion
 
-    private void StatesSetup()
-    {
-        //Initialize state
-        SwitchState(cheerState);
-    }
-
+    #region Update
     protected override void Update()
     {
         base.Update();
-
-        CalculateMovingDirection();
         SpriteFlip();
-        if (destinationTransform != null && !aIPath.reachedDestination)
+        AnimatorSetter();
+    }
+
+    private void AnimatorSetter()
+    {
+        if (destinationSetter.target != null && !aIPath.reachedDestination)
         {
             animator.SetBool("isMoving", true);
         }
@@ -107,7 +127,7 @@ public class Guest : NPC_FSM
 
     private void SpriteFlip()
     {
-        if (destinationTransform != null && destinationTransform.position.x - transform.position.x < 0)
+        if (destinationSetter.target != null && destinationSetter.target.position.x - transform.position.x <= 0)
         {
             spriteRenderer.flipX = true;
         }
@@ -117,6 +137,9 @@ public class Guest : NPC_FSM
         }
 
     }
+    #endregion
+
+    #region FixedUpdate
     private void PathfindingSetting()
     {
         if(aIPath.maxSpeed!=maxSpeed)
@@ -124,57 +147,30 @@ public class Guest : NPC_FSM
             aIPath.maxSpeed = maxSpeed;
         }
     }
-    private void CalculateMovingDirection()
-    {
-        if(destinationTransform != null)
-        {
-            movingDirection = (destinationTransform.position - transform.position).normalized;
-        }
-    }
 
     private void FixedUpdate()
     {
         base.FixUpdate();
-        PathfindingSetting();
-        CollisionAvoid();   
+        PathfindingSetting(); 
     }
+    #endregion
 
+    #region Utilities
     public void GoToTarget(Transform destination)
     {
-        destinationTransform = destination;
-        destinationSetter.target = destinationTransform;
-    }
-
-    private void CollisionAvoid()
-    {
-        Vector2 direction = movingDirection.normalized;
-
-        float angleStep = angleRange / (numberOfRays - 1);
-
-        float startAngle = -angleRange / 2;
-
-        for (int i = 0; i < numberOfRays; i++)
-        {
-            float angle = startAngle + angleStep * i;
-
-            Vector2 rayDirection = Quaternion.Euler(0, 0, angle) * direction;
-
-            Vector2 rayPosition = new Vector2(transform.position.x + movingDirection.x * 0.6f, transform.position.y + movingDirection.y * 0.6f);
-
-            RaycastHit2D hit = Physics2D.Raycast(rayPosition, rayDirection, rayLength);
-            //Debug.DrawRay(rayPosition, rayDirection * rayLength, Color.red);
-
-            if (hit.collider != null && hit.collider.CompareTag("NPC") && hit.collider.transform != transform)
-            {
-                //Debug.Log("Ray hit: " + hit.collider.gameObject.name + " at distance: " + hit.distance);
-                Vector2 perpendicularDirection = new Vector2(-movingDirection.y, movingDirection.x);
-                rb.AddForce(perpendicularDirection* offsetRatio);
-            }
-        }
+        AIPath.isStopped = false;
+        destinationSetter.target = destination;
     }
 
     private void OnDestroy()
     {
         NPCManager.Instance.UnregisterNPC(this);
     }
+
+    public void StopPathFinding()
+    {
+        destinationSetter.target = null;
+        AIPath.isStopped = true;
+    }
+    #endregion
 }

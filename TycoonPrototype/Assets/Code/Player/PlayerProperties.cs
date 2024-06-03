@@ -55,7 +55,7 @@ public class PlayerProperties : MonoBehaviour
 
     public bool MoneyCheck(ShopProduct product)
     {
-        print((money - product.Price) >= 0);
+        //print((money - product.Price) >= 0);
         return (money - product.Price) >= 0;
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -13,7 +14,9 @@ public class BandAdder : MonoBehaviour
     
     [SerializeField]
     private RectTransform ParentObject;
-
+    
+    [SerializeField]
+    private GameObject objectToHide;
     public float price = 50f;
     
     public async Task AddNewBandAddressable()
@@ -46,6 +49,7 @@ public class BandAdder : MonoBehaviour
     {
         if (PlayerProperties.Instance.MoneyCheck(price))
         {
+            objectToHide.SetActive(false);
             AddNewBandAddressable();
             PlayerProperties.Instance.MoneyChange(-price);
         }

@@ -7,18 +7,19 @@ public class CheerState : BaseState
 {
     Guest guest;
 
-    private GameObject stageTarget;
+    private GameObject stageTarget = null;
+
+    private bool foundAudienceArea = false;
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
         
-        guest.GoToTarget(FindAudienceArea(BuildingSystem.currentInstance.audienceAreas));
+        SearchForAudienceArea();
     }
 
     public override void ExitState()
     {
-        guest.destinationSetter.target = null;
-        GameObject.Destroy(stageTarget);
+        foundAudienceArea = false;
     }
 
     public override void OnUpdate()
@@ -28,17 +29,32 @@ public class CheerState : BaseState
 
     public override void OnFixedUpdate()
     {
-        if(guest.destinationSetter.target == null)
+        if(foundAudienceArea)
         {
-            guest.GoToTarget(FindAudienceArea(BuildingSystem.currentInstance.audienceAreas));
+            CheerBehaviour();
         }
         else
         {
-            CheerBehaviour();        
+            SearchForAudienceArea();    
         }
         
     }
 
+    
+
+    private void SearchForAudienceArea()
+    {
+        var stage = FindAudienceArea(BuildingSystem.currentInstance.audienceAreas);
+        if(stage == null)
+        {
+            return;
+        }
+        else
+        {
+            guest.GoToTarget(stage);
+            foundAudienceArea = true;
+        }
+    }
     private void CheerBehaviour()
     {
         guest.hungryMeter -= NPCManager.Instance.hungryChangeRate * Time.deltaTime;
@@ -51,7 +67,7 @@ public class CheerState : BaseState
 
         if (isHungryLow || isThirstLow || isUrgencyLow)
         {
-            guest.SwitchState(guest.breakState);
+            guest.SwitchState(guest.BreakState);
         }
     }
 
@@ -61,11 +77,14 @@ public class CheerState : BaseState
         {
             return null;
         }
+        
+        var targetStage = stageArea[Random.Range(0, stageArea.Count)];
 
-        var targetStage = stageArea[Random.Range(0, stageArea.Count - 1)];
-
-        stageTarget = new GameObject("tempTarget");
-        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.GetComponent<CapsuleCollider2D>());
+        if (stageTarget == null)
+        {
+            stageTarget = new GameObject("tempTarget");
+        }  
+        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
         stageTarget.transform.SetParent(targetStage.transform);
         
         return stageTarget.transform;
@@ -80,8 +99,8 @@ public class CheerState : BaseState
             Vector2 position = collider.transform.position;
 
             // 获取Capsule的大小
-            float sizeX = collider.size.x * collider.transform.localScale.x / 2;
-            float sizeY = collider.size.y * collider.transform.localScale.y / 2;
+            float sizeX = collider.size.x / 2 * 100;
+            float sizeY = collider.size.y / 2 * 100;
 
             // 确定方向
             if (collider.direction == CapsuleDirection2D.Horizontal)

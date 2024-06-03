@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3252653055164921988}
   - component: {fileID: -5613956631962417502}
-  - component: {fileID: 2772496861286334485}
   m_Layer: 0
   m_Name: AudienceArea
   m_TagString: Building
@@ -26,11 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2725574035368734288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.8, y: -19.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7478669548455823774}
+  - {fileID: 3324364705396783505}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -59,13 +59,45 @@ MonoBehaviour:
   AstarCollider: {fileID: 0}
   mouseFollowOffset: {x: 0, y: 0}
   NPCTarget: {fileID: 0}
---- !u!70 &2772496861286334485
+--- !u!1 &6492398094038083070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3324364705396783505}
+  - component: {fileID: 4507925981911750014}
+  m_Layer: 0
+  m_Name: AstarCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3324364705396783505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6492398094038083070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3252653055164921988}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &4507925981911750014
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2725574035368734288}
+  m_GameObject: {fileID: 6492398094038083070}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}

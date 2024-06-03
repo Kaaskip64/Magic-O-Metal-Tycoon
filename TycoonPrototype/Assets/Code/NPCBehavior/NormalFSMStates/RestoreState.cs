@@ -16,12 +16,12 @@ public class RestoreState : BaseState
         
         
         CheckBuilding();
-        guest.spriteRenderer.enabled = false;
+        guest.SpriteRenderer.enabled = false;
         guest.GoToTarget(null);
     }
     public override void ExitState()
     {
-        guest.spriteRenderer.enabled = true;
+        guest.SpriteRenderer.enabled = true;
     }
 
     public override void OnUpdate()
@@ -37,7 +37,7 @@ public class RestoreState : BaseState
     private void CheckBuilding()
     {
 
-        currentBuilding = guest.destinationSetter.target.gameObject.GetComponentInParent<Building>();
+        currentBuilding = guest.DestinationSetter.target.gameObject.GetComponentInParent<Building>();
         currentBuilding.capacityCount++;
         var buildType = currentBuilding.buildingType;
 
@@ -62,7 +62,6 @@ public class RestoreState : BaseState
         guest.hungryMeter = NPCManager.Instance.initialHungryMeter;
         yield return new WaitForSeconds(NPCManager.Instance.eatTime);
         currentBuilding.capacityCount--;
-        Debug.Log(1);
         guest.SwitchState(guest.cheerState);
         
     }

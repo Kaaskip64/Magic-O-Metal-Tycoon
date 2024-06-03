@@ -8,27 +8,26 @@ public class BreakState : BaseState
 {
     private Guest guest;
 
-    private bool isStateEntered = false;
-
     private float[] meters = new float[3];
 
     private int lowMeterCount;
 
-    private bool prepareToLeave;
-
     private List<Building> availableBuildings = new();
 
-    private float hesitateCount;
+    private float hesitateCount = 0;
+
+    private bool foundFacility;
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
         SetDestination();
-        isStateEntered = true;
     }
 
     public override void ExitState()
     {
         lowMeterCount = 0;
+        hesitateCount = 0;
+        foundFacility = false;
     }
 
     public override void OnUpdate()
@@ -38,16 +37,11 @@ public class BreakState : BaseState
 
     public override void OnFixedUpdate()
     {
-        if(!isStateEntered)
-        {
-            return;
-        }
-
         UpdateMeters();
         SetDestination();
 
         CheckDestinationReached();
-        
+       
     }
 
     private void SetDestination()
@@ -61,61 +55,79 @@ public class BreakState : BaseState
         for(int i = 0;i<meters.Length;i++)
         {
 
-            Transform currentOne = null;
-
             if (guest.hungryMeter == meters[i] && guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold)
             {
-                currentOne = FindClosestBuilding(BuildingSystem.currentInstance.foodStands);
-                if (currentOne != null)
+                if(SetterHelper(BuildingSystem.currentInstance.foodStands))
                 {
-                    guest.GoToTarget(currentOne);
                     break;
-                }lowMeterCount++;
-
+                }
+                else
+                {
+                    guest.StopPathFinding();
+                }
             }              
             else if (guest.thristMeter == meters[i] && guest.thristMeter < NPCManager.Instance.thristMeterThreshold)
             {
-                currentOne = FindClosestBuilding(BuildingSystem.currentInstance.beerStands);
-                if (currentOne != null)
+                if (SetterHelper(BuildingSystem.currentInstance.beerStands))
                 {
-                    guest.GoToTarget(currentOne);
                     break;
                 }
-                lowMeterCount++;
+                else
+                {
+                    guest.StopPathFinding();
+                }
             }
             else if (guest.urgencyMeter == meters[i] && guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold)
             {
-                currentOne = FindClosestBuilding(BuildingSystem.currentInstance.bathroomStands);
-                if (currentOne != null)
+                if (SetterHelper(BuildingSystem.currentInstance.bathroomStands))
                 {
-                    guest.GoToTarget(currentOne);
                     break;
                 }
-                lowMeterCount++;
+                else
+                {
+                    guest.StopPathFinding();
+                }
             }
 
 
 
         }
 
-        if (lowMeterCount >= 2 && guest.destinationSetter.target == null)
+        if (lowMeterCount >= 2 && guest.DestinationSetter.target == null)
         {
             CheckIfShouldLeave();
         }
         lowMeterCount = 0;
     }
 
+    private bool SetterHelper(List<Building> list)
+    {
+        var currentOne = FindClosestBuilding(list);
+        if (currentOne != null)
+        {
+            guest.GoToTarget(currentOne);
+            foundFacility = true;
+            return true;
+        }
+        foundFacility = false;
+        lowMeterCount++;
+
+        return false;
+    }
+
+
+
     private void UpdateMeters()
     {
         float deltaTime = Time.fixedDeltaTime;
-        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 20 * deltaTime;
-        guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 20 * deltaTime;
-        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 20 * deltaTime;
+        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 10 * deltaTime;
+        guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 10 * deltaTime;
+        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 10 * deltaTime;
     }
 
     private void CheckDestinationReached()
     {
-        if (guest.destinationSetter.target!=null && Vector2.Distance(guest.transform.position,guest.destinationSetter.target.position)<4f && guest.aIPath.reachedDestination)
+        if (foundFacility && Vector2.Distance(guest.transform.position,guest.DestinationSetter.target.position)<4f && guest.AIPath.reachedDestination)
         {
             guest.SwitchState(guest.restoreState);
         }    
@@ -138,23 +150,28 @@ public class BreakState : BaseState
             }
         }
 
-        if(availableBuildings.Count<=0)
+        //Debug.Log(availableBuildings.Count);
+
+        if (availableBuildings.Count<=0)
         {
             return null;
         }
 
-        Transform cloestOne;
-        cloestOne = availableBuildings[0].NPCTarget;
+        
+
+        Transform closestOne;
+        closestOne = availableBuildings[0].NPCTarget;
         foreach(Building building in availableBuildings)
         {
             if(Mathf.Abs(Vector3.Distance(guest.transform.position, building.transform.position))<
-                Mathf.Abs(Vector3.Distance(guest.transform.position, cloestOne.transform.position)))
+                Mathf.Abs(Vector3.Distance(guest.transform.position, closestOne.transform.position)))
             {
-                cloestOne = building.NPCTarget;
+                closestOne = building.NPCTarget;
             }
         }
         availableBuildings.Clear();
-        return cloestOne;
+
+        return closestOne;
     }
 
     private void CheckIfShouldLeave()
