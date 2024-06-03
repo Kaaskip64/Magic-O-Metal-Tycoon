@@ -36,13 +36,18 @@ public class StageBuilder : MonoBehaviour
     public TileBase currentStageTile;
 
     [Header("Bools")]
+
     public bool eraseMode = false;
     public bool editingStageTiles = false;
+    public bool placingAudienceAreas = false;
 
     [Header("Price per placed stage")]
     public float stagePrice;
 
+    [HideInInspector]
     public Stage tempStage;
+    [HideInInspector]
+    public List<Building> currentStageAudienceAreas;
     private GameObject stageObject;
     private Tilemap stageMap;
     private List<Vector3> surroundingStageTiles;
@@ -298,6 +303,22 @@ public class StageBuilder : MonoBehaviour
                 BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
             }
         }
+    }
+
+
+    public void SetAudienceAreas(GameObject audienceArea)
+    {
+        GameObject tempAudienceArea = Instantiate(audienceArea);
+        Building audienceBuildingScript = tempAudienceArea.GetComponent<Building>();
+
+        BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
+        BuildingSystem.currentInstance.currentSelectedBuilding = audienceBuildingScript;
+        currentStageAudienceAreas = currentActiveStageUI.audienceAreas;
+        BuildingSystem.currentInstance.FollowBuilding(audienceBuildingScript.area);
+
+        StageUI.SetActive(false);
+
+        placingAudienceAreas = true;
     }
 
 }

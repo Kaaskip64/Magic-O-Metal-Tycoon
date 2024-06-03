@@ -85,6 +85,7 @@ public class Building : MonoBehaviour, IHoverPanel
         Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
+        if(boxCollider != null)
         boxCollider.enabled = true;
         Placed = true;
         BuildingSystem.currentInstance.TakeArea(areaTemp);

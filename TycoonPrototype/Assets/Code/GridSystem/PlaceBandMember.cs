@@ -14,7 +14,6 @@ public class PlaceBandMember : MonoBehaviour
     private Vector3 currentTilePos;
     private GameObject stageUI;
     private Stage tempStage;
-    private TilemapCollider2D tempStageCol;
     private GridLayout gridLayout;
 
     private void Start()
@@ -52,7 +51,6 @@ public class PlaceBandMember : MonoBehaviour
         placingBandMember = true;
 
         tempStage = StageBuilder.currentInstance.currentActiveStageUI;
-        tempStageCol = tempStage.GetComponent<TilemapCollider2D>();
         tempStage.tilemap.color = Color.yellow;
         stageUI.SetActive(false);
 
@@ -99,7 +97,6 @@ public class PlaceBandMember : MonoBehaviour
         tempStage.FillStageUI();
         tempStage.tilemap.color = Color.white;
         currentBandMember = null;
-        tempStageCol = null;
         tempStage = null;
         placingBandMember = false;
     }

@@ -105,6 +105,12 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) //Left Mouse Click and checks if temp building can be placed
         {
+            if(StageBuilder.currentInstance.placingAudienceAreas)
+            {
+                TruePlaceBuilding();
+                return;
+            }
+
             if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced()&&PlayerProperties.Instance.MoneyCheck(currentSelectedProduct))
             {
                 TruePlaceBuilding(); //Places building
@@ -132,6 +138,11 @@ public class BuildingSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1)) //Removes selected building without placing it
         {
             ExitBuildMode();
+            if(StageBuilder.currentInstance.placingAudienceAreas)
+            {
+                StageBuilder.currentInstance.placingAudienceAreas = false;
+                StageBuilder.currentInstance.StageUI.SetActive(true);
+            }
         }
 
 
@@ -219,8 +230,12 @@ public class BuildingSystem : MonoBehaviour
 
         if (!pickingUpBuilding)
         {
-            MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
-            PlayerProperties.Instance.MoneyChange(-currentSelectedProduct.Price);
+            if(!StageBuilder.currentInstance.placingAudienceAreas)
+            {
+                MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
+                PlayerProperties.Instance.MoneyChange(-currentSelectedProduct.Price);
+
+            }
             switch (currentSelectedBuilding.buildingType)
             {
                 //switch case to funnel placed building in the corresponding list
@@ -241,7 +256,7 @@ public class BuildingSystem : MonoBehaviour
                     break;
 
                 case BuildingType.Audience:
-                    audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
+                    StageBuilder.currentInstance.currentStageAudienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
                     currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
 
                     break;

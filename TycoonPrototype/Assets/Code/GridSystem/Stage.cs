@@ -16,6 +16,7 @@ public class Stage : MonoBehaviour
     public LocalAudioHandler LocalAudio;
     public AudioHandler audioHandler;
     public CompositeCollider2D stageCollider;
+    public List<Building> audienceAreas;
 
     public Button quitButton;
     public Button audioButton;
