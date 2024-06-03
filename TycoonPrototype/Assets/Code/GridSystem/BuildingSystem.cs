@@ -204,9 +204,7 @@ public class BuildingSystem : MonoBehaviour
         {
             if (b != tileBases[TileType.White])
             {
-                Debug.Log("Cannot be placed!");
                 return false;
-
             }
         }
         return true;

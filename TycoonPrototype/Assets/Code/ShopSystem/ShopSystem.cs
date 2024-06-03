@@ -154,6 +154,7 @@ public class ShopSystem : MonoBehaviour
             }
 
             // Start a new coroutine to check if the value stops changing
+            
             checkCoroutines[scrollbar] = StartCoroutine(CheckIfScrollbarStops(scrollbar));
         }
     }
