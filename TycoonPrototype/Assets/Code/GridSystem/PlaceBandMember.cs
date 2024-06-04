@@ -10,6 +10,7 @@ public class PlaceBandMember : MonoBehaviour
 
     public bool placingBandMember = false;
     public GameObject currentBandMember;
+    private Vector3 prevPos;
 
     private Vector3 currentTilePos;
     private GameObject stageUI;
@@ -45,6 +46,27 @@ public class PlaceBandMember : MonoBehaviour
                 Debug.Log("Band Member outside stage bounds");
             }
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if(CheckForDelete(currentBandMember))
+            {
+                tempStage.FillStageUI();
+                tempStage.tilemap.color = Color.white;
+                Destroy(currentBandMember);
+                currentBandMember = null;
+                prevPos = Vector3Int.zero;
+                tempStageCol = null;
+                tempStage = null;
+                placingBandMember = false;
+
+                return;
+            }
+
+            currentBandMember.transform.localPosition = prevPos;
+            PlaceMember();
+        }
+
     }
 
     public void SelectMember(GameObject bandMember)
@@ -73,32 +95,77 @@ public class PlaceBandMember : MonoBehaviour
         {
             case "Alex":
                 if (tempStage.alexObject != null)
+                    prevPos = tempStage.alexObject.transform.localPosition;
                     currentBandMember = tempStage.alexObject;
                 break;
             case "Rockelle":
                 if (tempStage.rockelleObject != null)
+                    prevPos = tempStage.rockelleObject.transform.localPosition;
                     currentBandMember = tempStage.rockelleObject;
                 break;
             case "Lexie":
                 if (tempStage.lexieObject != null)
+                    prevPos = tempStage.lexieObject.transform.localPosition;
                     currentBandMember = tempStage.lexieObject;
                 break;
             case "Picu":
                 if (tempStage.picuObject != null)
+                    prevPos = tempStage.picuObject.transform.localPosition;
                     currentBandMember = tempStage.picuObject;
                 break;
         }
     }
 
+    private bool CheckForDelete(GameObject bandMember)
+    {
+        switch (bandMember.name)
+        {
+            case "Alex":
+                if (tempStage.alexObject == null)
+                {
+                    return true;
+                }
+                    return false;
+                
+
+            case "Rockelle":
+                if (tempStage.rockelleObject == null)
+                {
+                    return true;
+                }
+
+                    return false;
+                
+
+            case "Lexie":
+                if (tempStage.lexieObject == null)
+                {
+                    return true;
+                }
+
+                    return false;
+                
+
+            case "Picu":
+                if (tempStage.picuObject == null)
+                {
+                    return true;
+                }
+
+                    return false;
+                
+        }
+        return false;
+    }
+
 
     private void PlaceMember()
     {
-
-        currentBandMember.transform.localPosition = gridLayout.CellToLocalInterpolated(currentTilePos);
         AssignBandMemberInStage();
         tempStage.FillStageUI();
         tempStage.tilemap.color = Color.white;
         currentBandMember = null;
+        prevPos = Vector3Int.zero;
         tempStageCol = null;
         tempStage = null;
         placingBandMember = false;
