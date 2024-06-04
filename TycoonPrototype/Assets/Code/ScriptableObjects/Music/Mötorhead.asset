@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
+  m_Name: "M\xF6torhead"
+  m_EditorClassIdentifier: 
+  BandImage: {fileID: 21300000, guid: c9c6885617bc72e42b743ac68619e1ce, type: 3}
+  BandName: "M\xF6terhead"
+  SongName: Ace of Spades
+  MusicFile: {fileID: 8300000, guid: 69d2e6e3a03a77b46b02f057539210e8, type: 3}

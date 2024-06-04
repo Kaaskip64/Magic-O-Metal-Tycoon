@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
+  m_Name: TwistedSisterWe'reNotGonnaTakeIt
+  m_EditorClassIdentifier: 
+  BandImage: {fileID: 21300000, guid: ec8386841c6c26c438ecd040930fe400, type: 3}
+  BandName: Twisted sister
+  SongName: We're Not Gonna Take It
+  MusicFile: {fileID: 8300000, guid: 57d0f2ae109526f45b46450e3a5d2040, type: 3}

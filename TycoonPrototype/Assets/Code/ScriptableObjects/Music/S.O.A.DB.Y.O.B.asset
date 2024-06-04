@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
+  m_Name: S.O.A.DB.Y.O.B
+  m_EditorClassIdentifier: 
+  BandImage: {fileID: 21300000, guid: 7f2d858c34c0cd64bbb4043a35a41a84, type: 3}
+  BandName: System of a down
+  SongName: B.Y.O.B.
+  MusicFile: {fileID: 8300000, guid: 0698d33a239e60641a99d18c12a51d4e, type: 3}
