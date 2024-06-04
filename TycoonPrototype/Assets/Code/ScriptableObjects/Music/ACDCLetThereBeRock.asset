@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: ACDCLetThereBeRock
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 21300000, guid: 96e9ed73bfbd34345b42d6dfe21cae7b, type: 3}
+  BandImage: {fileID: 21300000, guid: ab8984f214781604b820acdee1372c0c, type: 3}
   BandName: AC/DC
-  SongName: Let there be rock
+  SongName: Let There Be Rock
   MusicFile: {fileID: 8300000, guid: 8678a6d6e0db4e2419dac954b867fefe, type: 3}
