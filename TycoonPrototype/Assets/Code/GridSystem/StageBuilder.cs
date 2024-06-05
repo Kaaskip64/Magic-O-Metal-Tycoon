@@ -47,6 +47,7 @@ public class StageBuilder : MonoBehaviour
     [HideInInspector]
     public Stage tempStage;
     [HideInInspector]
+    public Building audienceAreaPrefab;
     public List<Building> currentStageAudienceAreas;
     private GameObject stageObject;
     private Tilemap stageMap;
@@ -57,12 +58,14 @@ public class StageBuilder : MonoBehaviour
     private Vector3Int endTilePos;
     private Vector3Int currentTilePos;
     private bool isDragging;
+    private BuildingSystem buildingSystem;
 
     private void Awake()
     {
         currentInstance = this; //init
         surroundingStageTiles = new List<Vector3>();
-
+        currentStageAudienceAreas = new List<Building>();
+        buildingSystem = BuildingSystem.currentInstance;
     }
 
     private void Update()
@@ -76,26 +79,26 @@ public class StageBuilder : MonoBehaviour
 
 
         Vector3 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
             0);
         currentTilePos = stageMap.WorldToCell(new Vector3(mousePos.x, mousePos.y));
 
         placementAreaSize.x = currentTilePos.x - (placementAreaSize.size.x / 2);
         placementAreaSize.y = currentTilePos.y - (placementAreaSize.size.y / 2);
 
-        
-        
+
+
 
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            
-            if(!eraseMode && !isDragging)
+
+            if (!eraseMode && !isDragging)
             {
                 startTilePos = currentTilePos;
                 isDragging = true;
 
             }
-            if(eraseMode)
+            if (eraseMode)
             {
                 stageMap.SetTile(currentTilePos, null);
 
@@ -132,14 +135,15 @@ public class StageBuilder : MonoBehaviour
             if (PlayerProperties.Instance.MoneyCheck(stagePrice))
             {
                 CreateNewStageObject();
-                BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
+                buildingSystem.MainTileMap.gameObject.SetActive(true);
                 PlayerProperties.Instance.MoneyChange(-stagePrice);
                 editingStageTiles = true;
                 eraseMode = false;
                 eraseButton.gameObject.SetActive(true);
             }
 
-        } else
+        }
+        else
         {
             InitialiseBuiltStageComponents();
             editingStageTiles = false;
@@ -150,7 +154,7 @@ public class StageBuilder : MonoBehaviour
 
     public void EraseMode()
     {
-        if(eraseMode)
+        if (eraseMode)
         {
             UpdateNoBuildZones();
             surroundingStageTiles.Clear();
@@ -170,7 +174,7 @@ public class StageBuilder : MonoBehaviour
     private void CreateNewStageObject()
     {
         stageObject = Instantiate(blankTileMap);
-        stageObject.transform.SetParent(BuildingSystem.currentInstance.gridLayout.gameObject.transform);
+        stageObject.transform.SetParent(buildingSystem.gridLayout.gameObject.transform);
         stageMap = stageObject.GetComponent<Tilemap>();
 
         tempStage = stageObject.AddComponent<Stage>();
@@ -180,7 +184,7 @@ public class StageBuilder : MonoBehaviour
         tempStage.quitButton = quitButton;
         tempStage.audioButton = soundButton;
 
-        BuildingSystem.currentInstance.stages.Add(tempStage);
+        buildingSystem.stages.Add(tempStage);
 
     }
 
@@ -191,7 +195,7 @@ public class StageBuilder : MonoBehaviour
         TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
         AudioSource tempAudioSource = stageObject.AddComponent<AudioSource>();
         AudioHandler tempAudioHandler = stageObject.AddComponent<AudioHandler>();
-        
+
 
         tempTileCol.usedByComposite = true;
 
@@ -204,13 +208,13 @@ public class StageBuilder : MonoBehaviour
         tempStage.gameObject.transform.position = new Vector3(0, 0, -0.01f);
 
         tempStage = null;
-        BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(false);
+        buildingSystem.MainTileMap.gameObject.SetActive(false);
 
     }
 
     void UpdateNoBuildZones()
     {
-        foreach (Stage stage in BuildingSystem.currentInstance.stages)
+        foreach (Stage stage in buildingSystem.stages)
         {
             Tilemap tempMap = stage.tilemap;
             for (int n = tempMap.cellBounds.xMin; n < tempMap.cellBounds.xMax; n++)
@@ -225,10 +229,10 @@ public class StageBuilder : MonoBehaviour
                     }
                     else if (localPlace == currentTilePos)
                     {
-                        placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).x - 2;
-                        placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(place).y - 2;
+                        placementAreaSize.x = buildingSystem.gridLayout.WorldToCell(place).x - 2;
+                        placementAreaSize.y = buildingSystem.gridLayout.WorldToCell(place).y - 2;
 
-                        BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, BuildingSystem.currentInstance.MainTileMap);
+                        BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, buildingSystem.MainTileMap);
                         Debug.Log("hit");
                     }
                 }
@@ -236,14 +240,14 @@ public class StageBuilder : MonoBehaviour
 
             foreach (Vector3 tilePos in surroundingStageTiles)
             {
-                placementAreaSize.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).x - 2;
-                placementAreaSize.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(tilePos).y - 2;
+                placementAreaSize.x = buildingSystem.gridLayout.WorldToCell(tilePos).x - 2;
+                placementAreaSize.y = buildingSystem.gridLayout.WorldToCell(tilePos).y - 2;
 
-                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, buildingSystem.MainTileMap);
 
             }
         }
-        
+
     }
 
     private void HighlightTiles()
@@ -300,7 +304,7 @@ public class StageBuilder : MonoBehaviour
                 placementAreaSize.x = tilePos.x - 2;
                 placementAreaSize.y = tilePos.y - 2;
 
-                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, BuildingSystem.currentInstance.MainTileMap);
+                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, buildingSystem.MainTileMap);
             }
         }
     }
@@ -308,17 +312,35 @@ public class StageBuilder : MonoBehaviour
 
     public void SetAudienceAreas(GameObject audienceArea)
     {
-        GameObject tempAudienceArea = Instantiate(audienceArea);
-        Building audienceBuildingScript = tempAudienceArea.GetComponent<Building>();
+        audienceAreaPrefab = audienceArea.GetComponent<Building>();
+        Building tempAudienceArea = Instantiate(audienceArea, buildingSystem.mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
 
-        BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
-        BuildingSystem.currentInstance.currentSelectedBuilding = audienceBuildingScript;
+        buildingSystem.MainTileMap.gameObject.SetActive(true);
+        buildingSystem.currentSelectedBuilding = tempAudienceArea;
+
         currentStageAudienceAreas = currentActiveStageUI.audienceAreas;
-        BuildingSystem.currentInstance.FollowBuilding(audienceBuildingScript.area);
+        buildingSystem.FollowBuilding(tempAudienceArea.area);
 
         StageUI.SetActive(false);
 
         placingAudienceAreas = true;
     }
 
+    public void ClearAudienceAreas()
+    {
+        if (currentActiveStageUI.audienceAreas != null)
+        {
+            foreach (Building audienceArea in currentActiveStageUI.audienceAreas)
+            {
+                Vector3 areaLocation = buildingSystem.gridLayout.WorldToCell(audienceArea.transform.position);
+                audienceArea.area.x = (int)areaLocation.x +1;
+                audienceArea.area.y = (int)areaLocation.y +1;
+
+                BuildingSystem.SetTilesBlock(audienceArea.area, TileType.White, buildingSystem.MainTileMap);
+                Destroy(audienceArea.gameObject);
+            }
+            currentActiveStageUI.audienceAreas.Clear();
+        }
+
+    }
 }

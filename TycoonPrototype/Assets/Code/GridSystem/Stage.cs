@@ -42,6 +42,8 @@ public class Stage : MonoBehaviour
         LocalAudio = audioButton.GetComponent<LocalAudioHandler>();
         audioHandler = gameObject.GetComponent<AudioHandler>();
 
+        audienceAreas = new List<Building>();
+
         if (currentStagePlaylist != null)
         {
             dataTransferScript.newbandAdded += UpdateList;
