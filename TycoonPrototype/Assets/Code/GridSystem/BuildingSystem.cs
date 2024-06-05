@@ -50,6 +50,8 @@ public class BuildingSystem : MonoBehaviour
     public UnityAction ExitBuildingFollowing; // handling problem that building placement mouse click can interact with UI elements
     public bool pickingUpBuilding = false;
 
+    private StageBuilder stageBuilder;
+
     private void Awake()
     {
         currentInstance = this; //init
@@ -68,6 +70,8 @@ public class BuildingSystem : MonoBehaviour
         tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
         tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
+
+        stageBuilder = StageBuilder.currentInstance;
     }
 
     private void Update()
@@ -105,6 +109,13 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) //Left Mouse Click and checks if temp building can be placed
         {
+            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced() && stageBuilder.placingAudienceAreas)
+            {
+                TruePlaceBuilding();
+                currentSelectedBuilding = Instantiate(stageBuilder.audienceAreaPrefab, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
+                return;
+            }
+
             if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced()&&PlayerProperties.Instance.MoneyCheck(currentSelectedProduct))
             {
                 TruePlaceBuilding(); //Places building
@@ -131,6 +142,13 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1)) //Removes selected building without placing it
         {
+            if(stageBuilder.placingAudienceAreas)
+            {
+                stageBuilder.placingAudienceAreas = false;
+                stageBuilder.currentActiveStageUI.audienceAreas = stageBuilder.currentStageAudienceAreas;
+
+                stageBuilder.StageUI.SetActive(true);
+            }
             ExitBuildMode();
         }
 
@@ -219,8 +237,12 @@ public class BuildingSystem : MonoBehaviour
 
         if (!pickingUpBuilding)
         {
-            MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
-            PlayerProperties.Instance.MoneyChange(-currentSelectedProduct.Price);
+            if(!stageBuilder.placingAudienceAreas)
+            {
+                MaintenanceTicks.currentInstance.Tick.AddListener(currentSelectedBuilding.MaintenanceTick);
+                PlayerProperties.Instance.MoneyChange(-currentSelectedProduct.Price);
+
+            }
             switch (currentSelectedBuilding.buildingType)
             {
                 //switch case to funnel placed building in the corresponding list
@@ -241,7 +263,7 @@ public class BuildingSystem : MonoBehaviour
                     break;
 
                 case BuildingType.Audience:
-                    audienceAreas.Add(currentSelectedBuilding.GetComponent<Building>());
+                    stageBuilder.currentStageAudienceAreas.Add(currentSelectedBuilding);
                     currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
 
                     break;

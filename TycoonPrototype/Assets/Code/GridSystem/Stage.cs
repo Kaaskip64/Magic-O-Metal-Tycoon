@@ -16,6 +16,7 @@ public class Stage : MonoBehaviour
     public LocalAudioHandler LocalAudio;
     public AudioHandler audioHandler;
     public CompositeCollider2D stageCollider;
+    public List<Building> audienceAreas;
 
     public Button quitButton;
     public Button audioButton;
@@ -40,6 +41,8 @@ public class Stage : MonoBehaviour
 
         LocalAudio = audioButton.GetComponent<LocalAudioHandler>();
         audioHandler = gameObject.GetComponent<AudioHandler>();
+
+        audienceAreas = new List<Building>();
 
         if (currentStagePlaylist != null)
         {
