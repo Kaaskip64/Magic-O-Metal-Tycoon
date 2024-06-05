@@ -30,19 +30,14 @@ public class BreakState : BaseState
         foundFacility = false;
     }
 
-    public override void OnUpdate()
-    {
-        
-    }
+    public override void OnUpdate() { }
 
     public override void OnFixedUpdate()
     {
         UpdateMeters();
-        SetDestination();
-
-        CheckDestinationReached();
         SatisfictionCheck();
-       
+        SetDestination();
+        CheckDestinationReached();
     }
 
     private void SetDestination()
@@ -143,7 +138,6 @@ public class BreakState : BaseState
 
     private Transform FindClosestBuilding(List<Building> buildingList)
     {
-        
         if (buildingList.Count == 0)
         {
             return null;
@@ -158,14 +152,10 @@ public class BreakState : BaseState
             }
         }
 
-        //Debug.Log(availableBuildings.Count);
-
         if (availableBuildings.Count<=0)
         {
             return null;
         }
-
-        
 
         Transform closestOne;
         closestOne = availableBuildings[0].NPCTarget;
@@ -181,8 +171,6 @@ public class BreakState : BaseState
 
         return closestOne;
     }
-
-
 
     private void CheckIfShouldLeave()
     {

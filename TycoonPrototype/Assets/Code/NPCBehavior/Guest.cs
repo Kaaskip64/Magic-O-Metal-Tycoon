@@ -11,6 +11,7 @@ public class Guest : NPC_FSM
     public CheerState cheerState;
     public RestoreState restoreState;
     public LeaveParkState leaveParkState;
+    public IdleState idleState;
 
     [Header("Movement Parameter")]
     public float maxSpeed;
@@ -67,6 +68,7 @@ public class Guest : NPC_FSM
         BreakState = new BreakState();
         restoreState = new RestoreState();
         leaveParkState = new();
+        idleState = new IdleState();
 
         //Physics
         rb = GetComponent<Rigidbody2D>();
@@ -92,7 +94,7 @@ public class Guest : NPC_FSM
     private void StatesSetup()
     {
         //Initialize state
-        SwitchState(cheerState);
+        SwitchState(idleState);
     }
 
     protected override void Start()
@@ -111,6 +113,7 @@ public class Guest : NPC_FSM
         base.Update();
         SpriteFlip();
         AnimatorSetter();
+        print(currentState.GetType());
     }
 
     private void AnimatorSetter()

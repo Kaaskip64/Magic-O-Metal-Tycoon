@@ -7,16 +7,17 @@ public class IdleState : BaseState
 {
     Guest guest;
 
+    private GameObject stageTarget;
+    private readonly List<Building> activeStages = new List<Building>();
+
     bool isIdling;
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
+        SearchForAudienceArea();
     }
 
-    public override void ExitState()
-    {
-        
-    }
+    public override void ExitState() { }
 
     public override void OnFixedUpdate()
     {
@@ -33,6 +34,36 @@ public class IdleState : BaseState
     public override void OnUpdate()
     {
         UpdateMeters();
+        SearchForAudienceArea();
+    }
+
+    private void SearchForAudienceArea()
+    {
+        if (guest.satisfaction < NPCManager.Instance.satisfactionThreshold)
+        {
+            guest.SwitchState(guest.leaveParkState);
+            return;
+        }
+
+        if (NeedsBreak())
+        {
+            guest.SwitchState(guest.BreakState);
+            return;
+        }
+
+        var stage = FindAudienceArea(BuildingSystem.currentInstance.audienceAreas);
+        if (stage != null)
+        {
+            guest.GoToTarget(stage);
+            guest.SwitchState(guest.cheerState);
+        }
+    }
+
+    private bool NeedsBreak()
+    {
+        return guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold ||
+               guest.thristMeter < NPCManager.Instance.thristMeterThreshold ||
+               guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold;
     }
 
     private void UpdateMeters()
@@ -49,6 +80,11 @@ public class IdleState : BaseState
 
     private bool CheckIfAnyStagePlaying()
     {
+        if(BuildingSystem.currentInstance.stages.Count<=0)
+        {
+            return false;
+        }
+
         foreach(var stage in BuildingSystem.currentInstance.stages)
         {
             if(stage.isPlaying)
@@ -56,7 +92,7 @@ public class IdleState : BaseState
                 return true;
             }
         }
-         return false;
+        return false;
     }
 
     private void IdleAround()
@@ -73,7 +109,6 @@ public class IdleState : BaseState
         Transform target = null;
 
         var temp = Random.value;
-
         if(temp <=0.7)
         {
             var audienceAreas = BuildingSystem.currentInstance.audienceAreas;
@@ -99,4 +134,75 @@ public class IdleState : BaseState
         }
         guest.GoToTarget(target);
     }
+
+    private Transform FindAudienceArea(List<Building> stageArea)
+    {
+        if (stageArea.Count == 0)
+        {
+            return null;
+        }
+
+        var targetStage = stageArea[Random.Range(0, stageArea.Count)];
+        CreateStageTargetIfNeeded();
+        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
+        stageTarget.transform.SetParent(targetStage.transform);
+
+        return stageTarget.transform;
+    }
+
+    private Transform FindActiveAudienceArea(List<Building> stageArea)
+    {
+        activeStages.Clear();
+        foreach (var building in stageArea)
+        {
+            if (building.GetComponent<Stage>().isPlaying)
+            {
+                activeStages.Add(building);
+            }
+        }
+
+        if (activeStages.Count == 0)
+        {
+            return null;
+        }
+
+        var targetStage = activeStages[Random.Range(0, activeStages.Count)];
+        CreateStageTargetIfNeeded();
+        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
+        stageTarget.transform.SetParent(targetStage.transform);
+
+        return stageTarget.transform;
+    }
+
+    private void CreateStageTargetIfNeeded()
+    {
+        if (stageTarget == null)
+        {
+            stageTarget = new GameObject("tempTarget");
+        }
+    }
+
+    private Vector2 GetRandomPointInCapsule(CapsuleCollider2D collider)
+    {
+        if (collider == null) return Vector2.zero;
+
+        Vector2 position = collider.transform.position;
+        float sizeX = collider.size.x / 2 * 100;
+        float sizeY = collider.size.y / 2 * 100;
+        float randomX, randomY;
+
+        if (collider.direction == CapsuleDirection2D.Horizontal)
+        {
+            randomX = Random.Range(-sizeX, sizeX);
+            randomY = Random.Range(-sizeY, sizeY);
+        }
+        else
+        {
+            randomX = Random.Range(-sizeY, sizeY);
+            randomY = Random.Range(-sizeX, sizeX);
+        }
+
+        return new Vector2(position.x + randomX, position.y + randomY);
+    }
+
 }
