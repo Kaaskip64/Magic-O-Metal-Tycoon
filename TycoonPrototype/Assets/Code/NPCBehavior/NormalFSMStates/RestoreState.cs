@@ -62,7 +62,7 @@ public class RestoreState : BaseState
         guest.hungryMeter = NPCManager.Instance.initialHungryMeter;
         yield return new WaitForSeconds(NPCManager.Instance.eatTime);
         currentBuilding.capacityCount--;
-        guest.SwitchState(guest.cheerState);
+        guest.SwitchState(guest.idleState);
         
     }
 
@@ -72,7 +72,7 @@ public class RestoreState : BaseState
         guest.thristMeter = NPCManager.Instance.initialThristMeter;
         yield return new WaitForSeconds(NPCManager.Instance.drinkTime);
         currentBuilding.capacityCount--;
-        guest.SwitchState(guest.cheerState);
+        guest.SwitchState(guest.idleState);
         
     }
 
@@ -82,7 +82,7 @@ public class RestoreState : BaseState
         guest.urgencyMeter = NPCManager.Instance.initialUregencyMeter;
         yield return new WaitForSeconds(NPCManager.Instance.peeTime);
         currentBuilding.capacityCount--;
-        guest.SwitchState(guest.cheerState);
+        guest.SwitchState(guest.idleState);
         
     }
 }

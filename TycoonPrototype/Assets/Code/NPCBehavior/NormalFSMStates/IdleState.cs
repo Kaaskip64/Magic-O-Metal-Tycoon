@@ -6,9 +6,8 @@ using UnityEngine;
 public class IdleState : BaseState
 {
     Guest guest;
-
     private GameObject stageTarget;
-    private readonly List<Building> activeStages = new List<Building>();
+    private readonly List<Stage> activeStages = new List<Stage>();
 
     bool isIdling;
     public override void EnterState(object obj)
@@ -51,12 +50,13 @@ public class IdleState : BaseState
             return;
         }
 
-        var stage = FindAudienceArea(BuildingSystem.currentInstance.audienceAreas);
+        var stage = FindActiveAudienceArea(BuildingSystem.currentInstance.stages);
         if (stage != null)
         {
             guest.GoToTarget(stage);
             guest.SwitchState(guest.cheerState);
         }
+
     }
 
     private bool NeedsBreak()
@@ -135,22 +135,7 @@ public class IdleState : BaseState
         guest.GoToTarget(target);
     }
 
-    private Transform FindAudienceArea(List<Building> stageArea)
-    {
-        if (stageArea.Count == 0)
-        {
-            return null;
-        }
-
-        var targetStage = stageArea[Random.Range(0, stageArea.Count)];
-        CreateStageTargetIfNeeded();
-        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
-        stageTarget.transform.SetParent(targetStage.transform);
-
-        return stageTarget.transform;
-    }
-
-    private Transform FindActiveAudienceArea(List<Building> stageArea)
+    private Transform FindActiveAudienceArea(List<Stage> stageArea)
     {
         activeStages.Clear();
         foreach (var building in stageArea)
@@ -161,14 +146,18 @@ public class IdleState : BaseState
             }
         }
 
+        //Debug.Log(activeStages.Count);
+
         if (activeStages.Count == 0)
         {
             return null;
         }
-
+        
+        //var targetStage = activeStages[Random.Range(0, activeStages.Count)];
         var targetStage = activeStages[Random.Range(0, activeStages.Count)];
+        var audienceAreaOfStage = targetStage.audienceAreas[Random.Range(0, targetStage.audienceAreas.Count)];
         CreateStageTargetIfNeeded();
-        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
+        stageTarget.transform.position = GetRandomPointInCapsule(audienceAreaOfStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
         stageTarget.transform.SetParent(targetStage.transform);
 
         return stageTarget.transform;
