@@ -155,6 +155,10 @@ public class IdleState : BaseState
         
         //var targetStage = activeStages[Random.Range(0, activeStages.Count)];
         var targetStage = activeStages[Random.Range(0, activeStages.Count)];
+        if (targetStage.audienceAreas.Count == 0)
+        {
+            return null;
+        }
         var audienceAreaOfStage = targetStage.audienceAreas[Random.Range(0, targetStage.audienceAreas.Count)];
         CreateStageTargetIfNeeded();
         stageTarget.transform.position = GetRandomPointInCapsule(audienceAreaOfStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());

@@ -50,7 +50,11 @@ public class NPCInfoUI : MonoBehaviour
 
     private void UpdateFillColor(Image fill, float value)
     {
-        // Interpolate between red and green based on the slider value
-        fill.color = Color.Lerp(Color.red, Color.green, value);
+        // HSV: H=0 (red), S=1 (full saturation), V varies from 0 to 1
+        float h = 0f; // Hue for red
+        float s = 1f; // Full saturation
+        float v = value; // Value based on the slider value
+        fill.color = Color.HSVToRGB(h, s, v);
     }
 }
+
