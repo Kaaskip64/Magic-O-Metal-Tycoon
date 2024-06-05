@@ -123,11 +123,13 @@ public class Guest : NPC_FSM
     {
         InstanceInit();
 
-/*        NotificationInit();*/
+        /*        NotificationInit();*/
+
+        NPCManager.Instance.RegisterNPC(this);
 
         StatesSetup();
 
-        NPCManager.Instance.RegisterNPC(this);
+        
     }
     #endregion
 

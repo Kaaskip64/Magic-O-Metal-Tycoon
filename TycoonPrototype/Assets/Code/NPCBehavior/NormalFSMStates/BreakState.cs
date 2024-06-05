@@ -36,8 +36,15 @@ public class BreakState : BaseState
 
     public override void OnFixedUpdate()
     {
+
         UpdateMeters();
-        SatisfictionCheck();
+
+        if (guest.satisfaction < NPCManager.Instance.satisfactionThreshold)
+        {
+            guest.SwitchState(guest.leaveParkState);
+            return;
+        }
+
         SetDestination();
         CheckDestinationReached();
     }
@@ -113,13 +120,6 @@ public class BreakState : BaseState
         return false;
     }
 
-    private void SatisfictionCheck()
-    {
-        if(guest.satisfaction < NPCManager.Instance.satisfactionThreshold)
-        {
-            guest.SwitchState(guest.leaveParkState);
-        }
-    }
 
     private void UpdateMeters()
     {
