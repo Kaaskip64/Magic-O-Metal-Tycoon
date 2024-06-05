@@ -74,6 +74,11 @@ public class BandListings : MonoBehaviour
     {
         return BandsAmount;
     }
+
+    public List<BandListingData> GetBands()
+    {
+        return BandData;
+    }
     public void Start()
     {
         SortListing();

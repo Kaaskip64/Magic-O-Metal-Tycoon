@@ -62,7 +62,6 @@ public class RestoreState : BaseState
         guest.hungryMeter = NPCManager.Instance.initialHungryMeter;
         yield return new WaitForSeconds(NPCManager.Instance.eatTime);
         currentBuilding.capacityCount--;
-        Debug.Log(1);
         guest.SwitchState(guest.cheerState);
         
     }

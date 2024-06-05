@@ -15,7 +15,8 @@ public class InformationPanel : MonoBehaviour
     public LayerMask buildingLayer;
     public static InformationPanel instance;
 
-    private bool isHoverOn;
+    public bool isHoverOn;
+    public Building currentHoveredBuilding;
 
     // Start is called before the first frame update
     private void Awake()
@@ -63,12 +64,14 @@ public class InformationPanel : MonoBehaviour
         isHoverOn = true;
         hoverPanel.SetActive(true);
 
+        currentHoveredBuilding = hoveredBuilding;
         nameText.text = hoveredBuilding.name;
         capacityText.text = ("[" + hoveredBuilding.capacityCount + "/" + hoveredBuilding.capacityMax.ToString() + "]");
     }
 
     public void HideHoverPanel()
     {
+        currentHoveredBuilding = null;
         isHoverOn = false;
         hoverPanel.SetActive(false);
     }

@@ -100,6 +100,8 @@ MonoBehaviour:
   panSpeed: 75
   panBorderThickness: 10
   minZoom: 5
-  maxZoom: 1000
+  maxZoom: 225
   zoomSpeed: 40
   zoomSensitivity: 10
+  cameraActive: 0
+  vcam: {fileID: 0}
