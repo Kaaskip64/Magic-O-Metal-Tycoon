@@ -30,13 +30,13 @@ public class AudioHandler : MonoBehaviour
                     stageAudio.Play();
                 }
                 else
-                {            
+                {
+                    
                     indexIndicator = 0;
                     listStartPlaying = false;
                     stage.isPlaying = false;
                     stage.currentStagePlaylist.Clear();
                     audioClips.Clear();
-                    NPCManager.Instance.UpdateNPCLimit();
                 }
             }
         }

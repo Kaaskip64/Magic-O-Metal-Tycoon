@@ -1,68 +1,124 @@
+using System.Collections;
 using System.Collections.Generic;
+//using UnityEditor.Build.Pipeline;
 using UnityEngine;
 
 public class CheerState : BaseState
 {
-    private Guest guest;
-    private GameObject stageTarget;
-    private readonly List<Building> activeStages = new List<Building>();
+    Guest guest;
 
+    private GameObject stageTarget = null;
+
+    private bool foundAudienceArea = false;
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
+        
+        SearchForAudienceArea();
     }
 
     public override void ExitState()
     {
-        
+        foundAudienceArea = false;
     }
 
-    public override void OnUpdate() { }
+    public override void OnUpdate()
+    {
+
+    }
 
     public override void OnFixedUpdate()
     {
-        CheerBehaviour();
+        if(foundAudienceArea)
+        {
+            CheerBehaviour();
+        }
+        else
+        {
+            SearchForAudienceArea();    
+        }
+        
     }
 
+    
+
+    private void SearchForAudienceArea()
+    {
+        var stage = FindAudienceArea(BuildingSystem.currentInstance.audienceAreas);
+        if(stage == null)
+        {
+            return;
+        }
+        else
+        {
+            guest.GoToTarget(stage);
+            foundAudienceArea = true;
+        }
+    }
     private void CheerBehaviour()
     {
-        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate * Time.fixedDeltaTime;
-        guest.thristMeter -= NPCManager.Instance.thirstChangeRate * Time.fixedDeltaTime;
-        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate * Time.fixedDeltaTime;
-        guest.satisfaction += NPCManager.Instance.satisfactionChangeRate * Time.fixedDeltaTime;
+        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate * Time.deltaTime;
+        guest.thristMeter -= NPCManager.Instance.thirstChangeRate * Time.deltaTime;
+        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate * Time.deltaTime;
 
-        if (NeedsBreak())
+        bool isHungryLow = guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold;
+        bool isThirstLow = guest.thristMeter < NPCManager.Instance.thristMeterThreshold;
+        bool isUrgencyLow = guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold;
+
+        if (isHungryLow || isThirstLow || isUrgencyLow)
         {
             guest.SwitchState(guest.BreakState);
         }
-
-        if(NoActiveStage())
-        {
-           guest.SwitchState(guest.idleState); 
-        }
     }
 
-    private bool NeedsBreak()
+    private Transform FindAudienceArea(List<Building> stageArea)
     {
-        return guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold ||
-               guest.thristMeter < NPCManager.Instance.thristMeterThreshold ||
-               guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold;
+        if (stageArea.Count == 0)
+        {
+            return null;
+        }
+        
+        var targetStage = stageArea[Random.Range(0, stageArea.Count)];
+
+        if (stageTarget == null)
+        {
+            stageTarget = new GameObject("tempTarget");
+        }  
+        stageTarget.transform.position = GetRandomPointInCapsule(targetStage.transform.Find("AstarCollider").GetComponent<CapsuleCollider2D>());
+        stageTarget.transform.SetParent(targetStage.transform);
+        
+        return stageTarget.transform;
     }
 
-    private bool NoActiveStage()
+    Vector2 GetRandomPointInCapsule(CapsuleCollider2D collider)
     {
-        if (BuildingSystem.currentInstance.stages.Count <= 0)
+        Vector2 point = Vector2.zero;
+        if (collider != null)
         {
-            return true;
-        }
+            // 获取Capsule的位置
+            Vector2 position = collider.transform.position;
 
-        foreach (var stage in BuildingSystem.currentInstance.stages)
-        {
-            if (stage.isPlaying)
+            // 获取Capsule的大小
+            float sizeX = collider.size.x / 2 * 100;
+            float sizeY = collider.size.y / 2 * 100;
+
+            // 确定方向
+            if (collider.direction == CapsuleDirection2D.Horizontal)
             {
-                return false;
+                // 水平方向
+                float randomX = Random.Range(-sizeX, sizeX);
+                float randomY = Random.Range(-sizeY, sizeY);
+                point = new Vector2(position.x + randomX, position.y + randomY);
+            }
+            else
+            {
+                // 垂直方向
+                float randomX = Random.Range(-sizeY, sizeY);
+                float randomY = Random.Range(-sizeX, sizeX);
+                point = new Vector2(position.x + randomX, position.y + randomY);
             }
         }
-        return true;
+
+        return point;
     }
 }

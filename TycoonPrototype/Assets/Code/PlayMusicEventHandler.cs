@@ -30,7 +30,6 @@ public class PlayMusicEventHandler : MonoBehaviour
             MusicList.SetActive(false);
             IsPlayingText.SetActive(true);
             button.enabled = false;
-            NPCManager.Instance.UpdateNPCLimit();
         }
         
     }

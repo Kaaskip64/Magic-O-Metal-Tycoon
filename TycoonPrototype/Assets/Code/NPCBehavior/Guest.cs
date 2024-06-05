@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
-using UnityEngine.UI;
 
 public class Guest : NPC_FSM
 {
@@ -12,7 +11,6 @@ public class Guest : NPC_FSM
     public CheerState cheerState;
     public RestoreState restoreState;
     public LeaveParkState leaveParkState;
-    public IdleState idleState;
 
     [Header("Movement Parameter")]
     public float maxSpeed;
@@ -22,9 +20,6 @@ public class Guest : NPC_FSM
     public float thristMeter;
     public float urgencyMeter;
     public float satisfaction;
-/*
-    [Header("Notifications")]
-    public GameObject urgencyNotificationPrefab;*/
     #endregion
 
     #region Properties
@@ -53,10 +48,6 @@ public class Guest : NPC_FSM
     }
 
     private Rigidbody2D rb;
-/*    private GameObject currentNotification;
-
-    // References to the images within the canvas
-    private Image[] notificationImages;*/
     #endregion
 
     #region Awake
@@ -76,7 +67,6 @@ public class Guest : NPC_FSM
         BreakState = new BreakState();
         restoreState = new RestoreState();
         leaveParkState = new();
-        idleState = new IdleState();
 
         //Physics
         rb = GetComponent<Rigidbody2D>();
@@ -98,38 +88,20 @@ public class Guest : NPC_FSM
         urgencyMeter = NPCManager.Instance.initialUregencyMeter + Random.Range(-10, 10);
         satisfaction = NPCManager.Instance.initialSatisfaction + Random.Range(-10, 10);
     }
-/*
-    private void NotificationInit()
-    {
-        currentNotification = Instantiate(urgencyNotificationPrefab, transform.position, Quaternion.identity);
-        currentNotification.transform.SetParent(transform);
-        notificationImages = currentNotification.GetComponentsInChildren<Image>();
-        print(notificationImages);
-    
-        // Deactivate all images initially
-        foreach (var image in notificationImages)
-        {
-            image.enabled = false;
-        }
-    }*/
 
     private void StatesSetup()
     {
         //Initialize state
-        SwitchState(idleState);
+        SwitchState(cheerState);
     }
 
     protected override void Start()
     {
         InstanceInit();
 
-        /*        NotificationInit();*/
-
-        NPCManager.Instance.RegisterNPC(this);
-
         StatesSetup();
 
-        
+        NPCManager.Instance.RegisterNPC(this);
     }
     #endregion
 
@@ -201,42 +173,4 @@ public class Guest : NPC_FSM
         AIPath.isStopped = true;
     }
     #endregion
-
-    /*#region Notifications
-    public void ShowNotification(int index)
-    {
-        if (currentNotification != null && index >= 0 && index < notificationImages.Length)
-        {
-            // Deactivate all images
-*//*            foreach (var image in notificationImages)
-            {
-                image.enabled = false;
-            }*//*
-
-            // Activate the specific image
-            notificationImages[index].enabled = true;
-
-            // Start coroutine to hide the notification after a delay
-            StartCoroutine(HideNotificationAfterTime(3f)); // Display for 3 seconds
-        }
-    }
-
-    private IEnumerator HideNotificationAfterTime(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        HideNotification();
-    }
-
-    // Method to hide all notifications
-    public void HideNotification()
-    {
-        if (currentNotification != null)
-        {
-            foreach (var image in notificationImages)
-            {
-                image.enabled = false;
-            }
-        }
-    }
-    #endregion*/
 }
