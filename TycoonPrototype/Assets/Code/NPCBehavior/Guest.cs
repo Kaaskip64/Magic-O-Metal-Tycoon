@@ -137,7 +137,6 @@ public class Guest : NPC_FSM
         base.Update();
         SpriteFlip();
         AnimatorSetter();
-        print(currentState.GetType());
     }
 
     private void AnimatorSetter()

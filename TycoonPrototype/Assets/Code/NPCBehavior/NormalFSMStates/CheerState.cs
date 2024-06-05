@@ -5,7 +5,6 @@ public class CheerState : BaseState
 {
     private Guest guest;
     private GameObject stageTarget;
-    private bool foundAudienceArea;
     private readonly List<Building> activeStages = new List<Building>();
 
     public override void EnterState(object obj)
@@ -15,7 +14,7 @@ public class CheerState : BaseState
 
     public override void ExitState()
     {
-        foundAudienceArea = false;
+        
     }
 
     public override void OnUpdate() { }
@@ -36,6 +35,11 @@ public class CheerState : BaseState
         {
             guest.SwitchState(guest.BreakState);
         }
+
+        if(NoActiveStage())
+        {
+           guest.SwitchState(guest.idleState); 
+        }
     }
 
     private bool NeedsBreak()
@@ -43,5 +47,22 @@ public class CheerState : BaseState
         return guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold ||
                guest.thristMeter < NPCManager.Instance.thristMeterThreshold ||
                guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold;
+    }
+
+    private bool NoActiveStage()
+    {
+        if (BuildingSystem.currentInstance.stages.Count <= 0)
+        {
+            return true;
+        }
+
+        foreach (var stage in BuildingSystem.currentInstance.stages)
+        {
+            if (stage.isPlaying)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
