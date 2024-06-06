@@ -33,12 +33,23 @@ public class InformationPanel : MonoBehaviour
     {
         if (isHoverOn)
         {
-            hoverPanel.transform.position = Input.mousePosition + new Vector3(hoverOffsetX, hoverOffsetY, 0);
+            if(currentHoveredBuilding.buildingType == BuildingType.Audience || currentHoveredBuilding.buildingType == BuildingType.Deco)
+            {
+                hoverPanel.SetActive(false);
+            } else
+            {
+                hoverPanel.transform.position = Input.mousePosition + new Vector3(hoverOffsetX, hoverOffsetY, 0);
+
+            }
         }
     }
 
     private void FixedUpdate()
     {
+        if (EventSystem.current.IsPointerOverGameObject(0))
+        {
+            return;
+        }
         // 获取鼠标位置并转换为世界坐标
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

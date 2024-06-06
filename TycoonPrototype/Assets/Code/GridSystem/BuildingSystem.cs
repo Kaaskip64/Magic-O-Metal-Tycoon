@@ -109,30 +109,45 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) //Left Mouse Click and checks if temp building can be placed
         {
-            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced() && stageBuilder.placingAudienceAreas)
-            {
-                TruePlaceBuilding();
-                currentSelectedBuilding = Instantiate(stageBuilder.audienceAreaPrefab, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
-                return;
-            }
 
-            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced()&&PlayerProperties.Instance.MoneyCheck(currentSelectedProduct))
+            if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
             {
-                TruePlaceBuilding(); //Places building
-
-                if (pickingUpBuilding)
+                switch(currentSelectedBuilding.buildingType)
                 {
-                    ExitBuildMode();
-                    pickingUpBuilding = false;
+                    case BuildingType.Audience:
+                        if (currentSelectedBuilding && currentSelectedBuilding.CanBePlaced() && stageBuilder.placingAudienceAreas)
+                        {
+                            TruePlaceBuilding();
+                            currentSelectedBuilding = Instantiate(stageBuilder.audienceAreaPrefab, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
+                            return;
+                        }
+                        TruePlaceBuilding();
 
-                    return;
+                        if (pickingUpBuilding)
+                        {
+                            ExitBuildMode();
+                            pickingUpBuilding = false;
+                        }
+                        break;
+
+                    default:
+                        if(PlayerProperties.Instance.MoneyCheck(currentSelectedProduct))
+                        {
+                            TruePlaceBuilding(); //Places building
+
+                            if (pickingUpBuilding)
+                            {
+                                ExitBuildMode();
+                                pickingUpBuilding = false;
+
+                                return;
+                            }
+                            InitializeWithBuilding(currentSelectedProduct);
+                            currentSelectedBuilding.Placed = false;
+                        }
+                        break;
                 }
-                    InitializeWithBuilding(currentSelectedProduct);
-                    currentSelectedBuilding.Placed = false;
-
             } 
-
-
         }
 
         if (Input.GetKeyDown(KeyCode.R))
