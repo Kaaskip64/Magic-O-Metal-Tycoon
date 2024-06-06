@@ -14,12 +14,20 @@ public class CheerState : BaseState
     {
         guest = obj as Guest;
         
+<<<<<<< HEAD
         SearchForAudienceArea();
+=======
+>>>>>>> UUDev
     }
 
     public override void ExitState()
     {
+<<<<<<< HEAD
         foundAudienceArea = false;
+=======
+        guest.Animator.SetBool("Cheering", false);
+        guest.isCheering = false;
+>>>>>>> UUDev
     }
 
     public override void OnUpdate()
@@ -29,6 +37,7 @@ public class CheerState : BaseState
 
     public override void OnFixedUpdate()
     {
+<<<<<<< HEAD
         if(foundAudienceArea)
         {
             CheerBehaviour();
@@ -38,6 +47,14 @@ public class CheerState : BaseState
             SearchForAudienceArea();    
         }
         
+=======
+        if(Vector2.Distance(guest.transform.position, guest.DestinationSetter.target.position) < 4f && guest.AIPath.reachedDestination)
+        {
+            guest.isCheering = true;
+            guest.Animator.SetBool("Cheering", true);
+        }
+        CheerBehaviour();
+>>>>>>> UUDev
     }
 
     
