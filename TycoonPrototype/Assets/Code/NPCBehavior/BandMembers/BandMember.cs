@@ -5,7 +5,7 @@ using UnityEngine;
 public class BandMember : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Stage stage;
+    public Stage stage { get;set; }
 
     Animator animator;
     void Start()
@@ -16,7 +16,7 @@ public class BandMember : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if(stage.isPlaying)
+        if(stage!=null && stage.isPlaying)
         {
             animator.SetBool("isPlaying", true);
         }

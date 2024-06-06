@@ -74,7 +74,7 @@ public class NPCManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        print(currentNPCAmount);
+        //print(currentNPCAmount);
         if(currentNPCAmount < maxNPCAmount)
         {
             SpawnNPC();
