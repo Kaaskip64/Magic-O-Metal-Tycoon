@@ -50,3 +50,6 @@ TagManager:
   - name: NPC_Building_check
     uniqueID: 2670110059
     locked: 0
+  - name: Foreview
+    uniqueID: 2514867577
+    locked: 0

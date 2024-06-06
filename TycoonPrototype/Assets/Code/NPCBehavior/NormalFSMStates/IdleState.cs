@@ -20,7 +20,7 @@ public class IdleState : BaseState
 
     public override void OnFixedUpdate()
     {
-        if(CheckIfAnyStagePlaying())
+        if(CheckIfAnyStagePlaying()&&guest.DestinationSetter.target!=null)
         {
             guest.SwitchState(guest.cheerState);
         }
