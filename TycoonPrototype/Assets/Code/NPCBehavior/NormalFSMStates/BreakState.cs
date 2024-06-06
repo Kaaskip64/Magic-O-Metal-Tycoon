@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 using UnityEngine;
+using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 //using UnityEditor.Build.Pipeline.Utilities;
 
 public class BreakState : BaseState
@@ -30,18 +32,21 @@ public class BreakState : BaseState
         foundFacility = false;
     }
 
-    public override void OnUpdate()
-    {
-        
-    }
+    public override void OnUpdate() { }
 
     public override void OnFixedUpdate()
     {
-        UpdateMeters();
-        SetDestination();
 
+        UpdateMeters();
+
+        if (guest.satisfaction < NPCManager.Instance.satisfactionThreshold)
+        {
+            guest.SwitchState(guest.leaveParkState);
+            return;
+        }
+
+        SetDestination();
         CheckDestinationReached();
-       
     }
 
     private void SetDestination()
@@ -116,13 +121,13 @@ public class BreakState : BaseState
     }
 
 
-
     private void UpdateMeters()
     {
         float deltaTime = Time.fixedDeltaTime;
         guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 10 * deltaTime;
         guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 10 * deltaTime;
         guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 10 * deltaTime;
+        guest.satisfaction -= NPCManager.Instance.satisfactionChangeRate * deltaTime;
     }
 
     private void CheckDestinationReached()
@@ -135,7 +140,6 @@ public class BreakState : BaseState
 
     private Transform FindClosestBuilding(List<Building> buildingList)
     {
-        
         if (buildingList.Count == 0)
         {
             return null;
@@ -150,14 +154,10 @@ public class BreakState : BaseState
             }
         }
 
-        //Debug.Log(availableBuildings.Count);
-
         if (availableBuildings.Count<=0)
         {
             return null;
         }
-
-        
 
         Transform closestOne;
         closestOne = availableBuildings[0].NPCTarget;

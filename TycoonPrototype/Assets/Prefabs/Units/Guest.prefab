@@ -230,6 +230,7 @@ MonoBehaviour:
   thristMeter: 0
   urgencyMeter: 0
   satisfaction: 0
+  urgencyNotificationPrefab: {fileID: 6391812547259023595, guid: 476dd656f771d314795d5449feb4af75, type: 3}
 --- !u!114 &5599477398651336223
 MonoBehaviour:
   m_ObjectHideFlags: 0

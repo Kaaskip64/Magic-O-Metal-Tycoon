@@ -25,7 +25,6 @@ public class LeaveParkState : BaseState
         if(guest.AIPath.reachedDestination && Vector2.Distance(guest.DestinationSetter.transform.position,guest.transform.position)<4)
         {
             GameObject.Destroy(guest.gameObject);
-            NPCManager.Instance.ReduceNPC();
         }
     }
 

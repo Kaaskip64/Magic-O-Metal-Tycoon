@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class NPCManager : MonoBehaviour
 {
-    
     public static NPCManager Instance { get; private set; }
 
     [Header("BaseMeter")]
@@ -48,15 +47,14 @@ public class NPCManager : MonoBehaviour
 
     private int currentNPCAmount;
     private float intervalCount;
+
+    [SerializeField]
     // List to store all NPCs
     private List<Guest> npcList = new List<Guest>();
 
     private void Awake()
     {
-
         Instance = this;
-
-
     }
 
     private void Start()
@@ -64,9 +62,19 @@ public class NPCManager : MonoBehaviour
         intervalCount = npcSpawnInterval;
     }
 
+    public void UpdateNPCLimit()
+    {
+        int tempAmount = 0;
+        foreach(var item in BuildingSystem.currentInstance.stages)
+        {
+            tempAmount += item.currentStagePlaylist.Count - 1;
+        }
+        maxNPCAmount = tempAmount * 10;
+    }
+
     private void FixedUpdate()
     {
-        //print(intervalCount);
+        print(currentNPCAmount);
         if(currentNPCAmount < maxNPCAmount)
         {
             SpawnNPC();
@@ -79,7 +87,6 @@ public class NPCManager : MonoBehaviour
         if(intervalCount<0)
         {
             Instantiate(npcPrefab, spawnPositions[Random.Range(0, spawnPositions.Length - 1)].position, Quaternion.identity);
-            currentNPCAmount++;
             intervalCount = npcSpawnInterval;
             PlayerProperties.Instance.MoneyChange(+admissionPrice);
         }
@@ -90,21 +97,18 @@ public class NPCManager : MonoBehaviour
         
     }
 
-    public void ReduceNPC()
-    {
-        currentNPCAmount--;
-    }
-
     // Method to add an NPC to the list
     public void RegisterNPC(Guest npc)
     {
         npcList.Add(npc);
+        currentNPCAmount++;
     }
 
     // Method to remove an NPC from the list
     public void UnregisterNPC(Guest npc)
     {
         npcList.Remove(npc);
+        currentNPCAmount--;
     }
 
     // Method to calculate average NPC status

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2348378298169624209}
   - component: {fileID: 6020240411499339659}
-  - component: {fileID: 5278318330666789195}
   m_Layer: 0
   m_Name: Lexie
   m_TagString: Untagged
@@ -74,35 +73,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -192868136, guid: 8aa80ae7cf868414cb7a8893be8f8c3c, type: 3}
+  m_Sprite: {fileID: -1094587401, guid: 8aa80ae7cf868414cb7a8893be8f8c3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 11.49, y: 14.130078}
+  m_Size: {x: 15, y: 16.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5278318330666789195
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3496139794859310586}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 979d6f6abb396d44ab4092313d65c41b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
