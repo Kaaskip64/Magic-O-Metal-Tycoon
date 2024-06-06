@@ -10,17 +10,24 @@ public class CheerState : BaseState
     public override void EnterState(object obj)
     {
         guest = obj as Guest;
+        
     }
 
     public override void ExitState()
     {
-        
+        guest.Animator.SetBool("Cheering", false);
+        guest.isCheering = false;
     }
 
     public override void OnUpdate() { }
 
     public override void OnFixedUpdate()
     {
+        if(Vector2.Distance(guest.transform.position, guest.DestinationSetter.target.position) < 4f && guest.AIPath.reachedDestination)
+        {
+            guest.isCheering = true;
+            guest.Animator.SetBool("Cheering", true);
+        }
         CheerBehaviour();
     }
 

@@ -53,6 +53,8 @@ public class Guest : NPC_FSM
     }
 
     private Rigidbody2D rb;
+
+    public bool isCheering;
 /*    private GameObject currentNotification;
 
     // References to the images within the canvas
@@ -143,6 +145,10 @@ public class Guest : NPC_FSM
 
     private void AnimatorSetter()
     {
+        if(isCheering)
+        {
+            return;
+        }
         if (destinationSetter.target != null && !aIPath.reachedDestination)
         {
             animator.SetBool("isMoving", true);
