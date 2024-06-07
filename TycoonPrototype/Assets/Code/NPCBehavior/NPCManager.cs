@@ -40,18 +40,18 @@ public class NPCManager : MonoBehaviour
     [Header("SpawnProperties")]
     public int maxNPCAmount;
     public float npcSpawnInterval;
+    public int amountOfNPCToSpawn = 0;
     public Transform[] spawnPositions;
 
     [Header("LeaveProperties")]
     public float NPCHesitateTime;
-
     private int currentNPCAmount;
     private float intervalCount;
-
-    [SerializeField]
+    
     // List to store all NPCs
     private List<Guest> npcList = new List<Guest>();
 
+    [SerializeField] 
     private void Awake()
     {
         Instance = this;
@@ -69,7 +69,7 @@ public class NPCManager : MonoBehaviour
         {
             tempAmount += item.currentStagePlaylist.Count - 1;
         }
-        maxNPCAmount = tempAmount * 10;
+        maxNPCAmount = tempAmount * amountOfNPCToSpawn;
     }
 
     private void FixedUpdate()
