@@ -80,7 +80,7 @@ public class PlaceBandMember : MonoBehaviour
 
         CheckBandMemberAvailability(bandMember);
 
-        tempStage.ClearStageUI();
+        stageUI.SetActive(false);
 
         if(currentBandMember == null)
         {
@@ -162,7 +162,7 @@ public class PlaceBandMember : MonoBehaviour
     private void PlaceMember()
     {
         AssignBandMemberInStage();
-        tempStage.FillStageUI();
+        stageUI.SetActive(true);
         tempStage.tilemap.color = Color.white;
         currentBandMember = null;
         prevPos = Vector3Int.zero;

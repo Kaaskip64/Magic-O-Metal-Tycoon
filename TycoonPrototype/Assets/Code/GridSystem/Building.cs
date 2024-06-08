@@ -18,7 +18,7 @@ public class Building : MonoBehaviour, IHoverPanel
     public float maintenanceCost = 5f;
 
     [Space(20)]
-
+    [HideInInspector]
     public int capacityCount;
     public SpriteRenderer image;
     public GameObject AstarCollider;
@@ -27,39 +27,63 @@ public class Building : MonoBehaviour, IHoverPanel
 
     public Transform NPCTarget;
 
-    private BoxCollider2D boxCollider;
+    [HideInInspector]
+    public Vector3 prevPos;
 
+    private BoxCollider2D boxCollider;
+    private PolygonCollider2D polygonCollider;
+    private BuildingSystem buildingSystem;
 
 
     private void Start()
     {
-        boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        if(buildingType == BuildingType.Audience)
+        {
+            polygonCollider = gameObject.GetComponent<PolygonCollider2D>();
+        } else
+        {
+            boxCollider = gameObject.GetComponent<BoxCollider2D>();
+
+        }
+        prevPos = Vector3.zero;
+        buildingSystem = BuildingSystem.currentInstance;
     }
 
     private void Update()
     {
-        if(Placed && InformationPanel.instance.currentHoveredBuilding == this)
+        if (EventSystem.current.IsPointerOverGameObject(0))
         {
-            if(Input.GetMouseButtonDown(0))
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if(Placed && InformationPanel.instance.currentHoveredBuilding == this)
             {
-                print("hit");
-                boxCollider.enabled = false;
-                BuildingSystem.currentInstance.pickingUpBuilding = true;
-                BuildingSystem.currentInstance.currentSelectedBuilding = this;
+                if(buildingType == BuildingType.Audience)
+                {
+                    polygonCollider.enabled = false;
+                } else
+                {
+                    boxCollider.enabled = false;
+                }
+                buildingSystem.pickingUpBuilding = true;
+
+                buildingSystem.currentSelectedBuilding = this;
                 Placed = false;
-                BuildingSystem.currentInstance.MainTileMap.gameObject.SetActive(true);
+                buildingSystem.MainTileMap.gameObject.SetActive(true);
 
                 
-                area.x = BuildingSystem.currentInstance.gridLayout.WorldToCell(gameObject.transform.position).x + 1;
-                area.y = BuildingSystem.currentInstance.gridLayout.WorldToCell(gameObject.transform.position).y + 1;
+                area.x = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).x + 1;
+                area.y = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).y + 1;
 
-                BuildingSystem.SetTilesBlock(area, TileType.White, BuildingSystem.currentInstance.MainTileMap);
+                BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.MainTileMap);
 
                 area.x = 0;
                 area.y = 0;
 
                 
-                BuildingSystem.currentInstance.FollowBuilding(area);
+                buildingSystem.FollowBuilding(area);
 
                 image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
             }
@@ -68,11 +92,11 @@ public class Building : MonoBehaviour, IHoverPanel
 
     public bool CanBePlaced() //returns whether or not the building can be placed based on the current location on the grid
     {
-        Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
+        Vector3Int positionInt = buildingSystem.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt + area.position;
 
-        if (BuildingSystem.currentInstance.CanTakeArea(areaTemp))
+        if (buildingSystem.CanTakeArea(areaTemp))
         {
             return true;
         }
@@ -82,13 +106,23 @@ public class Building : MonoBehaviour, IHoverPanel
 
     public void Place() //When Place() is called, places building
     {
-        Vector3Int positionInt = BuildingSystem.currentInstance.gridLayout.LocalToCell(transform.position);
+        Vector3Int positionInt = buildingSystem.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
-        if(boxCollider != null)
-        boxCollider.enabled = true;
+
+        if (buildingType == BuildingType.Audience)
+        {
+            polygonCollider.enabled = true;
+        }
+        else
+        {
+            boxCollider.enabled = true;
+        }
+
+        prevPos = gameObject.transform.position;
+
         Placed = true;
-        BuildingSystem.currentInstance.TakeArea(areaTemp);
+        buildingSystem.TakeArea(areaTemp);
         
     }
 
