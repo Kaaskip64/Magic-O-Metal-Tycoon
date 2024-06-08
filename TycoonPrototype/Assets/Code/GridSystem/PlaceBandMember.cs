@@ -14,6 +14,7 @@ public class PlaceBandMember : MonoBehaviour
 
     private Vector3 currentTilePos;
     private GameObject stageUI;
+    private GameObject image;
     private Stage tempStage;
     private TilemapCollider2D tempStageCol;
     private GridLayout gridLayout;
@@ -67,6 +68,11 @@ public class PlaceBandMember : MonoBehaviour
             PlaceMember();
         }
 
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            RotateBandMember();
+        }
+
     }
 
     public void SelectMember(GameObject bandMember)
@@ -87,6 +93,7 @@ public class PlaceBandMember : MonoBehaviour
             currentBandMember = Instantiate(bandMember, new Vector3(currentTilePos.x, currentTilePos.y, currentTilePos.z), Quaternion.identity);
             currentBandMember.name = bandMember.name.Replace("(Clone)", "").Trim();
         }
+        image = currentBandMember.gameObject.transform.Find("Image").gameObject;
     }
 
     private void CheckBandMemberAvailability(GameObject bandMember)
@@ -164,6 +171,7 @@ public class PlaceBandMember : MonoBehaviour
         AssignBandMemberInStage();
         stageUI.SetActive(true);
         tempStage.tilemap.color = Color.white;
+        image = null;
         currentBandMember = null;
         prevPos = Vector3Int.zero;
         tempStageCol = null;
@@ -191,6 +199,17 @@ public class PlaceBandMember : MonoBehaviour
                 if (tempStage.picuObject == null)
                     tempStage.picuObject = currentBandMember;
                 break;
+        }
+    }
+
+    private void RotateBandMember()
+    {
+        if(image != null)
+        {
+            Vector2 scale = image.transform.localScale;
+            scale.x *= -1;
+
+            image.transform.localScale = scale;
         }
     }
 }
