@@ -18,7 +18,7 @@ public class Building : MonoBehaviour, IHoverPanel
     public float maintenanceCost = 5f;
 
     [Space(20)]
-
+    [HideInInspector]
     public int capacityCount;
     public SpriteRenderer image;
     public GameObject AstarCollider;
@@ -26,6 +26,9 @@ public class Building : MonoBehaviour, IHoverPanel
     public Vector2 mouseFollowOffset;
 
     public Transform NPCTarget;
+
+    [HideInInspector]
+    public Vector3 prevPos;
 
     private BoxCollider2D boxCollider;
     private PolygonCollider2D polygonCollider;
@@ -42,7 +45,7 @@ public class Building : MonoBehaviour, IHoverPanel
             boxCollider = gameObject.GetComponent<BoxCollider2D>();
 
         }
-
+        prevPos = Vector3.zero;
         buildingSystem = BuildingSystem.currentInstance;
     }
 
@@ -65,6 +68,7 @@ public class Building : MonoBehaviour, IHoverPanel
                     boxCollider.enabled = false;
                 }
                 buildingSystem.pickingUpBuilding = true;
+
                 buildingSystem.currentSelectedBuilding = this;
                 Placed = false;
                 buildingSystem.MainTileMap.gameObject.SetActive(true);
@@ -105,6 +109,7 @@ public class Building : MonoBehaviour, IHoverPanel
         Vector3Int positionInt = buildingSystem.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
+
         if (buildingType == BuildingType.Audience)
         {
             polygonCollider.enabled = true;
@@ -113,6 +118,9 @@ public class Building : MonoBehaviour, IHoverPanel
         {
             boxCollider.enabled = true;
         }
+
+        prevPos = gameObject.transform.position;
+
         Placed = true;
         buildingSystem.TakeArea(areaTemp);
         

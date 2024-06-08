@@ -279,7 +279,6 @@ public class BuildingSystem : MonoBehaviour
 
                 case BuildingType.Audience:
                     stageBuilder.currentStageAudienceAreas.Add(currentSelectedBuilding);
-                    currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
 
                     break;
             }
@@ -294,6 +293,14 @@ public class BuildingSystem : MonoBehaviour
         {
             Destroy(currentSelectedBuilding.gameObject);
             upperBackgroundShop.SetActive(true);
+        } else
+        {
+            currentSelectedBuilding.transform.position = currentSelectedBuilding.prevPos;
+            currentSelectedBuilding.Place();
+            print("placed");
+            currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 1f);
+
+            pickingUpBuilding = false;
         }
         currentSelectedBuilding = null;
         MainTileMap.gameObject.SetActive(false);
