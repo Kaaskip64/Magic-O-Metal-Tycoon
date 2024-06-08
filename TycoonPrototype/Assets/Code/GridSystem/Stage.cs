@@ -120,9 +120,6 @@ public class Stage : MonoBehaviour
             }
             dataTransferScript.playHandeler.playStarted += ActivateCouritine;
             dataTransferScript.playHandeler.playStarted += PlayStageLineup;
-
-
-
         }
         else
         {
@@ -135,7 +132,6 @@ public class Stage : MonoBehaviour
 
     public void UpdateList()
     {
-
         currentStagePlaylist.Clear();
         foreach (BandListingData data in dataTransferScript.GetNodesList())
         {
@@ -154,6 +150,7 @@ public class Stage : MonoBehaviour
         dataTransferScript.ResetListings();
         
         StopCoroutine(DownloadSongs());
+        
         dataTransferScript.playHandeler.playStarted -= ActivateCouritine;
 
         dataTransferScript.playHandeler.playStarted -= PlayStageLineup;
@@ -169,18 +166,17 @@ public class Stage : MonoBehaviour
 
     public void PlayStageLineup()
     {
-
         audioHandler.LoadMusicFiles();
         audioHandler.Play();
         isPlaying = true;
-
     }
 
     private IEnumerator DownloadSongs()
     {
+        currentStagePlaylist.Clear();
+        Debug.Log("hit");
         foreach (BandListingData data in dataTransferScript.GetNodesList())
         {
-            
             currentStagePlaylist.Add(data);
         }
         yield return new WaitForSeconds(0.05f);

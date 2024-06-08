@@ -67,7 +67,9 @@ public class NPCManager : MonoBehaviour
         int tempAmount = 0;
         foreach(var item in BuildingSystem.currentInstance.stages)
         {
-            tempAmount += item.currentStagePlaylist.Count - 1;
+            tempAmount += item.currentStagePlaylist.Count;
+            amountOfNPCToSpawn += item.currentStagePlaylist.Count - 1;
+            
         }
         maxNPCAmount = tempAmount * amountOfNPCToSpawn;
     }
