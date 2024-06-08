@@ -46,16 +46,19 @@ public class InformationPanel : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (EventSystem.current.IsPointerOverGameObject(0))
+        if(EventSystem.current.IsPointerOverGameObject())
         {
+            HideHoverPanel();
             return;
         }
+
         // 获取鼠标位置并转换为世界坐标
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // 执行2D射线检测，使用指定的层
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, buildingLayer);
 
+        
         // 检查是否击中了物体
         if (hit.collider != null && hit.collider.CompareTag("Building") && hit.collider.GetComponent<Building>().Placed)
         {
