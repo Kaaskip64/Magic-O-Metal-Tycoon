@@ -319,7 +319,7 @@ public class StageBuilder : MonoBehaviour
         buildingSystem.currentSelectedBuilding = tempAudienceArea;
 
         currentStageAudienceAreas = currentActiveStageUI.audienceAreas;
-        buildingSystem.FollowBuilding(tempAudienceArea.area);
+        buildingSystem.FollowBuilding(tempAudienceArea.area, buildingSystem.MainTileMap);
 
         StageUI.SetActive(false);
 

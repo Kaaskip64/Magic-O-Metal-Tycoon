@@ -75,19 +75,40 @@ public class Building : MonoBehaviour, IHoverPanel
 
                 buildingSystem.currentSelectedBuilding = this;
                 Placed = false;
-                buildingSystem.MainTileMap.gameObject.SetActive(true);
+                if (buildingType == BuildingType.Deco)
+                {
+                    buildingSystem.DecoTileMap.gameObject.SetActive(true);
+                }
+                else
+                {
+                    buildingSystem.MainTileMap.gameObject.SetActive(true);
 
-                
+                }
+
                 area.x = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).x + 1;
                 area.y = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).y + 1;
 
-                BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.MainTileMap);
+                if (buildingType == BuildingType.Deco)
+                {
+                    BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.DecoTileMap);
+                }
+                else
+                {
+                    BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.MainTileMap);
+                }
 
                 area.x = 0;
                 area.y = 0;
 
-                
-                buildingSystem.FollowBuilding(area);
+                if (buildingType == BuildingType.Deco)
+                {
+                    buildingSystem.FollowBuilding(area, buildingSystem.DecoTileMap);
+                }
+                else
+                {
+                    buildingSystem.FollowBuilding(area, buildingSystem.MainTileMap);
+                }
+
 
                 image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
             }
@@ -100,9 +121,19 @@ public class Building : MonoBehaviour, IHoverPanel
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt + area.position;
 
-        if (buildingSystem.CanTakeArea(areaTemp))
+        if (buildingType == BuildingType.Deco)
         {
-            return true;
+            if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.DecoTileMap))
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.MainTileMap))
+            {
+                return true;
+            }
         }
 
         return false;
@@ -126,8 +157,14 @@ public class Building : MonoBehaviour, IHoverPanel
         prevPos = gameObject.transform.position;
 
         Placed = true;
-        buildingSystem.TakeArea(areaTemp);
-        
+        if (buildingType == BuildingType.Deco)
+        {
+            buildingSystem.TakeArea(areaTemp, buildingSystem.DecoTileMap);
+        }
+        else
+        {
+            buildingSystem.TakeArea(areaTemp, buildingSystem.MainTileMap);
+        }
     }
 
 

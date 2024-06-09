@@ -54,7 +54,7 @@ public class Stage : MonoBehaviour
     private void OnMouseEnter()
     {
         isMouseOverStage = true;
-        if(EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null || PlaceBandMember.currentInstance.placingBandMember)
+        if(EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null || PlaceBandMember.currentInstance.placingBandMember || BuildingSystem.currentInstance.currentSelectedBuilding != null)
         {
             return;
         }
@@ -65,7 +65,7 @@ public class Stage : MonoBehaviour
     private void OnMouseExit()
     {
         isMouseOverStage = false;
-        if(!PlaceBandMember.currentInstance.placingBandMember)
+        if(!PlaceBandMember.currentInstance.placingBandMember || BuildingSystem.currentInstance.currentSelectedBuilding == null)
         tilemap.color = new Color(1f, 1f, 1f, 1f);
 
     }
@@ -75,7 +75,7 @@ public class Stage : MonoBehaviour
     {
         //When stage is clicked, everything in this function gets executed
 
-        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null || PlaceBandMember.currentInstance.placingBandMember)
+        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null || PlaceBandMember.currentInstance.placingBandMember || BuildingSystem.currentInstance.currentSelectedBuilding != null)
         {
             return;
         }

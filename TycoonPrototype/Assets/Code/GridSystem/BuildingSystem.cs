@@ -16,6 +16,7 @@ public class BuildingSystem : MonoBehaviour
     public GridLayout gridLayout;
     public Tilemap MainTileMap; //tilemap to show edit mode/building availability
     public Tilemap TempTileMap; //tilemap where the availableBuildings are hovering
+    public Tilemap DecoTileMap; //seperate tilemap for decorations
 
     //Stores basic tiles for visual clarity regarding placement
     public static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
@@ -102,7 +103,15 @@ public class BuildingSystem : MonoBehaviour
             {
                 currentSelectedBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(mouseCellPos);
                 prevPos = mouseCellPos;
-                FollowBuilding(currentSelectedBuilding.area);
+                if (currentSelectedBuilding.buildingType == BuildingType.Deco)
+                {
+                    FollowBuilding(currentSelectedBuilding.area, DecoTileMap);
+
+                }
+                else
+                {
+                    FollowBuilding(currentSelectedBuilding.area, MainTileMap);
+                }
             }
 
         }
@@ -177,9 +186,17 @@ public class BuildingSystem : MonoBehaviour
         currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 0.5f);
 
         currentSelectedBuilding.gameObject.name = building.ProductName;
-        FollowBuilding(currentSelectedBuilding.area);
+        if (currentSelectedBuilding.buildingType == BuildingType.Deco)
+        {
+            FollowBuilding(currentSelectedBuilding.area, DecoTileMap);
+            DecoTileMap.gameObject.SetActive(true);
+        }
+        else
+        {
+            FollowBuilding(currentSelectedBuilding.area, MainTileMap);
+            MainTileMap.gameObject.SetActive(true);
+        }
         upperBackgroundShop.SetActive(false);
-        MainTileMap.gameObject.SetActive(true);
 
         currentBuildingColor = currentSelectedBuilding.image.color;
         currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
@@ -192,7 +209,7 @@ public class BuildingSystem : MonoBehaviour
         TempTileMap.SetTilesBlock(prevArea, toClear);
     }
 
-    public void FollowBuilding(BoundsInt currentBuilding) //Makes the placement area below the building follow the selected building
+    public void FollowBuilding(BoundsInt currentBuilding, Tilemap tilemap) //Makes the placement area below the building follow the selected building
     {
         ClearArea();
 
@@ -200,7 +217,7 @@ public class BuildingSystem : MonoBehaviour
             mousePosOnGrid.y, 0));
         BoundsInt buildingArea = currentBuilding;
 
-        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTileMap);
+        TileBase[] baseArray = GetTilesBlock(buildingArea, tilemap);
 
         int size = baseArray.Length;
         TileBase[] tileArray = new TileBase[size];
@@ -221,9 +238,9 @@ public class BuildingSystem : MonoBehaviour
         prevArea = buildingArea;
     }
 
-    public bool CanTakeArea(BoundsInt area) //checks if all tiles in current placement area are white (white tiles mean unclaimed area)
+    public bool CanTakeArea(BoundsInt area, Tilemap tilemap) //checks if all tiles in current placement area are white (white tiles mean unclaimed area)
     {
-        TileBase[] baseArray = GetTilesBlock(area, MainTileMap);
+        TileBase[] baseArray = GetTilesBlock(area, tilemap);
         foreach (var b in baseArray)
         {
             if (b != tileBases[TileType.White])
@@ -234,10 +251,10 @@ public class BuildingSystem : MonoBehaviour
         return true;
     }
 
-    public void TakeArea(BoundsInt area) //sets the tiles in the current placement area to green
+    public void TakeArea(BoundsInt area, Tilemap tilemap) //sets the tiles in the current placement area to green
     {
         SetTilesBlock(area, TileType.Empty, TempTileMap);
-        SetTilesBlock(area, TileType.Green, MainTileMap);
+        SetTilesBlock(area, TileType.Green, tilemap);
     }
 
     public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
@@ -302,15 +319,30 @@ public class BuildingSystem : MonoBehaviour
 
             pickingUpBuilding = false;
         }
+        if (currentSelectedBuilding.buildingType == BuildingType.Deco)
+        {
+            DecoTileMap.gameObject.SetActive(false);
+        }
+        else
+        {
+            MainTileMap.gameObject.SetActive(false);
+        }
         currentSelectedBuilding = null;
-        MainTileMap.gameObject.SetActive(false);
         ExitBuildingFollowing();
     }
 
     private void MirrorBuilding()
     {
         currentSelectedBuilding.area = SwapBoundsValues(currentSelectedBuilding.area);
-        FollowBuilding(currentSelectedBuilding.area);
+
+        if(currentSelectedBuilding.buildingType == BuildingType.Deco)
+        {
+            FollowBuilding(currentSelectedBuilding.area, DecoTileMap);
+
+        } else
+        {
+            FollowBuilding(currentSelectedBuilding.area, MainTileMap);
+        }
 
         currentSelectedBuilding.image.flipX = !currentSelectedBuilding.image.flipX;
 
