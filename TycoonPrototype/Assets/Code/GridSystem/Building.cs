@@ -63,6 +63,10 @@ public class Building : MonoBehaviour, IHoverPanel
                 if(buildingType == BuildingType.Audience)
                 {
                     polygonCollider.enabled = false;
+                    if(StageBuilder.currentInstance.StageUI.activeInHierarchy)
+                    {
+                        StageBuilder.currentInstance.StageUI.SetActive(false);
+                    }
                 } else
                 {
                     boxCollider.enabled = false;
