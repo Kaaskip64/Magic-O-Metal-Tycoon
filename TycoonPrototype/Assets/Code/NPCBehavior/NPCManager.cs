@@ -96,7 +96,6 @@ public class NPCManager : MonoBehaviour
         //print(reachExtraLimit);
         if (currentExtraNPCAmount < maxExtraNPCAmount)
         {
-            print("no more");
             SpwanExtraNPC();
         }
         

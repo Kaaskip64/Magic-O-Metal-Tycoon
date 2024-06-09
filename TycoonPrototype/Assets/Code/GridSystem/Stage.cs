@@ -174,7 +174,6 @@ public class Stage : MonoBehaviour
     private IEnumerator DownloadSongs()
     {
         currentStagePlaylist.Clear();
-        Debug.Log("hit");
         foreach (BandListingData data in dataTransferScript.GetNodesList())
         {
             currentStagePlaylist.Add(data);
