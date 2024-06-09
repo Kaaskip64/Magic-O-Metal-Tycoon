@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class NPCManager : MonoBehaviour
 {
@@ -37,11 +37,19 @@ public class NPCManager : MonoBehaviour
     public GameObject npcPrefab;
     public float admissionPrice = 50f;
 
-    [Header("SpawnProperties")]
+    [Header("BandSpawnProperties")]
     public int maxNPCAmount;
     public float npcSpawnInterval;
     public int amountOfNPCToSpawn = 0;
     public Transform[] spawnPositions;
+
+    [Header("ExtraSpawnProperties")]
+    public int maxExtraNPCAmount;
+    public float extraNPCSpawnInterval;
+    public bool shouldExtraNPCRespawn;
+    private int currentExtraNPCAmount;
+    private float extraNPCIntervalCount;
+    private bool reachExtraLimit;
 
     [Header("LeaveProperties")]
     public float NPCHesitateTime;
@@ -60,6 +68,8 @@ public class NPCManager : MonoBehaviour
     private void Start()
     {
         intervalCount = npcSpawnInterval;
+        extraNPCIntervalCount = extraNPCSpawnInterval;
+        reachExtraLimit = shouldExtraNPCRespawn;
     }
 
     public void UpdateNPCLimit()
@@ -81,6 +91,11 @@ public class NPCManager : MonoBehaviour
         {
             SpawnNPC();
         }
+
+        if (currentExtraNPCAmount < maxExtraNPCAmount)
+        {
+            SpwanExtraNPC();
+        }
         
     }
 
@@ -99,18 +114,64 @@ public class NPCManager : MonoBehaviour
         
     }
 
+    private void SpwanExtraNPC()
+    {
+        if(reachExtraLimit)
+        {
+            if(!shouldExtraNPCRespawn)
+            {
+                return;
+            }
+        }
+        if (extraNPCIntervalCount < 0)
+        {
+            // 实例化NPC
+            Guest temp = Instantiate(npcPrefab, spawnPositions[Random.Range(0, spawnPositions.Length - 1)].position, Quaternion.identity).GetComponent<Guest>();
+            temp.isExtraNPC = true;
+            extraNPCIntervalCount = extraNPCSpawnInterval;
+            PlayerProperties.Instance.MoneyChange(+admissionPrice);
+
+            // 检查是否达到了NPC数量上限
+            if (currentExtraNPCAmount >= maxExtraNPCAmount)
+            {
+                reachExtraLimit = true;
+            }
+
+        }
+        else
+        {
+            extraNPCIntervalCount -= Time.fixedDeltaTime;
+        }
+    }
+
     // Method to add an NPC to the list
     public void RegisterNPC(Guest npc)
     {
         npcList.Add(npc);
-        currentNPCAmount++;
+        if (npc.isExtraNPC)
+        {
+            currentExtraNPCAmount++;
+        }
+        else
+        {  
+            currentNPCAmount++;
+        }
+
     }
 
     // Method to remove an NPC from the list
     public void UnregisterNPC(Guest npc)
     {
         npcList.Remove(npc);
-        currentNPCAmount--;
+        if (npc.isExtraNPC)
+        {
+            currentExtraNPCAmount--;
+        }
+        else
+        {
+            currentNPCAmount--;
+        }
+
     }
 
     // Method to calculate average NPC status

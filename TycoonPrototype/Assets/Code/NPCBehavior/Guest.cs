@@ -52,6 +52,8 @@ public class Guest : NPC_FSM
         get { return spriteRenderer; }
     }
 
+    public bool isExtraNPC;
+
     private Rigidbody2D rb;
 
     public bool isCheering;
