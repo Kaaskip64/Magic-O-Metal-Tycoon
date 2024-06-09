@@ -22,6 +22,7 @@ public class StageBuilder : MonoBehaviour
     [Header("UI elements")]
     public GameObject MainUI;
     public GameObject StageUI;
+    public GameObject buildStageButton;
 
     [Header("Size of placement area around tiles")]
     public BoundsInt placementAreaSize;
@@ -38,7 +39,8 @@ public class StageBuilder : MonoBehaviour
     [Header("Bools")]
 
     public bool eraseMode = false;
-    public bool editingStageTiles = false;
+    public bool placingStageTiles = false;
+    public bool editingStage = false;
     public bool placingAudienceAreas = false;
 
     [Header("Price per placed stage")]
@@ -71,7 +73,7 @@ public class StageBuilder : MonoBehaviour
     private void Update()
     {
 
-        if (!editingStageTiles)
+        if (!placingStageTiles)
         {
             return;
         }
@@ -120,24 +122,29 @@ public class StageBuilder : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1)  )
         {
-            InitialiseBuiltStageComponents();
-            editingStageTiles = false;
+            if(!isDragging)
+            {
+                InitialiseBuiltStageComponents();
+                placingStageTiles = false;
+                eraseButton.gameObject.SetActive(false);
+            }
         }
 
     }
 
     public void EditingStage()
     {
-        if (!editingStageTiles)
+        if (!placingStageTiles)
         {
             if (PlayerProperties.Instance.MoneyCheck(stagePrice))
             {
                 CreateNewStageObject();
                 buildingSystem.MainTileMap.gameObject.SetActive(true);
+                buildStageButton.SetActive(false);
                 PlayerProperties.Instance.MoneyChange(-stagePrice);
-                editingStageTiles = true;
+                placingStageTiles = true;
                 eraseMode = false;
                 eraseButton.gameObject.SetActive(true);
             }
@@ -146,7 +153,7 @@ public class StageBuilder : MonoBehaviour
         else
         {
             InitialiseBuiltStageComponents();
-            editingStageTiles = false;
+            placingStageTiles = false;
             eraseButton.gameObject.SetActive(false);
         }
 
@@ -193,9 +200,6 @@ public class StageBuilder : MonoBehaviour
         //initialisation new built stage
         CompositeCollider2D tempComposite = stageObject.AddComponent<CompositeCollider2D>();
         TilemapCollider2D tempTileCol = stageObject.AddComponent<TilemapCollider2D>();
-        AudioSource tempAudioSource = stageObject.AddComponent<AudioSource>();
-        AudioHandler tempAudioHandler = stageObject.AddComponent<AudioHandler>();
-
 
         tempTileCol.usedByComposite = true;
 
@@ -203,12 +207,23 @@ public class StageBuilder : MonoBehaviour
         tempComposite.attachedRigidbody.isKinematic = true;
         tempComposite.geometryType = CompositeCollider2D.GeometryType.Polygons;
 
-        tempStage.audioHandler = tempAudioHandler;
+        if(!editingStage)
+        {
+            AudioSource tempAudioSource = stageObject.AddComponent<AudioSource>();
+            AudioHandler tempAudioHandler = stageObject.AddComponent<AudioHandler>();
 
-        tempStage.gameObject.transform.position = new Vector3(0, 0, -0.01f);
+            tempStage.audioHandler = tempAudioHandler;
+
+            tempStage.gameObject.transform.position = new Vector3(0, 0, -0.01f);
+        } else
+        {
+            StageUI.SetActive(true);
+            MainUI.SetActive(false);
+        }
 
         tempStage = null;
         buildingSystem.MainTileMap.gameObject.SetActive(false);
+        buildStageButton.SetActive(true);
 
     }
 
@@ -341,6 +356,24 @@ public class StageBuilder : MonoBehaviour
             }
             currentActiveStageUI.audienceAreas.Clear();
         }
+
+    }
+
+    public void EditStage()
+    {
+        editingStage = true;
+        stageObject = currentActiveStageUI.gameObject;
+        stageMap = stageObject.GetComponent<Tilemap>();
+        StageUI.SetActive(false);
+        MainUI.SetActive(true);
+        buildStageButton.SetActive(false);
+        buildingSystem.MainTileMap.gameObject.SetActive(true);
+        placingStageTiles = true;
+        eraseMode = false;
+        eraseButton.gameObject.SetActive(true);
+
+        Destroy(stageObject.GetComponent<TilemapCollider2D>());
+        Destroy(stageObject.GetComponent<CompositeCollider2D>());
 
     }
 }
