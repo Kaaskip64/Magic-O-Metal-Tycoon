@@ -43,8 +43,10 @@ public class StageBuilder : MonoBehaviour
     public bool editingStage = false;
     public bool placingAudienceAreas = false;
 
-    [Header("Price per placed stage")]
-    public float stagePrice;
+    [Header("Price per tile")]
+    public float stageTilePrice;
+
+    public int highlghtTileCount = 0;
 
     [HideInInspector]
     public Stage tempStage;
@@ -110,8 +112,12 @@ public class StageBuilder : MonoBehaviour
             }
             if (eraseMode)
             {
-                stageMap.SetTile(currentTilePos, null);
+                if(stageMap.HasTile(currentTilePos))
+                {
+                    stageMap.SetTile(currentTilePos, null);
+                    PlayerProperties.Instance.MoneyChange(stageTilePrice);
 
+                }
             }
         }
 
@@ -119,15 +125,29 @@ public class StageBuilder : MonoBehaviour
         {
             endTilePos = currentTilePos;
             HighlightTiles();
+            highlghtTileCount = highlightMap.GetTilesRangeCount(startTilePos, endTilePos);
         }
 
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             endTilePos = currentTilePos;
-            FillTiles();
+            if (PlayerProperties.Instance.MoneyCheck(stageTilePrice * highlghtTileCount))
+            {
+                PlayerProperties.Instance.MoneyChange(-stageTilePrice * highlghtTileCount);
+                FillTiles();
+            }
             highlightMap.ClearAllTiles();
             isDragging = false;
         }
+
+        if(!PlayerProperties.Instance.MoneyCheck(stageTilePrice * highlghtTileCount))
+        {
+            highlightMap.color = new Color(1, 0, 0, 0.9f);
+        } else
+        {
+            highlightMap.color = new Color(1, 1, 1, 0.9f);
+        }
+
 
 
         if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Mouse1)  )
@@ -137,6 +157,7 @@ public class StageBuilder : MonoBehaviour
                 InitialiseBuiltStageComponents();
                 placingStageTiles = false;
                 eraseButton.gameObject.SetActive(false);
+                highlightMap.ClearAllTiles();
             }
         }
 
@@ -146,25 +167,13 @@ public class StageBuilder : MonoBehaviour
     {
         if (!placingStageTiles)
         {
-            if (PlayerProperties.Instance.MoneyCheck(stagePrice))
-            {
                 CreateNewStageObject();
                 buildingSystem.MainTileMap.gameObject.SetActive(true);
                 buildStageButton.SetActive(false);
-                PlayerProperties.Instance.MoneyChange(-stagePrice);
                 placingStageTiles = true;
                 eraseMode = false;
                 eraseButton.gameObject.SetActive(true);
-            }
-
         }
-        else
-        {
-            InitialiseBuiltStageComponents();
-            placingStageTiles = false;
-            eraseButton.gameObject.SetActive(false);
-        }
-
     }
 
     public void EraseMode()
@@ -282,6 +291,7 @@ public class StageBuilder : MonoBehaviour
 
         BoundsInt newBounds = new BoundsInt(new Vector3Int(xMin, yMin, startTilePos.z), new Vector3Int(xMax - xMin + 1, yMax - yMin + 1, 1));
 
+
         ClearPreviousBoundsOutliers(previousBounds);
 
         for (int x = xMin; x <= xMax; x++)
@@ -330,6 +340,7 @@ public class StageBuilder : MonoBehaviour
                 BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, buildingSystem.MainTileMap);
             }
         }
+        highlghtTileCount = 0;
     }
 
 
