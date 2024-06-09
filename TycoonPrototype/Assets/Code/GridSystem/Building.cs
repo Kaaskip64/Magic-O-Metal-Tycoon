@@ -33,6 +33,7 @@ public class Building : MonoBehaviour, IHoverPanel
     private BoxCollider2D boxCollider;
     private PolygonCollider2D polygonCollider;
     private BuildingSystem buildingSystem;
+    private StageBuilder stageBuilder;
 
 
     private void Start()
@@ -47,6 +48,7 @@ public class Building : MonoBehaviour, IHoverPanel
         }
         prevPos = Vector3.zero;
         buildingSystem = BuildingSystem.currentInstance;
+        stageBuilder = StageBuilder.currentInstance;
     }
 
     private void Update()
@@ -63,13 +65,19 @@ public class Building : MonoBehaviour, IHoverPanel
                 if(buildingType == BuildingType.Audience)
                 {
                     polygonCollider.enabled = false;
-                    if(StageBuilder.currentInstance.StageUI.activeInHierarchy)
+                    if(stageBuilder.StageUI.activeInHierarchy)
                     {
-                        StageBuilder.currentInstance.StageUI.SetActive(false);
+                        stageBuilder.StageUI.SetActive(false);
                     }
                 } else
                 {
                     boxCollider.enabled = false;
+                    if (stageBuilder.StageUI.activeInHierarchy)
+                    {
+                        stageBuilder.StageUI.SetActive(false);
+                        stageBuilder.MainUI.SetActive(true);
+                        stageBuilder.currentActiveStageUI = null;
+                    }
                 }
                 buildingSystem.pickingUpBuilding = true;
 
@@ -88,14 +96,10 @@ public class Building : MonoBehaviour, IHoverPanel
                 area.x = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).x + 1;
                 area.y = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).y + 1;
 
-                if (buildingType == BuildingType.Deco)
-                {
                     BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.DecoTileMap);
-                }
-                else
-                {
+
                     BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.MainTileMap);
-                }
+
 
                 area.x = 0;
                 area.y = 0;
@@ -120,22 +124,15 @@ public class Building : MonoBehaviour, IHoverPanel
         Vector3Int positionInt = buildingSystem.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt + area.position;
-
-        if (buildingType == BuildingType.Deco)
+        if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.DecoTileMap))
         {
-            if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.DecoTileMap))
-            {
-                return true;
-            }
-        }
-        else
-        {
-            if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.MainTileMap))
-            {
-                return true;
-            }
+            return true;
         }
 
+        if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.MainTileMap))
+        {
+            return true;
+        }
         return false;
     }
 
@@ -157,14 +154,10 @@ public class Building : MonoBehaviour, IHoverPanel
         prevPos = gameObject.transform.position;
 
         Placed = true;
-        if (buildingType == BuildingType.Deco)
-        {
+
             buildingSystem.TakeArea(areaTemp, buildingSystem.DecoTileMap);
-        }
-        else
-        {
             buildingSystem.TakeArea(areaTemp, buildingSystem.MainTileMap);
-        }
+
     }
 
 
