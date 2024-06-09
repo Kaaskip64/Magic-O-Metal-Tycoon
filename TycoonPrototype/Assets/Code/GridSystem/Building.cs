@@ -58,7 +58,7 @@ public class Building : MonoBehaviour, IHoverPanel
 
         if (Input.GetMouseButtonDown(0))
         {
-            if(Placed && InformationPanel.instance.currentHoveredBuilding == this)
+            if(Placed && InformationPanel.instance.currentHoveredBuilding == this && buildingSystem.currentSelectedBuilding == null)
             {
                 if(buildingType == BuildingType.Audience)
                 {
