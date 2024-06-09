@@ -59,6 +59,7 @@ public class StageBuilder : MonoBehaviour
     private Vector3Int startTilePos;
     private Vector3Int endTilePos;
     private Vector3Int currentTilePos;
+    private Vector3Int prevPos;
     private bool isDragging;
     private BuildingSystem buildingSystem;
 
@@ -68,6 +69,7 @@ public class StageBuilder : MonoBehaviour
         surroundingStageTiles = new List<Vector3>();
         currentStageAudienceAreas = new List<Building>();
         buildingSystem = BuildingSystem.currentInstance;
+        prevPos = Vector3Int.zero;
     }
 
     private void Update()
@@ -88,7 +90,13 @@ public class StageBuilder : MonoBehaviour
         placementAreaSize.x = currentTilePos.x - (placementAreaSize.size.x / 2);
         placementAreaSize.y = currentTilePos.y - (placementAreaSize.size.y / 2);
 
+        if(prevPos != currentTilePos)
+        {
+            highlightMap.SetTile(prevPos, null);
+            highlightMap.SetTile(currentTilePos, currentStageTile);
+            prevPos = currentTilePos;
 
+        }
 
 
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -134,7 +142,7 @@ public class StageBuilder : MonoBehaviour
 
     }
 
-    public void EditingStage()
+    public void BuildingStage()
     {
         if (!placingStageTiles)
         {
