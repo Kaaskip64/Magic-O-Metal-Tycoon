@@ -92,8 +92,11 @@ public class NPCManager : MonoBehaviour
             SpawnNPC();
         }
 
+
+        //print(reachExtraLimit);
         if (currentExtraNPCAmount < maxExtraNPCAmount)
         {
+            print("no more");
             SpwanExtraNPC();
         }
         
@@ -116,20 +119,25 @@ public class NPCManager : MonoBehaviour
 
     private void SpwanExtraNPC()
     {
+        
         if(reachExtraLimit)
         {
-            if(!shouldExtraNPCRespawn)
+            
+            if (!shouldExtraNPCRespawn)
             {
+                
                 return;
             }
         }
         if (extraNPCIntervalCount < 0)
         {
+            
             // 实例化NPC
             Guest temp = Instantiate(npcPrefab, spawnPositions[Random.Range(0, spawnPositions.Length - 1)].position, Quaternion.identity).GetComponent<Guest>();
             temp.isExtraNPC = true;
             extraNPCIntervalCount = extraNPCSpawnInterval;
             PlayerProperties.Instance.MoneyChange(+admissionPrice);
+            currentExtraNPCAmount++;
 
             // 检查是否达到了NPC数量上限
             if (currentExtraNPCAmount >= maxExtraNPCAmount)
@@ -148,12 +156,8 @@ public class NPCManager : MonoBehaviour
     public void RegisterNPC(Guest npc)
     {
         npcList.Add(npc);
-        if (npc.isExtraNPC)
+        if (!npc.isExtraNPC)
         {
-            currentExtraNPCAmount++;
-        }
-        else
-        {  
             currentNPCAmount++;
         }
 
