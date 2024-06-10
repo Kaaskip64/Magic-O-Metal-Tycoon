@@ -7,9 +7,28 @@ public class NPCManager : MonoBehaviour
 
     [Header("BaseMeter")]
     public float initialHungryMeter;
+    [Range(0, 100)]
+    public float hungryMeterLeftOffset;
+    [Range(0, 100)]
+    public float hungryMeterRightOffset;
+
     public float initialThristMeter;
+    [Range(0, 100)]
+    public float thristMeterLeftOffset;
+    [Range(0, 100)]
+    public float thristMeterrightOffset;
+
     public float initialUregencyMeter;
+    [Range(0, 100)]
+    public float uregencyMeterLeftOffset;
+    [Range(0, 100)]
+    public float uregencyMeterRightOffset;
+
     public float initialSatisfaction;
+    [Range(0, 100)]
+    public float satisfactionLeftOffset;
+    [Range(0, 100)]
+    public float satisfactionRightOffset;
 
     [Header("MeterThreshold")]
     public float hungryMeterThreshold;
