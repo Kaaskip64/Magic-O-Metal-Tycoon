@@ -42,11 +42,14 @@ public class StageBuilder : MonoBehaviour
     public bool placingStageTiles = false;
     public bool editingStage = false;
     public bool placingAudienceAreas = false;
+    public bool isDragging = false;
 
     [Header("Price per tile")]
     public float stageTilePrice;
 
     public int highlghtTileCount = 0;
+
+    public float currentDragSelectionPrice;
 
     [HideInInspector]
     public Stage tempStage;
@@ -62,7 +65,6 @@ public class StageBuilder : MonoBehaviour
     private Vector3Int endTilePos;
     private Vector3Int currentTilePos;
     private Vector3Int prevPos;
-    private bool isDragging;
     private BuildingSystem buildingSystem;
 
     private void Awake()
@@ -92,6 +94,7 @@ public class StageBuilder : MonoBehaviour
         placementAreaSize.x = currentTilePos.x - (placementAreaSize.size.x / 2);
         placementAreaSize.y = currentTilePos.y - (placementAreaSize.size.y / 2);
 
+        currentDragSelectionPrice = stageTilePrice * highlghtTileCount;
         if(prevPos != currentTilePos)
         {
             highlightMap.SetTile(prevPos, null);
@@ -131,16 +134,16 @@ public class StageBuilder : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             endTilePos = currentTilePos;
-            if (PlayerProperties.Instance.MoneyCheck(stageTilePrice * highlghtTileCount))
+            if (PlayerProperties.Instance.MoneyCheck(currentDragSelectionPrice))
             {
-                PlayerProperties.Instance.MoneyChange(-stageTilePrice * highlghtTileCount);
+                PlayerProperties.Instance.MoneyChange(-currentDragSelectionPrice);
                 FillTiles();
             }
             highlightMap.ClearAllTiles();
             isDragging = false;
         }
 
-        if(!PlayerProperties.Instance.MoneyCheck(stageTilePrice * highlghtTileCount))
+        if(!PlayerProperties.Instance.MoneyCheck(currentDragSelectionPrice))
         {
             highlightMap.color = new Color(1, 0, 0, 0.9f);
         } else
