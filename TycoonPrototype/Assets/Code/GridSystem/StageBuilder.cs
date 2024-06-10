@@ -13,6 +13,10 @@ public class StageBuilder : MonoBehaviour
     [Header("Blank tilemap prefab")]
     public GameObject blankTileMap;
 
+    [Header("Collider Prefab for stage tiles")]
+    public GameObject stageAstarCollider;
+    public GameObject colliderParent;
+
     [Header("Tilemap for highlighting box selection")]
     public Tilemap highlightMap;
 
@@ -120,6 +124,13 @@ public class StageBuilder : MonoBehaviour
                     stageMap.SetTile(currentTilePos, null);
                     PlayerProperties.Instance.MoneyChange(stageTilePrice);
 
+                    foreach(Transform child in colliderParent.transform)
+                    {
+                        if(child.position == buildingSystem.gridLayout.CellToLocalInterpolated(currentTilePos))
+                        {
+                            Destroy(child.gameObject);
+                        }
+                    }
                 }
             }
         }
@@ -241,6 +252,7 @@ public class StageBuilder : MonoBehaviour
             MainUI.SetActive(false);
         }
 
+        AstarPath.active.data.gridGraph.Scan();
         tempStage = null;
         buildingSystem.MainTileMap.gameObject.SetActive(false);
         buildStageButton.SetActive(true);
@@ -336,6 +348,9 @@ public class StageBuilder : MonoBehaviour
             {
                 Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
                 stageMap.SetTile(tilePos, currentStageTile);
+                GameObject stageCollider = Instantiate(stageAstarCollider, buildingSystem.gridLayout.CellToLocalInterpolated(tilePos), Quaternion.identity);
+
+                stageCollider.transform.parent = colliderParent.transform;
 
                 placementAreaSize.x = tilePos.x - 2;
                 placementAreaSize.y = tilePos.y - 2;
