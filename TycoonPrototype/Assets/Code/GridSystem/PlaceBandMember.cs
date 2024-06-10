@@ -52,7 +52,6 @@ public class PlaceBandMember : MonoBehaviour
         {
             if(CheckForDelete(currentBandMember))
             {
-                tempStage.FillStageUI();
                 tempStage.tilemap.color = Color.white;
                 Destroy(currentBandMember);
                 currentBandMember = null;
