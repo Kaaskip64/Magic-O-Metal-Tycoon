@@ -13,6 +13,10 @@ public class StageBuilder : MonoBehaviour
     [Header("Blank tilemap prefab")]
     public GameObject blankTileMap;
 
+    [Header("Collider Prefab for stage tiles")]
+    public GameObject stageAstarCollider;
+    public GameObject colliderParent;
+
     [Header("Tilemap for highlighting box selection")]
     public Tilemap highlightMap;
 
@@ -42,11 +46,14 @@ public class StageBuilder : MonoBehaviour
     public bool placingStageTiles = false;
     public bool editingStage = false;
     public bool placingAudienceAreas = false;
+    public bool isDragging = false;
 
     [Header("Price per tile")]
     public float stageTilePrice;
 
     public int highlghtTileCount = 0;
+
+    public float currentDragSelectionPrice;
 
     [HideInInspector]
     public Stage tempStage;
@@ -55,20 +62,21 @@ public class StageBuilder : MonoBehaviour
     public List<Building> currentStageAudienceAreas;
     private GameObject stageObject;
     private Tilemap stageMap;
-    private List<Vector3> surroundingStageTiles;
+    private List<Vector3Int> selectedStageTiles;
+    private List<Vector3> allStageTiles;
 
     private BoundsInt previousBounds;
     private Vector3Int startTilePos;
     private Vector3Int endTilePos;
     private Vector3Int currentTilePos;
     private Vector3Int prevPos;
-    private bool isDragging;
     private BuildingSystem buildingSystem;
 
     private void Awake()
     {
         currentInstance = this; //init
-        surroundingStageTiles = new List<Vector3>();
+        selectedStageTiles = new List<Vector3Int>();
+        allStageTiles = new List<Vector3>();
         currentStageAudienceAreas = new List<Building>();
         buildingSystem = BuildingSystem.currentInstance;
         prevPos = Vector3Int.zero;
@@ -92,6 +100,7 @@ public class StageBuilder : MonoBehaviour
         placementAreaSize.x = currentTilePos.x - (placementAreaSize.size.x / 2);
         placementAreaSize.y = currentTilePos.y - (placementAreaSize.size.y / 2);
 
+        currentDragSelectionPrice = stageTilePrice * highlghtTileCount;
         if(prevPos != currentTilePos)
         {
             highlightMap.SetTile(prevPos, null);
@@ -104,20 +113,11 @@ public class StageBuilder : MonoBehaviour
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
 
-            if (!eraseMode && !isDragging)
+            if (!isDragging)
             {
                 startTilePos = currentTilePos;
                 isDragging = true;
 
-            }
-            if (eraseMode)
-            {
-                if(stageMap.HasTile(currentTilePos))
-                {
-                    stageMap.SetTile(currentTilePos, null);
-                    PlayerProperties.Instance.MoneyChange(stageTilePrice);
-
-                }
             }
         }
 
@@ -131,16 +131,24 @@ public class StageBuilder : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             endTilePos = currentTilePos;
-            if (PlayerProperties.Instance.MoneyCheck(stageTilePrice * highlghtTileCount))
+            if (PlayerProperties.Instance.MoneyCheck(currentDragSelectionPrice) && !eraseMode)
             {
-                PlayerProperties.Instance.MoneyChange(-stageTilePrice * highlghtTileCount);
+                PlayerProperties.Instance.MoneyChange(-currentDragSelectionPrice);
                 FillTiles();
             }
+            if (eraseMode)
+            {
+                FillTiles();
+                RemoveStageTiles();
+                UpdateNoBuildZones();
+            }
+
+            selectedStageTiles.Clear();
             highlightMap.ClearAllTiles();
             isDragging = false;
         }
 
-        if(!PlayerProperties.Instance.MoneyCheck(stageTilePrice * highlghtTileCount))
+        if(!PlayerProperties.Instance.MoneyCheck(currentDragSelectionPrice))
         {
             highlightMap.color = new Color(1, 0, 0, 0.9f);
         } else
@@ -180,8 +188,8 @@ public class StageBuilder : MonoBehaviour
     {
         if (eraseMode)
         {
-            UpdateNoBuildZones();
-            surroundingStageTiles.Clear();
+            //UpdateNoBuildZones();
+            //placedStageTiles.Clear();
         }
 
 
@@ -238,6 +246,7 @@ public class StageBuilder : MonoBehaviour
             MainUI.SetActive(false);
         }
 
+        AstarPath.active.data.gridGraph.Scan();
         tempStage = null;
         buildingSystem.MainTileMap.gameObject.SetActive(false);
         buildStageButton.SetActive(true);
@@ -257,29 +266,46 @@ public class StageBuilder : MonoBehaviour
                     Vector3 place = tempMap.CellToWorld(localPlace);
                     if (tempMap.HasTile(localPlace) && localPlace != currentTilePos)
                     {
-                        surroundingStageTiles.Add(place);
-                    }
-                    else if (localPlace == currentTilePos)
-                    {
-                        placementAreaSize.x = buildingSystem.gridLayout.WorldToCell(place).x - 2;
-                        placementAreaSize.y = buildingSystem.gridLayout.WorldToCell(place).y - 2;
-
-                        BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, buildingSystem.MainTileMap);
-                        Debug.Log("hit");
+                        allStageTiles.Add(place);
                     }
                 }
             }
 
-            foreach (Vector3 tilePos in surroundingStageTiles)
+            foreach (Vector3 tilePos in allStageTiles)
             {
-                placementAreaSize.x = buildingSystem.gridLayout.WorldToCell(tilePos).x - 2;
-                placementAreaSize.y = buildingSystem.gridLayout.WorldToCell(tilePos).y - 2;
+                placementAreaSize.x = buildingSystem.gridLayout.LocalToCell(tilePos).x - 2;
+                placementAreaSize.y = buildingSystem.gridLayout.LocalToCell(tilePos).y - 2;
 
                 BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, buildingSystem.MainTileMap);
 
             }
         }
+        allStageTiles.Clear();
+    }
 
+    public void RemoveStageTiles()
+    {
+        foreach(Vector3Int tilepos in selectedStageTiles)
+        {
+            if (stageMap.HasTile(tilepos))
+            {
+                stageMap.SetTile(tilepos, null);
+                PlayerProperties.Instance.MoneyChange(stageTilePrice);
+
+                placementAreaSize.x = tilepos.x -2;
+                placementAreaSize.y = tilepos.y -2;
+
+                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.White, buildingSystem.MainTileMap);
+
+                foreach (Transform child in colliderParent.transform)
+                {
+                    if (child.position == buildingSystem.gridLayout.CellToLocalInterpolated(tilepos))
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
+            }
+        }
     }
 
     private void HighlightTiles()
@@ -332,14 +358,28 @@ public class StageBuilder : MonoBehaviour
             for (int y = yMin; y <= yMax; y++)
             {
                 Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
-                stageMap.SetTile(tilePos, currentStageTile);
+                if (!eraseMode)
+                {
+                    stageMap.SetTile(tilePos, currentStageTile);
+                    GameObject stageCollider = Instantiate(stageAstarCollider, buildingSystem.gridLayout.CellToLocalInterpolated(tilePos), Quaternion.identity);
 
-                placementAreaSize.x = tilePos.x - 2;
-                placementAreaSize.y = tilePos.y - 2;
+                    stageCollider.transform.parent = colliderParent.transform;
 
-                BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, buildingSystem.MainTileMap);
+                    placementAreaSize.x = tilePos.x - 2;
+                    placementAreaSize.y = tilePos.y - 2;
+
+                    BuildingSystem.SetTilesBlock(placementAreaSize, TileType.Red, buildingSystem.MainTileMap);
+
+                } else
+                {
+                    if(stageMap.HasTile(tilePos))
+                    {
+                        selectedStageTiles.Add(tilePos);
+                    }
+                }
             }
         }
+
         highlghtTileCount = 0;
     }
 

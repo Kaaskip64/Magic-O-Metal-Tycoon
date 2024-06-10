@@ -113,7 +113,7 @@ public class Building : MonoBehaviour, IHoverPanel
                     buildingSystem.FollowBuilding(area, buildingSystem.MainTileMap);
                 }
 
-
+                if(image != null)
                 image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
             }
         }

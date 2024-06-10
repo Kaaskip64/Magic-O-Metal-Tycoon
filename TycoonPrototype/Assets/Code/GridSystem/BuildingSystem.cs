@@ -183,7 +183,8 @@ public class BuildingSystem : MonoBehaviour
     {
         currentSelectedProduct = building;
         currentSelectedBuilding = Instantiate(building.itemPrefab, mousePosOnGrid, Quaternion.identity).GetComponent<Building>();
-        currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 0.5f);
+        if (currentSelectedBuilding.image != null)
+            currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 0.5f);
 
         currentSelectedBuilding.gameObject.name = building.ProductName;
         if (currentSelectedBuilding.buildingType == BuildingType.Deco)
@@ -198,7 +199,8 @@ public class BuildingSystem : MonoBehaviour
         }
         upperBackgroundShop.SetActive(false);
 
-        currentBuildingColor = currentSelectedBuilding.image.color;
+        if (currentSelectedBuilding.image != null)
+            currentBuildingColor = currentSelectedBuilding.image.color;
         currentBuildingColor = new Color(currentBuildingColor.r, currentBuildingColor.g, currentBuildingColor.b, 0.5f);
     }
 
@@ -261,7 +263,8 @@ public class BuildingSystem : MonoBehaviour
     {
         currentSelectedBuilding.Place();
         print("placed");
-        currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 1f);
+        if (currentSelectedBuilding.image != null)
+            currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 1f);
 
 
 
@@ -315,7 +318,8 @@ public class BuildingSystem : MonoBehaviour
             currentSelectedBuilding.transform.position = currentSelectedBuilding.prevPos;
             currentSelectedBuilding.Place();
             print("placed");
-            currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 1f);
+            if (currentSelectedBuilding.image != null)
+                currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 1f);
 
             pickingUpBuilding = false;
         }
@@ -335,7 +339,7 @@ public class BuildingSystem : MonoBehaviour
     {
         currentSelectedBuilding.area = SwapBoundsValues(currentSelectedBuilding.area);
 
-        if(currentSelectedBuilding.buildingType == BuildingType.Deco)
+        if (currentSelectedBuilding.buildingType == BuildingType.Deco)
         {
             FollowBuilding(currentSelectedBuilding.area, DecoTileMap);
 
@@ -344,12 +348,15 @@ public class BuildingSystem : MonoBehaviour
             FollowBuilding(currentSelectedBuilding.area, MainTileMap);
         }
 
-        currentSelectedBuilding.image.flipX = !currentSelectedBuilding.image.flipX;
+        if (currentSelectedBuilding.image != null)
+        {
+            currentSelectedBuilding.image.flipX = !currentSelectedBuilding.image.flipX;
 
-        Vector2 pos = currentSelectedBuilding.image.gameObject.transform.localPosition;
-        pos.x *= -1;
+            Vector2 pos = currentSelectedBuilding.image.gameObject.transform.localPosition;
+            pos.x *= -1;
 
-        currentSelectedBuilding.image.gameObject.transform.localPosition = pos;
+            currentSelectedBuilding.image.gameObject.transform.localPosition = pos;
+        }
 
         Vector2 collScale = currentSelectedBuilding.AstarCollider.transform.localScale;
         Vector2 collPos = currentSelectedBuilding.AstarCollider.transform.localPosition;
