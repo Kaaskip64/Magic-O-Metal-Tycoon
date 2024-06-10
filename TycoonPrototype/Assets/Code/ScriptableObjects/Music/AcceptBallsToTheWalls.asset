@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: AcceptBallsToTheWalls
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 03a31c2bcb13a27439459d50c38e295b, type: 3}
+  BandName: Accept
+  SongName: Balls to the wall
+  MusicFile: {fileID: 8300000, guid: 043221fad2fcee5429cb2baf70872917, type: 3}

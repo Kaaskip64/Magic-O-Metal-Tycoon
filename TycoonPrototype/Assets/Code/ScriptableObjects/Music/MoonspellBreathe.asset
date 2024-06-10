@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: MoonspellBreathe
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 5cf8f4bbc337e824ab12cda9df8e552a, type: 3}
+  BandName: Moonspell
+  SongName: Breathe
+  MusicFile: {fileID: 8300000, guid: c78c63dbf95615f41b5c6acb6a31a078, type: 3}

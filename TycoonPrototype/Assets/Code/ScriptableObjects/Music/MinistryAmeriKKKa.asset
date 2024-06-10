@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: MinistryAmeriKKKa
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: bacf5e557e9bb8249abb986c3e9fa2e8, type: 3}
+  BandName: Ministry
+  SongName: AmeriKKKa
+  MusicFile: {fileID: 8300000, guid: 817342d46ff3fa742807f899a926e265, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: BringMeTHeHorizonCanyoufeelmyheart
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: c408d65937ade244bb2e63ea8fbaf0b6, type: 3}
+  BandName: Bring me the horizon
+  SongName: Can you feel my heart
+  MusicFile: {fileID: 8300000, guid: 1abd4f6b8114eda4188ee3ac60d703d7, type: 3}

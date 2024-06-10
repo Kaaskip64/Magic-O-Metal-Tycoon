@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: IronMaidenLive
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 2accfc4d500c63b42942df9f50c0ccc9, type: 3}
+  BandName: Iron Maiden
+  SongName: The trooper(LIVE)
+  MusicFile: {fileID: 8300000, guid: d91888e6d7f65304da17969c7abde5d5, type: 3}

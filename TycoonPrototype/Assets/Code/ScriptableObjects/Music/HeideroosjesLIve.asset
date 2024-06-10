@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: HeideroosjesLIve
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 8e0093e93dbd30e4298a82a3efe2280e, type: 3}
+  BandName: Heideroosjes
+  SongName: Iedereen is gek(LIVE)
+  MusicFile: {fileID: 8300000, guid: ef9d2947a6434fc4fafdb215733bfff7, type: 3}

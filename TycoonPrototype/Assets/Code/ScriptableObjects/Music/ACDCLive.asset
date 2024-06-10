@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: ACDCLive
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: f54a555b410448c4a8a29fd26c4c49d7, type: 3}
+  BandName: AC/DC
+  SongName: Hells Bells(LIVE)
+  MusicFile: {fileID: 8300000, guid: 800da125961eafb41812882a06251664, type: 3}

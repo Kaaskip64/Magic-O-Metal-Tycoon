@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: MetallicaSeekAndDestroy
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 21300000, guid: 47531b9f14a2cf545ba0ccd7d0233308, type: 3}
+  BandImage: {fileID: 21300000, guid: 389d95fedccc8d949b268d72f3dc9d8d, type: 3}
   BandName: Metallica
-  SongName: Creeping Death
-  MusicFile: {fileID: 8300000, guid: c0520e3ffc33f284f98067471ca8cb4f, type: 3}
+  SongName: Seek And Destroy
+  MusicFile: {fileID: 8300000, guid: 2cf5498f90572614e98b7b765b91c591, type: 3}

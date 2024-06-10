@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: AlieonWeaponryKaiTangata
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 6dec69b64ee311f47a77a733fb54507c, type: 3}
+  BandName: Alien Weaponry
+  SongName: Kai Tangata
+  MusicFile: {fileID: 8300000, guid: 5cc60cc8f65660d4ea9c236efbf33d46, type: 3}
