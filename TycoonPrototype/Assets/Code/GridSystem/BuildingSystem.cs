@@ -166,6 +166,7 @@ public class BuildingSystem : MonoBehaviour
                 stageBuilder.currentActiveStageUI.audienceAreas = stageBuilder.currentStageAudienceAreas;
 
                 stageBuilder.StageUI.SetActive(true);
+                CameraController.instance.cameraActive = false;
             }
             ExitBuildMode();
         }

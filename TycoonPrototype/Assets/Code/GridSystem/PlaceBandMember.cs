@@ -169,6 +169,7 @@ public class PlaceBandMember : MonoBehaviour
     {
         AssignBandMemberInStage();
         stageUI.SetActive(true);
+        CameraController.instance.cameraActive = false;
         tempStage.tilemap.color = Color.white;
         image = null;
         currentBandMember = null;

@@ -253,6 +253,7 @@ public class StageBuilder : MonoBehaviour
         } else
         {
             StageUI.SetActive(true);
+            CameraController.instance.cameraActive = false;
             MainUI.SetActive(false);
             editingStage = false;
         }
