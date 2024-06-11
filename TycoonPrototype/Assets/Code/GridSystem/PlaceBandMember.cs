@@ -55,6 +55,7 @@ public class PlaceBandMember : MonoBehaviour
                 tempStage.tilemap.color = Color.white;
                 Destroy(currentBandMember);
                 currentBandMember = null;
+                stageUI.SetActive(true);
                 prevPos = Vector3Int.zero;
                 tempStageCol = null;
                 tempStage = null;
