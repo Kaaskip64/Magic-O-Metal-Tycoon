@@ -29,8 +29,11 @@ public class CameraController : MonoBehaviour
 
     private float zoomTarget;
 
+    public static CameraController instance;
+
     void Start()
     {
+        instance = this;
         Cursor.lockState = CursorLockMode.Confined;
         zoomTarget = vcam.m_Lens.OrthographicSize;
 
@@ -81,6 +84,11 @@ public class CameraController : MonoBehaviour
         vcam.m_Lens.OrthographicSize = newSize;
     }
 
-    
+    public void SetActive()
+    {
+        cameraActive = !cameraActive;
+    }
+
+
 }
 

@@ -140,20 +140,21 @@ public class BuildingSystem : MonoBehaviour
                         break;
 
                     default:
-                        if(PlayerProperties.Instance.MoneyCheck(currentSelectedProduct))
+                        if (pickingUpBuilding)
                         {
                             TruePlaceBuilding(); //Places building
+                            ExitBuildMode();
+                            pickingUpBuilding = false;
 
-                            if (pickingUpBuilding)
-                            {
-                                ExitBuildMode();
-                                pickingUpBuilding = false;
-
-                                return;
-                            }
-                            InitializeWithBuilding(currentSelectedProduct);
-                            currentSelectedBuilding.Placed = false;
+                            return;
                         }
+                        if (!PlayerProperties.Instance.MoneyCheck(currentSelectedProduct))
+                        {
+                            return;
+                        }
+                        TruePlaceBuilding();
+                        InitializeWithBuilding(currentSelectedProduct);
+                        currentSelectedBuilding.Placed = false;
                         break;
                 }
             } 

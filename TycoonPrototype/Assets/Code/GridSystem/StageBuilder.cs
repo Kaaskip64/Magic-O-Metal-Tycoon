@@ -27,6 +27,11 @@ public class StageBuilder : MonoBehaviour
     public GameObject MainUI;
     public GameObject StageUI;
     public GameObject buildStageButton;
+    public ShopUI shopUI;
+
+    public GameObject stageProductArea;
+    public GameObject decorationProductArea;
+    public GameObject facilitiesProductArea;
 
     [Header("Size of placement area around tiles")]
     public BoundsInt placementAreaSize;
@@ -164,8 +169,12 @@ public class StageBuilder : MonoBehaviour
             {
                 InitialiseBuiltStageComponents();
                 placingStageTiles = false;
+                eraseMode = false;
+                editingStage = false;
+                placingAudienceAreas = false;
                 eraseButton.gameObject.SetActive(false);
                 highlightMap.ClearAllTiles();
+                shopUI.EnableCategoryButton();
             }
         }
 
@@ -175,12 +184,13 @@ public class StageBuilder : MonoBehaviour
     {
         if (!placingStageTiles)
         {
-                CreateNewStageObject();
-                buildingSystem.MainTileMap.gameObject.SetActive(true);
-                buildStageButton.SetActive(false);
-                placingStageTiles = true;
-                eraseMode = false;
-                eraseButton.gameObject.SetActive(true);
+            CreateNewStageObject();
+            buildingSystem.MainTileMap.gameObject.SetActive(true);
+            buildStageButton.SetActive(false);
+            placingStageTiles = true;
+            eraseMode = false;
+            eraseButton.gameObject.SetActive(true);
+            shopUI.DisableCategoryButton();
         }
     }
 
@@ -244,6 +254,7 @@ public class StageBuilder : MonoBehaviour
         {
             StageUI.SetActive(true);
             MainUI.SetActive(false);
+            editingStage = false;
         }
 
         AstarPath.active.data.gridGraph.Scan();
@@ -420,6 +431,9 @@ public class StageBuilder : MonoBehaviour
 
     public void EditStage()
     {
+        shopUI.DisableCategoryButton();
+
+
         editingStage = true;
         stageObject = currentActiveStageUI.gameObject;
         stageMap = stageObject.GetComponent<Tilemap>();
@@ -433,6 +447,17 @@ public class StageBuilder : MonoBehaviour
 
         Destroy(stageObject.GetComponent<TilemapCollider2D>());
         Destroy(stageObject.GetComponent<CompositeCollider2D>());
+        if(facilitiesProductArea.activeInHierarchy)
+        {
+            facilitiesProductArea.SetActive(false);
+            stageProductArea.SetActive(true);
+        }
+
+        if(decorationProductArea.activeInHierarchy)
+        {
+            decorationProductArea.SetActive(false);
+            stageProductArea.SetActive(true);
+        }
 
     }
 }
