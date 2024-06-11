@@ -59,7 +59,8 @@ public class StageBuilder : MonoBehaviour
     [Header("Price per tile")]
     public float stageTilePrice;
 
-    public int highlghtTileCount = 0;
+    public int highlghtTileCountX = 0;
+    public int highlghtTileCountY = 0;
 
     public float currentDragSelectionPrice;
 
@@ -108,7 +109,8 @@ public class StageBuilder : MonoBehaviour
         placementAreaSize.x = currentTilePos.x - (placementAreaSize.size.x / 2);
         placementAreaSize.y = currentTilePos.y - (placementAreaSize.size.y / 2);
 
-        currentDragSelectionPrice = stageTilePrice * highlghtTileCount;
+        currentDragSelectionPrice = stageTilePrice * highlghtTileCountX * highlghtTileCountY;
+
         if(prevPos != currentTilePos)
         {
             highlightMap.SetTile(prevPos, null);
@@ -133,7 +135,6 @@ public class StageBuilder : MonoBehaviour
         {
             endTilePos = currentTilePos;
             HighlightTiles();
-            highlghtTileCount = highlightMap.GetTilesRangeCount(startTilePos, endTilePos);
         }
 
         if (Input.GetMouseButtonUp(0) && isDragging)
@@ -343,19 +344,26 @@ public class StageBuilder : MonoBehaviour
 
         BoundsInt newBounds = new BoundsInt(new Vector3Int(xMin, yMin, startTilePos.z), new Vector3Int(xMax - xMin + 1, yMax - yMin + 1, 1));
 
-
-        ClearPreviousBoundsOutliers(previousBounds);
-
-        for (int x = xMin; x <= xMax; x++)
+        if (previousBounds != newBounds)
         {
-            for (int y = yMin; y <= yMax; y++)
-            {
-                Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
-                highlightMap.SetTile(tilePos, currentStageTile);
-            }
-        }
-        previousBounds = newBounds;
 
+            ClearPreviousBoundsOutliers(previousBounds);
+            for (int x = xMin; x <= xMax; x++)
+            {
+                for (int y = yMin; y <= yMax; y++)
+                {
+                    Vector3Int tilePos = new Vector3Int(x, y, startTilePos.z);
+                    highlightMap.SetTile(tilePos, currentStageTile);
+                }
+            }
+
+            
+
+            previousBounds = newBounds;
+        }
+
+        highlghtTileCountX = Mathf.Abs(xMax - xMin) + 1;
+        highlghtTileCountY = Mathf.Abs(yMax - yMin) + 1;
     }
     private void ClearPreviousBoundsOutliers(BoundsInt bounds)
     {
@@ -406,7 +414,8 @@ public class StageBuilder : MonoBehaviour
             }
         }
 
-        highlghtTileCount = 0;
+        highlghtTileCountX = 0;
+        highlghtTileCountY = 0;
     }
 
 
