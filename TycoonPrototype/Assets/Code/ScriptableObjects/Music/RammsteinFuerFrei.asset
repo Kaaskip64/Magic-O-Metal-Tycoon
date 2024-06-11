@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: RammsteinFuerFrei
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: eeac1f3df08abe944a0d657c0d5023d4, type: 3}
+  BandName: Rammstein
+  SongName: Feuer frei!
+  MusicFile: {fileID: 8300000, guid: 73aa6856148f25847a44636b965f2c2c, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: KornFreakOnALeash
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 30732d5084ef19e4f9eaf83228d9242c, type: 3}
+  BandName: Korn
+  SongName: Freak on a leash
+  MusicFile: {fileID: 8300000, guid: d83c0e62674db024bae713826a5fdc84, type: 3}

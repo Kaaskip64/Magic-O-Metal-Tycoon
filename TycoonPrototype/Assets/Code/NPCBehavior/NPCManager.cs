@@ -7,9 +7,28 @@ public class NPCManager : MonoBehaviour
 
     [Header("BaseMeter")]
     public float initialHungryMeter;
+    [Range(0, 100)]
+    public float hungryMeterLeftOffset;
+    [Range(0, 100)]
+    public float hungryMeterRightOffset;
+
     public float initialThristMeter;
+    [Range(0, 100)]
+    public float thristMeterLeftOffset;
+    [Range(0, 100)]
+    public float thristMeterrightOffset;
+
     public float initialUregencyMeter;
+    [Range(0, 100)]
+    public float uregencyMeterLeftOffset;
+    [Range(0, 100)]
+    public float uregencyMeterRightOffset;
+
     public float initialSatisfaction;
+    [Range(0, 100)]
+    public float satisfactionLeftOffset;
+    [Range(0, 100)]
+    public float satisfactionRightOffset;
 
     [Header("MeterThreshold")]
     public float hungryMeterThreshold;
@@ -78,8 +97,8 @@ public class NPCManager : MonoBehaviour
         foreach(var item in BuildingSystem.currentInstance.stages)
         {
             tempAmount += item.currentStagePlaylist.Count;
-            amountOfNPCToSpawn += item.currentStagePlaylist.Count - 1;
-            
+            amountOfNPCToSpawn *= item.currentStagePlaylist.Count;
+
         }
         maxNPCAmount = tempAmount * amountOfNPCToSpawn;
     }
@@ -91,14 +110,11 @@ public class NPCManager : MonoBehaviour
         {
             SpawnNPC();
         }
-
-
         //print(reachExtraLimit);
         if (currentExtraNPCAmount < maxExtraNPCAmount)
         {
             SpwanExtraNPC();
         }
-        
     }
 
     public void SpawnNPC()

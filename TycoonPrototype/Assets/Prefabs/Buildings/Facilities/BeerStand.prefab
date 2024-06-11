@@ -150,12 +150,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Placed: 0
   buildingType: 1
-  capacityMax: 12
+  capacityMax: 6
   queueCount: 3
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 5, y: 4, z: 1}
-  maintenanceCost: 25
+  maintenanceCost: 20
   capacityCount: 0
   image: {fileID: 5113700797749537037}
   AstarCollider: {fileID: 793931978229755698}

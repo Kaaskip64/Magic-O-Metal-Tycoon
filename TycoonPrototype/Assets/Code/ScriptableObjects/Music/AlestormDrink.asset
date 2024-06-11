@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: AlestormDrink
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 5d6d60529df3995408047e700de734d5, type: 3}
+  BandName: Alestorm
+  SongName: Drink!
+  MusicFile: {fileID: 8300000, guid: b714c791e179a6547a9b85c4fdcb45b6, type: 3}

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:TycoonPrototype/Assets/Art/Textures/Particles/flame.png.meta
 guid: b9ce427345730c4448691d15ffecc11c
+========
+guid: b1b1c9cefe755fa469066fd076a42785
+>>>>>>>> cd9f650a9b54015b04412dc4afc55b8b20dd8df7:TycoonPrototype/Assets/Art/title_screen_1.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

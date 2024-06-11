@@ -80,6 +80,7 @@ public class Stage : MonoBehaviour
             return;
         }
 
+        CameraController.instance.SetActive();
         FillStageUI();
 
         //Debug.Log(tilemap.CellToWorld(stageCenterTile));

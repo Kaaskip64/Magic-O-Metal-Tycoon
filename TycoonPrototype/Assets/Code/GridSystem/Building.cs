@@ -124,15 +124,16 @@ public class Building : MonoBehaviour, IHoverPanel
         Vector3Int positionInt = buildingSystem.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt + area.position;
-        if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.DecoTileMap))
+
+        if (buildingType == BuildingType.Deco && buildingSystem.CanTakeArea(areaTemp, buildingSystem.DecoTileMap))
         {
+            return true;
+        } else if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.DecoTileMap) && buildingSystem.CanTakeArea(areaTemp, buildingSystem.MainTileMap))
+        {
+
             return true;
         }
 
-        if (buildingSystem.CanTakeArea(areaTemp, buildingSystem.MainTileMap))
-        {
-            return true;
-        }
         return false;
     }
 

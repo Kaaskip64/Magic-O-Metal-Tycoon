@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: DisturbedDownWithTheSickness
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: d6ab7a2ca235d964da323816edefc578, type: 3}
+  BandName: Disturbed
+  SongName: Down with the sickness
+  MusicFile: {fileID: 8300000, guid: e05064eba2a279c409a296934afcc68b, type: 3}

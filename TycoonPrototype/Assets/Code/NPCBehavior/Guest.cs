@@ -97,10 +97,10 @@ public class Guest : NPC_FSM
     private void InstanceInit()
     {
         //NPC value init
-        hungryMeter = NPCManager.Instance.initialHungryMeter + Random.Range(-10, 10);
-        thristMeter = NPCManager.Instance.initialThristMeter + Random.Range(-10, 10);
-        urgencyMeter = NPCManager.Instance.initialUregencyMeter + Random.Range(-10, 10);
-        satisfaction = NPCManager.Instance.initialSatisfaction + Random.Range(-10, 10);
+        hungryMeter = NPCManager.Instance.initialHungryMeter + Random.Range(-NPCManager.Instance.hungryMeterLeftOffset, NPCManager.Instance.hungryMeterRightOffset);
+        thristMeter = NPCManager.Instance.initialThristMeter + Random.Range(-NPCManager.Instance.thristMeterLeftOffset, NPCManager.Instance.thristMeterrightOffset);
+        urgencyMeter = NPCManager.Instance.initialUregencyMeter + Random.Range(-NPCManager.Instance.uregencyMeterLeftOffset, NPCManager.Instance.uregencyMeterRightOffset);
+        satisfaction = NPCManager.Instance.initialSatisfaction + Random.Range(-NPCManager.Instance.satisfactionLeftOffset, NPCManager.Instance.satisfactionRightOffset);
     }
 /*
     private void NotificationInit()

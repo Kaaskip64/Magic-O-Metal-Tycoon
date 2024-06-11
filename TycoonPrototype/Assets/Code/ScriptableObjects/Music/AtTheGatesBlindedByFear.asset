@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: AtTheGatesBlindedByFear
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 877460e36b101d74b8c1f5e575d14816, type: 3}
+  BandName: At the gates
+  SongName: Blinded by fear
+  MusicFile: {fileID: 8300000, guid: 16a4301403bc64f42801fef788b81b11, type: 3}

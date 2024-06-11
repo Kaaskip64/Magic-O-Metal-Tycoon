@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632772bcbd4372478a31957094400d0, type: 3}
   m_Name: GojiraFlyingWhales
   m_EditorClassIdentifier: 
-  BandImage: {fileID: 0}
-  BandName: 
-  SongName: 
-  MusicFile: {fileID: 0}
+  BandImage: {fileID: 21300000, guid: 27b7de368525b5544af0725db0755ff2, type: 3}
+  BandName: Gojira
+  SongName: Flying whales
+  MusicFile: {fileID: 8300000, guid: 3f7c96c262c258343943ee6aabd17eab, type: 3}
