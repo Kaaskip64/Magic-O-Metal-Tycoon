@@ -93,10 +93,6 @@ public class BuildingSystem : MonoBehaviour
         {
             return;
         }
-
-
-
-
         if (!currentSelectedBuilding.Placed) //Selected building no build zone follows mouse as long as not placed
         {
             if (prevPos != mouseCellPos)
@@ -113,12 +109,9 @@ public class BuildingSystem : MonoBehaviour
                     FollowBuilding(currentSelectedBuilding.area, MainTileMap);
                 }
             }
-
         }
-
         if (Input.GetMouseButtonDown(0)) //Left Mouse Click and checks if temp building can be placed
         {
-
             if(currentSelectedBuilding && currentSelectedBuilding.CanBePlaced())
             {
                 switch(currentSelectedBuilding.buildingType)
@@ -262,7 +255,6 @@ public class BuildingSystem : MonoBehaviour
     public void TruePlaceBuilding()//function for handling all the things that happen once a building is placed
     {
         currentSelectedBuilding.Place();
-        print("placed");
         if (currentSelectedBuilding.image != null)
             currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 1f);
 

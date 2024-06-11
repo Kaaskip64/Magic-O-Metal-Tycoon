@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
 
 public class BandAdder : MonoBehaviour
 {
@@ -18,7 +20,15 @@ public class BandAdder : MonoBehaviour
     [SerializeField]
     private GameObject objectToHide;
     public float price = 50f;
-    
+
+    public Text text;
+
+
+    private void Start()
+    {
+        text.text = price.ToString();
+    }
+
     public async Task AddNewBandAddressable()
     {
         AsyncOperationHandle<GameObject> goHandle = Addressables.LoadAssetAsync<GameObject>("BandPrefab");
@@ -43,7 +53,11 @@ public class BandAdder : MonoBehaviour
             {
                 Debug.LogError($"Exception: {goHandle.OperationException}");
             }
+
+            
         }
+        
+        
     }
     public void AddNewBand()
     {

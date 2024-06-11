@@ -7,6 +7,7 @@ public class NPCInfoUI : MonoBehaviour
     public Slider thirstSlider;
     public Slider urgencySlider;
     public Slider satisfactionSlider;
+    [Range(1, 2)] public float IllusionMargin = 1;
 
     // References to the fill images of the sliders
     private Image hungryFill;
@@ -36,10 +37,10 @@ public class NPCInfoUI : MonoBehaviour
         NPCManager.Instance.CalculateAverageNPCStatus(out averageHungry, out averageThirst, out averageUrgency, out averageSatisfaction);
 
         // Update slider values
-        hungrySlider.value = Mathf.Clamp(averageHungry / 100f, 0f, 1f);
-        thirstSlider.value = Mathf.Clamp(averageThirst / 100f, 0f, 1f);
-        urgencySlider.value = Mathf.Clamp(averageUrgency / 100f, 0f, 1f);
-        satisfactionSlider.value = Mathf.Clamp(averageSatisfaction / 100f, 0f, 1f);
+        hungrySlider.value = Mathf.Clamp(averageHungry / 100f, 0f, 1f) * IllusionMargin;
+        thirstSlider.value = Mathf.Clamp(averageThirst / 100f, 0f, 1f) * IllusionMargin;
+        urgencySlider.value = Mathf.Clamp(averageUrgency / 100f, 0f, 1f) * IllusionMargin;
+        satisfactionSlider.value = Mathf.Clamp(averageSatisfaction / 100f, 0f, 1f) * IllusionMargin;
 
         // Update fill colors based on slider values
         UpdateFillColor(hungryFill, hungrySlider.value);
