@@ -26,6 +26,7 @@ public class StartQuitScript : MonoBehaviour
     
     public void QuitGame()
     {
+        Debug.Log("I QUIT!");
         Application.Quit();
     }
 }

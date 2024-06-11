@@ -7,10 +7,7 @@ public class LeaveParkState : BaseState
     Guest guest;
     public override void EnterState(object obj)
     {
-        Debug.Log("Leave");
-
         guest = (Guest)obj;
-
         guest.GoToTarget(NPCManager.Instance.spawnPositions[Random.Range(0, NPCManager.Instance.spawnPositions.Length - 1)]);
     }
 
