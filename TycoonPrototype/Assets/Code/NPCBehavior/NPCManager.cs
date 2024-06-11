@@ -98,7 +98,7 @@ public class NPCManager : MonoBehaviour
         {
             tempAmount += item.currentStagePlaylist.Count;
             amountOfNPCToSpawn *= item.currentStagePlaylist.Count;
-            
+
         }
         maxNPCAmount = tempAmount * amountOfNPCToSpawn;
     }

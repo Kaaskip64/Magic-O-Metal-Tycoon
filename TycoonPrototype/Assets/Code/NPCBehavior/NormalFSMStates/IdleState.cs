@@ -65,9 +65,17 @@ public class IdleState : BaseState
                guest.thristMeter < NPCManager.Instance.thristMeterThreshold ||
                guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold;
     }
-
+    
     private void UpdateMeters()
     {
+
+        float deltaTime = Time.fixedDeltaTime;
+        guest.hungryMeter -= NPCManager.Instance.hungryChangeRate / 10 * deltaTime;
+        guest.thristMeter -= NPCManager.Instance.thirstChangeRate / 10 * deltaTime;
+        guest.urgencyMeter -= NPCManager.Instance.urgencyChangeRate / 10 * deltaTime;
+        guest.satisfaction -= NPCManager.Instance.satisfactionChangeRate * deltaTime;
+
+
         bool isHungryLow = guest.hungryMeter < NPCManager.Instance.hungryMeterThreshold;
         bool isThirstLow = guest.thristMeter < NPCManager.Instance.thristMeterThreshold;
         bool isUrgencyLow = guest.urgencyMeter < NPCManager.Instance.uregencyMeterThreshold;
