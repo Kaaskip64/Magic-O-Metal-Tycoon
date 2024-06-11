@@ -29,6 +29,9 @@ public class StageBuilder : MonoBehaviour
     public GameObject buildStageButton;
     public ShopUI shopUI;
 
+    public GameObject upperProductArea;
+    public GameObject leaveEraseModeButton;
+
     public GameObject stageProductArea;
     public GameObject decorationProductArea;
     public GameObject facilitiesProductArea;
@@ -169,6 +172,13 @@ public class StageBuilder : MonoBehaviour
             {
                 InitialiseBuiltStageComponents();
                 placingStageTiles = false;
+
+                if(eraseMode)
+                {
+                    upperProductArea.SetActive(true);
+                    leaveEraseModeButton.SetActive(false);
+                }
+
                 eraseMode = false;
                 editingStage = false;
                 placingAudienceAreas = false;
@@ -196,10 +206,14 @@ public class StageBuilder : MonoBehaviour
 
     public void EraseMode()
     {
-        if (eraseMode)
+        if (!eraseMode)
         {
-            //UpdateNoBuildZones();
-            //placedStageTiles.Clear();
+            upperProductArea.SetActive(false);
+            leaveEraseModeButton.SetActive(true);
+        } else
+        {
+            upperProductArea.SetActive(true);
+            leaveEraseModeButton.SetActive(false);
         }
 
 
