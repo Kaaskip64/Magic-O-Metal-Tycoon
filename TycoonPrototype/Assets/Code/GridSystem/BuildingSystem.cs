@@ -51,6 +51,9 @@ public class BuildingSystem : MonoBehaviour
     public UnityAction ExitBuildingFollowing; // handling problem that building placement mouse click can interact with UI elements
     public bool pickingUpBuilding = false;
 
+    [Range(0, 1)]
+    public float buildingRefundRate = 0.9f;
+
     private StageBuilder stageBuilder;
 
     private void Awake()

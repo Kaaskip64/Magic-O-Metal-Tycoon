@@ -33,6 +33,7 @@ public class PlayerProperties : MonoBehaviour
 
     public void MoneyChange(float value)
     {
+        money = (int)money;
         if(value>=0)
         {
             money += value;
@@ -46,6 +47,7 @@ public class PlayerProperties : MonoBehaviour
                 MoneyAction?.Invoke(money);
             }
         }
+        money = (int)money;
     }
 
     public void ChangeCredit(float value)

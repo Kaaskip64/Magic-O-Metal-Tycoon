@@ -58,18 +58,30 @@ public class Building : MonoBehaviour, IHoverPanel
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Placed && InformationPanel.instance.currentHoveredBuilding == this && buildingSystem.currentSelectedBuilding == null)
         {
-            if(Placed && InformationPanel.instance.currentHoveredBuilding == this && buildingSystem.currentSelectedBuilding == null)
+            if (Input.GetMouseButtonDown(1))
             {
-                if(buildingType == BuildingType.Audience)
+                var building = ShopSystem.instance.productDict[gameObject.name];
+                PlayerProperties.Instance.MoneyChange(building.Price * buildingSystem.buildingRefundRate);
+
+                Destroy(gameObject);
+                AstarPath.active.data.gridGraph.Scan();
+
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+
+                if (buildingType == BuildingType.Audience)
                 {
                     polygonCollider.enabled = false;
-                    if(stageBuilder.StageUI.activeInHierarchy)
+                    if (stageBuilder.StageUI.activeInHierarchy)
                     {
                         stageBuilder.StageUI.SetActive(false);
                     }
-                } else
+                }
+                else
                 {
                     boxCollider.enabled = false;
                     if (stageBuilder.StageUI.activeInHierarchy)
@@ -96,9 +108,9 @@ public class Building : MonoBehaviour, IHoverPanel
                 area.x = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).x + 1;
                 area.y = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).y + 1;
 
-                    BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.DecoTileMap);
+                BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.DecoTileMap);
 
-                    BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.MainTileMap);
+                BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.MainTileMap);
 
 
                 area.x = 0;
@@ -113,8 +125,8 @@ public class Building : MonoBehaviour, IHoverPanel
                     buildingSystem.FollowBuilding(area, buildingSystem.MainTileMap);
                 }
 
-                if(image != null)
-                image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
+                if (image != null)
+                    image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
             }
         }
     }

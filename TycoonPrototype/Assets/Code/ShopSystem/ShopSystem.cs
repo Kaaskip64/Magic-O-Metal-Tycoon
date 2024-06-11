@@ -24,12 +24,19 @@ public class ShopSystem : MonoBehaviour
     public AudioClip scrollStopSound; // Sound to play when scrolling stops
     // public AudioClip scrollSound;
 
-    private Dictionary<string, ShopProduct> productDict = new Dictionary<string, ShopProduct>(); // Dictionary to store products
+    public Dictionary<string, ShopProduct> productDict = new Dictionary<string, ShopProduct>(); // Dictionary to store products
 
     private Dictionary<Scrollbar, float> lastValues = new Dictionary<Scrollbar, float>();
     private Dictionary<Scrollbar, Coroutine> checkCoroutines = new Dictionary<Scrollbar, Coroutine>();
 
     private ShopUI shopUI; // Reference to the ShopUI script
+    public static ShopSystem instance;
+
+    private void Awake()
+    {
+        instance = this;
+        
+    }
 
     private void Start()
     {

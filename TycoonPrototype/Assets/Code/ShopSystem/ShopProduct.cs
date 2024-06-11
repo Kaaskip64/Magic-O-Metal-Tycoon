@@ -9,7 +9,7 @@ public class ShopProduct : MonoBehaviour, IHoverPanel
     private ShopSystem shopSystem; // Reference to the ShopSystem script
 
     [SerializeField] private string productName = ""; // Name of the product
-    [SerializeField] private float price; // Price of the product
+    [SerializeField] private float price; // Price of the product]
     [SerializeField] public GameObject itemPrefab; // Prefab of the item associated with the product
 
     public string ProductName => productName; // Property to get the product name
