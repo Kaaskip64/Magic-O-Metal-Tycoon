@@ -100,7 +100,7 @@ public class NPCManager : MonoBehaviour
 //            amountOfNPCToSpawn *= item.currentStagePlaylist.Count;
 
         }
-        maxNPCAmount = (int)Mathf.Pow(2, amountOfNPCToSpawn);
+        maxNPCAmount = tempAmount * amountOfNPCToSpawn;
     }
 
     private void FixedUpdate()
