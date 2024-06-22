@@ -65,6 +65,36 @@ public class Building : MonoBehaviour, IHoverPanel
                 var building = ShopSystem.instance.productDict[gameObject.name];
                 PlayerProperties.Instance.MoneyChange(building.Price * buildingSystem.buildingRefundRate);
 
+                switch(buildingType)
+                {
+                    case BuildingType.Audience:
+                        buildingSystem.audienceAreas.Remove(this);
+                        break;
+                    case BuildingType.Food:
+                        buildingSystem.foodStands.Remove(this);
+                        break;
+                    case BuildingType.Bathroom:
+                        buildingSystem.bathroomStands.Remove(this);
+                        break;
+                    case BuildingType.Beer:
+                        buildingSystem.beerStands.Remove(this);
+                        break;
+                    case BuildingType.Merch:
+                        buildingSystem.merchStands.Remove(this);
+                        break;
+                }
+
+                area.x = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).x + 1;
+                area.y = buildingSystem.gridLayout.WorldToCell(gameObject.transform.position).y + 1;
+
+                BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.DecoTileMap);
+
+                BuildingSystem.SetTilesBlock(area, TileType.White, buildingSystem.MainTileMap);
+
+
+                area.x = 0;
+                area.y = 0;
+
                 Destroy(gameObject);
                 AstarPath.active.data.gridGraph.Scan();
 
