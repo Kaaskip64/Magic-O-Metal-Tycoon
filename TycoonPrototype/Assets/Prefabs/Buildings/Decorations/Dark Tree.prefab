@@ -61,6 +61,7 @@ MonoBehaviour:
   AstarCollider: {fileID: 5792563584182774726}
   mouseFollowOffset: {x: 0, y: 0}
   NPCTarget: {fileID: 8205193173601764038}
+  prevPos: {x: 0, y: 0, z: 0}
 --- !u!61 &-4739877679166691764
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -74,7 +75,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.107357, y: -0.14764738}
+  m_Offset: {x: 1.2048864, y: 10.190561}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -85,7 +86,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 17.785286, y: 19.704704}
+  m_Size: {x: 17.070066, y: 18.794422}
   m_EdgeRadius: 0
 --- !u!1 &5102907957064813508
 GameObject:
