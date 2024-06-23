@@ -75,12 +75,12 @@ public class Stage : MonoBehaviour
     {
         //When stage is clicked, everything in this function gets executed
 
-        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null || PlaceBandMember.currentInstance.placingBandMember || BuildingSystem.currentInstance.currentSelectedBuilding != null)
+        if (EventSystem.current.IsPointerOverGameObject() || StageBuilder.currentInstance.currentActiveStageUI != null || PlaceBandMember.currentInstance.placingBandMember || BuildingSystem.currentInstance.currentSelectedBuilding != null || InformationPanel.instance.currentHoveredBuilding != null)
         {
             return;
         }
 
-        CameraController.instance.SetActive();
+        CameraController.instance.cameraActive = false;
         FillStageUI();
 
         //Debug.Log(tilemap.CellToWorld(stageCenterTile));

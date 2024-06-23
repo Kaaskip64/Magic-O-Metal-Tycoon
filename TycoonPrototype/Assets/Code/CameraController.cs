@@ -37,10 +37,6 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         zoomTarget = vcam.m_Lens.OrthographicSize;
 
-        if(minZoom > maxZoom)
-        {
-            Debug.LogError("Camera zoom min is bigger than max. Now face my 1000 year mind prison attack");
-        }
     }
 
     void Update()
