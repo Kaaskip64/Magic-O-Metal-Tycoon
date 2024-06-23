@@ -145,6 +145,7 @@ public class Stage : MonoBehaviour
         if (currentStagePlaylist != null)
         {
             currentStagePlaylist.Clear();
+            
         }
         StartCoroutine(DownloadSongs());
 
@@ -169,7 +170,7 @@ public class Stage : MonoBehaviour
     {
         audioHandler.LoadMusicFiles();
         audioHandler.Play();
-        isPlaying = true;
+        changePlayingState(true);
     }
 
     private IEnumerator DownloadSongs()
@@ -185,5 +186,29 @@ public class Stage : MonoBehaviour
     public void ActivateCouritine()
     {
         StartCoroutine(DownloadSongs());
+    }
+
+    public void changePlayingState(bool nowPlaying)
+    {
+        isPlaying = nowPlaying;
+        if (picuObject)
+        {
+            picuObject.GetComponent<BandAnimator>().changeStatus(isPlaying);
+        }
+
+        if (alexObject)
+        {
+            alexObject.GetComponent<BandAnimator>().changeStatus(isPlaying);  
+        }
+
+        if (rockelleObject)
+        {
+            rockelleObject.GetComponent<BandAnimator>().changeStatus(isPlaying);
+        }
+
+        if (lexieObject)
+        {
+            lexieObject.GetComponent<BandAnimator>().changeStatus(isPlaying);
+        }
     }
 }

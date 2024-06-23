@@ -314,7 +314,6 @@ public class BuildingSystem : MonoBehaviour
         {
             currentSelectedBuilding.transform.position = currentSelectedBuilding.prevPos;
             currentSelectedBuilding.Place();
-            print("placed");
             if (currentSelectedBuilding.image != null)
                 currentSelectedBuilding.image.color = new Color(currentSelectedBuilding.image.color.r, currentSelectedBuilding.image.color.g, currentSelectedBuilding.image.color.b, 1f);
 

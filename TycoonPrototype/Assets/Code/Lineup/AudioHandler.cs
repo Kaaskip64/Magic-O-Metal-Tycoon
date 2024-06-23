@@ -23,8 +23,7 @@ public class AudioHandler : MonoBehaviour
             if (!stageAudio.isPlaying)
             {
                 if ((indexIndicator + 1) < audioClips.Count)
-                { 
-                    Debug.Log(indexIndicator);
+                {
                     indexIndicator++;
                     stageAudio.clip = audioClips[indexIndicator];
                     stageAudio.Play();
@@ -33,7 +32,7 @@ public class AudioHandler : MonoBehaviour
                 {            
                     indexIndicator = 0;
                     listStartPlaying = false;
-                    stage.isPlaying = false;
+                    stage.changePlayingState(false);
                     stage.currentStagePlaylist.Clear();
                     audioClips.Clear();
                     NPCManager.Instance.UpdateNPCLimit();
